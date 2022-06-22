@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float raycastDistance;
     [SerializeField] private LayerMask floor;
     [SerializeField] private float coyoteTimeSet;
+    [SerializeField] private float inputBufferTimeSet;
     private Queue<KeyCode> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
@@ -32,18 +33,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        floorRaycast = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floor);
+        FloorRaycast();
         Movement(Input.GetAxisRaw("Horizontal"));
         Timer();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             inputBuffer.Enqueue(KeyCode.Space);
-            Invoke("RemoveInput", 0.5f);
+            Invoke("RemoveInput", inputBufferTimeSet);
         }
         Jump();
 
     }
 
+    void FloorRaycast()
+    {
+        floorRaycast = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floor);
+    }
 
     void Movement(float direction)
     {
@@ -62,19 +67,22 @@ public class PlayerController : MonoBehaviour
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                 }
-                else
-                {
-                    if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
-                    {
-                        alreadyJumped = true;
-                        rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
-                        inputBuffer.Dequeue();
-                    }
-                }
+                
             }
             
         }
-       
+        else if(inputBuffer.Count > 0)
+        {
+            if(inputBuffer.Peek() == KeyCode.Space)
+
+                if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
+                {
+                    alreadyJumped = true;
+                    rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
+                    inputBuffer.Dequeue();
+                }
+        }
+
     }
 
     void Timer()

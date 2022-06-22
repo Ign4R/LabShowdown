@@ -311,7 +311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006416815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.952, y: -4.35, z: 0}
+  m_LocalPosition: {x: 4.35, y: -4.47, z: 0}
   m_LocalScale: {x: 10.165432, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -450,6 +450,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   coyoteTimeSet: 0.25
+  inputBufferTimeSet: 0
 --- !u!50 &1515526480
 Rigidbody2D:
   serializedVersion: 4
