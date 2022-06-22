@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float raycastDistance;
     [SerializeField] private LayerMask floor;
     [SerializeField] private float coyoteTimeSet;
+    private Queue<KeyCode> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
     private float coyoteTime;
@@ -20,47 +21,60 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-
+        inputBuffer = new Queue<KeyCode>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal") * speed, rb.velocity.y, 0f);
-
         floorRaycast = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floor);
-
-
-
+        Movement(Input.GetAxisRaw("Horizontal"));
         Timer();
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
-            alreadyJumped = true;
+            inputBuffer.Enqueue(KeyCode.Space);
+            Invoke("RemoveInput", 0.5f);
         }
+        Jump();
 
+    }
+
+
+    void Movement(float direction)
+    {
+        rb.velocity = new Vector3(direction * speed, rb.velocity.y, 0f);
     }
 
     void Jump()
     {
         if (floorRaycast == true)
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
+            if(inputBuffer.Count > 0)
+            {
+                if(inputBuffer.Peek() == KeyCode.Space)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
+                    inputBuffer.Dequeue();
+                    alreadyJumped = true;
+                }
+                else
+                {
+                    if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
+                    {
+                        alreadyJumped = true;
+                        rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
+                        inputBuffer.Dequeue();
+                    }
+                }
+            }
             
         }
-        else
-        {
-            if(coyoteTime < coyoteTimeSet && alreadyJumped == false)
-            {
-                alreadyJumped = true;
-                rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
-            }
-        }
+       
     }
 
     void Timer()
@@ -86,7 +100,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    private void RemoveInput()
+    {
+        if(inputBuffer.Count > 0)
+        {
+            inputBuffer.Dequeue();
+        }
+    }
 
     private void OnDrawGizmos()
     {
