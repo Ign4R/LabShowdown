@@ -10,12 +10,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask floor;
     [SerializeField] private float coyoteTimeSet;
     [SerializeField] private float inputBufferTimeSet;
+    [SerializeField] private Transform hand;
     private Queue<KeyCode> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
     private float coyoteTime;
     private bool alreadyJumped;
-    // private IWeapon weapon;
+    private IWeapon weapon;
+    private GameObject weaponObject;
+
+    public Transform Transform => throw new System.NotImplementedException();
+
     // private animationController animator;
 
 
@@ -45,17 +50,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void FloorRaycast()
+    private void FloorRaycast()
     {
         floorRaycast = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floor);
     }
 
-    void Movement(float direction)
+    private void Movement(float direction)
     {
         rb.velocity = new Vector3(direction * speed, rb.velocity.y, 0f);
     }
 
-    void Jump()
+    private void Jump()
     {
         if (floorRaycast == true)
         {
@@ -85,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void Timer()
+    private void Timer()
     {
         if(floorRaycast == true)
         {
@@ -116,9 +121,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        weapon = collision.GetComponent<IWeapon>();
+        weapon.Transform.SetParent(hand);
+        weapon.Collider2D.enabled = false;
+
+        
+    }
+
+    //Editor Debug
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * raycastDistance);
+    }
+
+    public void Attack()
+    {
+        weapon.Attack();
     }
 }
