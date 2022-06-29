@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coyoteTimeSet;
     [SerializeField] private float inputBufferTimeSet;
     [SerializeField] private Transform hand;
+    [SerializeField] private Transform arm;
     private Queue<KeyCode> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
@@ -40,13 +41,9 @@ public class PlayerController : MonoBehaviour
     {
         FloorRaycast();
         Movement(Input.GetAxisRaw("Horizontal"));
+        Jump(KeyCode.Space);
+        AimUp(KeyCode.W);
         Timer();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            inputBuffer.Enqueue(KeyCode.Space);
-            Invoke("RemoveInput", inputBufferTimeSet);
-        }
-        Jump();
 
     }
 
@@ -57,11 +54,23 @@ public class PlayerController : MonoBehaviour
 
     private void Movement(float direction)
     {
+        Vector3 aux;
         rb.velocity = new Vector3(direction * speed, rb.velocity.y, 0f);
+        aux = transform.localScale;
+        if(direction != 0)
+        {
+            aux.x = Mathf.Abs(aux.x) * direction;
+        }
+        transform.localScale = aux;
     }
 
-    private void Jump()
+    private void Jump(KeyCode jumpkey)
     {
+        if (Input.GetKeyDown(jumpkey))
+        {
+            inputBuffer.Enqueue(KeyCode.Space);
+            Invoke("RemoveInput", inputBufferTimeSet);
+        }
         if (floorRaycast == true)
         {
             if(inputBuffer.Count > 0)
@@ -88,6 +97,18 @@ public class PlayerController : MonoBehaviour
                 }
         }
 
+    }
+
+    private void AimUp(KeyCode up)
+    {
+        if (Input.GetKeyDown(up))
+        {
+            arm.Rotate(0f, 0f, 90f, Space.Self);
+        }
+        else if (Input.GetKeyUp(up))
+        {
+            arm.Rotate(0f, 0f, -90f, Space.Self);
+        }
     }
 
     private void Timer()
@@ -125,6 +146,7 @@ public class PlayerController : MonoBehaviour
     {
 
         weapon = collision.GetComponent<IWeapon>();
+        weapon.Transform.position = hand.position;
         weapon.Transform.SetParent(hand);
         weapon.Collider2D.enabled = false;
 
