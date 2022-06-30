@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pistol : MonoBehaviour, IWeapon
 {
+    [SerializeField] private GameObject bullet;
     public Transform Transform { get; set; }
 
     public Collider2D Collider2D { get; set; }
@@ -22,7 +23,7 @@ public class Pistol : MonoBehaviour, IWeapon
     
     public void Attack()
     {
-        throw new System.NotImplementedException();
+        Instantiate(bullet, transform.position, transform.rotation);
     }
 
 }

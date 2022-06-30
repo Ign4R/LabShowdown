@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviour
         FloorRaycast();
         Movement(Input.GetAxisRaw("Horizontal"));
         Jump(KeyCode.Space);
+        Attack(KeyCode.F);
         AimUp(KeyCode.W);
         Timer();
-
     }
 
     private void FloorRaycast()
@@ -57,11 +57,23 @@ public class PlayerController : MonoBehaviour
         Vector3 aux;
         rb.velocity = new Vector3(direction * speed, rb.velocity.y, 0f);
         aux = transform.localScale;
-        if(direction != 0)
+        /*if(direction != 0)
         {
             aux.x = Mathf.Abs(aux.x) * direction;
         }
-        transform.localScale = aux;
+        transform.localScale = aux;*/
+        if (direction < 0)
+        {
+            var ang = transform.rotation.eulerAngles;
+            ang.y = 180;
+            transform.rotation = Quaternion.Euler(ang);
+        }
+        if (direction > 0)
+        {
+            var ang = transform.rotation.eulerAngles;
+            ang.y = 0;
+            transform.rotation = Quaternion.Euler(ang);
+        }
     }
 
     private void Jump(KeyCode jumpkey)
@@ -147,6 +159,7 @@ public class PlayerController : MonoBehaviour
 
         weapon = collision.GetComponent<IWeapon>();
         weapon.Transform.position = hand.position;
+        weapon.Transform.rotation = hand.rotation;
         weapon.Transform.SetParent(hand);
         weapon.Collider2D.enabled = false;
 
@@ -160,8 +173,11 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawRay(transform.position, Vector2.down * raycastDistance);
     }
 
-    public void Attack()
+    public void Attack(KeyCode trigger)
     {
-        weapon.Attack();
+        if (Input.GetKeyDown(trigger))
+        {
+            weapon.Attack();
+        }
     }
 }
