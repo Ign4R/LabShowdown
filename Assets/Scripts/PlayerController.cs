@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
                     alreadyJumped = true;
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
+                    coyoteTime = 0;
                 }
         }
 
@@ -127,7 +128,7 @@ public class PlayerController : MonoBehaviour
     {
         if(floorRaycast == true)
         {
-            coyoteTime = 0;
+            return;
         }
         else
         {
@@ -151,6 +152,10 @@ public class PlayerController : MonoBehaviour
         if(inputBuffer.Count > 0)
         {
             inputBuffer.Dequeue();
+        }
+        else
+        {
+            return;
         }
     }
 
