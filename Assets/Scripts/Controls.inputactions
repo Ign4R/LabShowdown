@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "Controls",
     "maps": [
         {
             "name": "Player",
@@ -25,8 +25,17 @@
                 },
                 {
                     "name": "AimUp",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "449e55d5-88af-4608-a38f-e3f21d8e524d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "4c65c379-763d-4850-9cb3-9f31ae0a282c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -130,6 +139,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "AimUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8f5f329-e40f-4db5-a882-95b69bf16a20",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e951c602-dc55-4635-964f-524291850324",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

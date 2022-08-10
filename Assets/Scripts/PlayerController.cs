@@ -13,8 +13,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float inputBufferTimeSet;
     [SerializeField] private Transform hand;
     [SerializeField] private Transform arm;
-    private Vector2 movementInput = Vector2.zero;
-    private bool jumpInput = false; 
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
+    private InputAction movement;
+    private InputAction attack;
+    private InputAction jump;
     private Queue<string> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
@@ -30,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
         rb = GetComponent<Rigidbody2D>();
         
     }
@@ -42,11 +47,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         FloorRaycast();
         Movement();
         Jump();
-        //Attack();
-        //AimUp();
         Timer();
     }
 
@@ -58,20 +62,20 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         Vector3 aux;
-        rb.velocity = new Vector3(movementInput.x * speed, rb.velocity.y, 0f);
+        rb.velocity = new Vector3(movement.ReadValue<Vector2>().x * speed, rb.velocity.y, 0f);
         aux = transform.localScale;
         /*if(direction != 0)
         {
             aux.x = Mathf.Abs(aux.x) * direction;
         }
         transform.localScale = aux;*/
-        if (movementInput.x < 0)
+        if (movement.ReadValue<Vector2>().x < 0)
         {
             var ang = transform.rotation.eulerAngles;
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
         }
-        if (movementInput.x > 0)
+        if (movement.ReadValue<Vector2>().x > 0)
         {
             var ang = transform.rotation.eulerAngles;
             ang.y = 0;
@@ -81,52 +85,53 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (jumpInput)
-        {
-            inputBuffer.Enqueue("jump");
-            Invoke("RemoveInput", inputBufferTimeSet);
-            Debug.Log(jumpInput);
-        }
         if (floorRaycast == true)
         {
-            if(inputBuffer.Count > 0)
+
+            if (inputBuffer.Count > 0)
             {
-                if(inputBuffer.Peek() == "jump")
+
+                if (inputBuffer.Peek() == "jump")
                 {
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                 }
-                
+
             }
-            
+
         }
-        else if(inputBuffer.Count > 0)
+        else if (inputBuffer.Count > 0)
         {
-            if(inputBuffer.Peek() == "jump")
+            if (inputBuffer.Peek() == "jump")
 
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
                     alreadyJumped = true;
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
-                    coyoteTime = 0;
+
                 }
         }
-
     }
 
-    private void AimUp(KeyCode up)
+    private void JumpInput(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(up))
-        {
-            arm.Rotate(0f, 0f, 90f, Space.Self);
-        }
-        else if (Input.GetKeyUp(up))
-        {
-            arm.Rotate(0f, 0f, -90f, Space.Self);
-        }
+        inputBuffer.Enqueue("jump");
+        Invoke("RemoveInput", inputBufferTimeSet);
     }
+
+    //private void AimUp()
+    //{
+    //    if (aimUpInput)
+    //    {
+    //        arm.Rotate(0f, 0f, 90f, Space.Self);
+    //    }
+    //    else if (!aimUpInput)
+    //    {
+    //        arm.Rotate(0f, 0f, -90f, Space.Self);
+    //    }
+    //}
 
     private void Timer()
     {
@@ -137,6 +142,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             coyoteTime += Time.deltaTime;
+
         }
     }
 
@@ -147,6 +153,7 @@ public class PlayerController : MonoBehaviour
         {
 
             alreadyJumped = false;
+            coyoteTime = 0;
 
         }
     }
@@ -175,29 +182,34 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        weapon.Attack();
+    }
+    private void OnEnable()
+    {
+        movement = player.FindAction("Movement");
+        player.FindAction("Attack").performed += Attack;
+        player.FindAction("Jump").performed += JumpInput;
+        player.Enable();
+
+
+    }
+
+    private void OnDisable()
+    {
+        player.FindAction("Attack").performed -= Attack;
+        player.FindAction("Jump").performed -= JumpInput;
+        player.Disable();
+    }
+
+ 
     //Editor Debug
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * raycastDistance);
-    }
-
-
-    public void Attack(KeyCode trigger)
-    {
-        if (Input.GetKeyDown(trigger))
-        {
-            weapon.Attack();
-        }
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        movementInput = context.ReadValue<Vector2>();
-    }
-
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        jumpInput = context.action.triggered;
     }
 }
