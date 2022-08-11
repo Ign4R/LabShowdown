@@ -47,11 +47,11 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""AimUp"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""449e55d5-88af-4608-a38f-e3f21d8e524d"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -61,6 +61,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimUpRelease"",
+                    ""type"": ""Button"",
+                    ""id"": ""39e2e52d-a3df-49eb-9247-436c33a9df92"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -185,6 +194,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b447640-3395-4216-b448-e7ff585f51dd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AimUpRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c09cd6d-472b-4889-9fbc-e1f0e7b3cdc4"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AimUpRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -220,6 +251,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_AimUp = m_Player.FindAction("AimUp", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_AimUpRelease = m_Player.FindAction("AimUpRelease", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -283,6 +315,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_AimUp;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_AimUpRelease;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -291,6 +324,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @AimUp => m_Wrapper.m_Player_AimUp;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @AimUpRelease => m_Wrapper.m_Player_AimUpRelease;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -312,6 +346,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @AimUpRelease.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimUpRelease;
+                @AimUpRelease.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimUpRelease;
+                @AimUpRelease.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimUpRelease;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -328,6 +365,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @AimUpRelease.started += instance.OnAimUpRelease;
+                @AimUpRelease.performed += instance.OnAimUpRelease;
+                @AimUpRelease.canceled += instance.OnAimUpRelease;
             }
         }
     }
@@ -356,5 +396,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAimUp(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnAimUpRelease(InputAction.CallbackContext context);
     }
 }

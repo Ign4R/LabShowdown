@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     private InputActionAsset inputAsset;
     private InputActionMap player;
     private InputAction movement;
-    private InputAction attack;
-    private InputAction jump;
     private Queue<string> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
@@ -121,17 +119,15 @@ public class PlayerController : MonoBehaviour
         Invoke("RemoveInput", inputBufferTimeSet);
     }
 
-    //private void AimUp()
-    //{
-    //    if (aimUpInput)
-    //    {
-    //        arm.Rotate(0f, 0f, 90f, Space.Self);
-    //    }
-    //    else if (!aimUpInput)
-    //    {
-    //        arm.Rotate(0f, 0f, -90f, Space.Self);
-    //    }
-    //}
+    private void AimUp(InputAction.CallbackContext context)
+    {    
+            arm.Rotate(0f, 0f, 90f, Space.Self);
+    }
+
+    private void AimUpRelease(InputAction.CallbackContext context)
+    {
+        arm.Rotate(0f, 0f, -90f, Space.Self);
+    }
 
     private void Timer()
     {
@@ -193,6 +189,8 @@ public class PlayerController : MonoBehaviour
         movement = player.FindAction("Movement");
         player.FindAction("Attack").performed += Attack;
         player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("AimUp").performed += AimUp;
+        player.FindAction("AimUpRelease").performed += AimUpRelease;
         player.Enable();
 
 
@@ -202,6 +200,8 @@ public class PlayerController : MonoBehaviour
     {
         player.FindAction("Attack").performed -= Attack;
         player.FindAction("Jump").performed -= JumpInput;
+        player.FindAction("AimUp").performed -= AimUp;
+        player.FindAction("AimUpRelease").performed -= AimUpRelease;
         player.Disable();
     }
 

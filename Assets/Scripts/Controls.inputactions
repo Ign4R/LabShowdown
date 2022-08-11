@@ -25,11 +25,11 @@
                 },
                 {
                     "name": "AimUp",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "449e55d5-88af-4608-a38f-e3f21d8e524d",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -39,6 +39,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AimUpRelease",
+                    "type": "Button",
+                    "id": "39e2e52d-a3df-49eb-9247-436c33a9df92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 }
             ],
@@ -161,6 +170,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b447640-3395-4216-b448-e7ff585f51dd",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "AimUpRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c09cd6d-472b-4889-9fbc-e1f0e7b3cdc4",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AimUpRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
