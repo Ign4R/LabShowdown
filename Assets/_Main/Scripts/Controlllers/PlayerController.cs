@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         Movement();
         Jump();
         Timer();
+    
     }
 
     private void FloorRaycast()
@@ -152,6 +153,7 @@ public class PlayerController : MonoBehaviour
             coyoteTime = 0;
 
         }
+        
     }
 
     private void RemoveInput()
