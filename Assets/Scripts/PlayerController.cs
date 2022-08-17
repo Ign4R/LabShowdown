@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float inputBufferTimeSet;
     [SerializeField] private Transform hand;
     [SerializeField] private Transform arm;
-    private Queue<KeyCode> inputBuffer;
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
+    private InputAction movement;
+    private Queue<string> inputBuffer;
     private Rigidbody2D rb;
     private RaycastHit2D floorRaycast;
     private float coyoteTime;
@@ -27,23 +31,24 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
         rb = GetComponent<Rigidbody2D>();
         
     }
     // Start is called before the first frame update
     void Start()
     {
-        inputBuffer = new Queue<KeyCode>();
+        inputBuffer = new Queue<string>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         FloorRaycast();
-        Movement(Input.GetAxisRaw("Horizontal"));
-        Jump(KeyCode.Space);
-        Attack(KeyCode.F);
-        AimUp(KeyCode.W);
+        Movement();
+        Jump();
         Timer();
     }
 
@@ -52,23 +57,23 @@ public class PlayerController : MonoBehaviour
         floorRaycast = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floor);
     }
 
-    private void Movement(float direction)
+    private void Movement()
     {
         Vector3 aux;
-        rb.velocity = new Vector3(direction * speed, rb.velocity.y, 0f);
+        rb.velocity = new Vector3(movement.ReadValue<Vector2>().x * speed, rb.velocity.y, 0f);
         aux = transform.localScale;
         /*if(direction != 0)
         {
             aux.x = Mathf.Abs(aux.x) * direction;
         }
         transform.localScale = aux;*/
-        if (direction < 0)
+        if (movement.ReadValue<Vector2>().x < 0)
         {
             var ang = transform.rotation.eulerAngles;
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
         }
-        if (direction > 0)
+        if (movement.ReadValue<Vector2>().x > 0)
         {
             var ang = transform.rotation.eulerAngles;
             ang.y = 0;
@@ -76,62 +81,64 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump(KeyCode jumpkey)
+    private void Jump()
     {
-        if (Input.GetKeyDown(jumpkey))
-        {
-            inputBuffer.Enqueue(KeyCode.Space);
-            Invoke("RemoveInput", inputBufferTimeSet);
-        }
         if (floorRaycast == true)
         {
-            if(inputBuffer.Count > 0)
+
+            if (inputBuffer.Count > 0)
             {
-                if(inputBuffer.Peek() == KeyCode.Space)
+
+                if (inputBuffer.Peek() == "jump")
                 {
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                 }
-                
+
             }
-            
+
         }
-        else if(inputBuffer.Count > 0)
+        else if (inputBuffer.Count > 0)
         {
-            if(inputBuffer.Peek() == KeyCode.Space)
+            if (inputBuffer.Peek() == "jump")
 
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
                     alreadyJumped = true;
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
+
                 }
         }
-
     }
 
-    private void AimUp(KeyCode up)
+    private void JumpInput(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(up))
-        {
+        inputBuffer.Enqueue("jump");
+        Invoke("RemoveInput", inputBufferTimeSet);
+    }
+
+    private void AimUp(InputAction.CallbackContext context)
+    {    
             arm.Rotate(0f, 0f, 90f, Space.Self);
-        }
-        else if (Input.GetKeyUp(up))
-        {
-            arm.Rotate(0f, 0f, -90f, Space.Self);
-        }
+    }
+
+    private void AimUpRelease(InputAction.CallbackContext context)
+    {
+        arm.Rotate(0f, 0f, -90f, Space.Self);
     }
 
     private void Timer()
     {
         if(floorRaycast == true)
         {
-            coyoteTime = 0;
+            return;
         }
         else
         {
             coyoteTime += Time.deltaTime;
+
         }
     }
 
@@ -142,6 +149,7 @@ public class PlayerController : MonoBehaviour
         {
 
             alreadyJumped = false;
+            coyoteTime = 0;
 
         }
     }
@@ -151,6 +159,10 @@ public class PlayerController : MonoBehaviour
         if(inputBuffer.Count > 0)
         {
             inputBuffer.Dequeue();
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -164,18 +176,38 @@ public class PlayerController : MonoBehaviour
         weapon.Collider2D.enabled = false;
     }
 
+
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        weapon.Attack();
+    }
+    private void OnEnable()
+    {
+        movement = player.FindAction("Movement");
+        player.FindAction("Attack").performed += Attack;
+        player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("AimUp").performed += AimUp;
+        player.FindAction("AimUpRelease").performed += AimUpRelease;
+        player.Enable();
+
+
+    }
+
+    private void OnDisable()
+    {
+        player.FindAction("Attack").performed -= Attack;
+        player.FindAction("Jump").performed -= JumpInput;
+        player.FindAction("AimUp").performed -= AimUp;
+        player.FindAction("AimUpRelease").performed -= AimUpRelease;
+        player.Disable();
+    }
+
+ 
     //Editor Debug
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * raycastDistance);
-    }
-
-    public void Attack(KeyCode trigger)
-    {
-        if (Input.GetKeyDown(trigger))
-        {
-            weapon.Attack();
-        }
     }
 }
