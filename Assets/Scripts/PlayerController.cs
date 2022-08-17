@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
         inputAsset = this.GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
         rb = GetComponent<Rigidbody2D>();
-        
     }
     // Start is called before the first frame update
     void Start()
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         FloorRaycast();
         Movement();
         Jump();
@@ -85,31 +83,27 @@ public class PlayerController : MonoBehaviour
     {
         if (floorRaycast == true)
         {
-
             if (inputBuffer.Count > 0)
             {
-
                 if (inputBuffer.Peek() == "jump")
                 {
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                 }
-
             }
-
         }
         else if (inputBuffer.Count > 0)
         {
             if (inputBuffer.Peek() == "jump")
-
+            {
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
                     alreadyJumped = true;
                     rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
                     inputBuffer.Dequeue();
-
                 }
+            }
         }
     }
 
@@ -120,8 +114,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AimUp(InputAction.CallbackContext context)
-    {    
-            arm.Rotate(0f, 0f, 90f, Space.Self);
+    {
+        arm.Rotate(0f, 0f, 90f, Space.Self);
     }
 
     private void AimUpRelease(InputAction.CallbackContext context)
@@ -138,7 +132,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             coyoteTime += Time.deltaTime;
-
         }
     }
 
@@ -147,10 +140,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.layer == 6)
         {
-
             alreadyJumped = false;
             coyoteTime = 0;
-
         }
     }
 
@@ -176,12 +167,11 @@ public class PlayerController : MonoBehaviour
         weapon.Collider2D.enabled = false;
     }
 
-
-
     public void Attack(InputAction.CallbackContext context)
     {
         weapon.Attack();
     }
+
     private void OnEnable()
     {
         movement = player.FindAction("Movement");
@@ -190,8 +180,6 @@ public class PlayerController : MonoBehaviour
         player.FindAction("AimUp").performed += AimUp;
         player.FindAction("AimUpRelease").performed += AimUpRelease;
         player.Enable();
-
-
     }
 
     private void OnDisable()
@@ -202,7 +190,6 @@ public class PlayerController : MonoBehaviour
         player.FindAction("AimUpRelease").performed -= AimUpRelease;
         player.Disable();
     }
-
  
     //Editor Debug
     private void OnDrawGizmos()
