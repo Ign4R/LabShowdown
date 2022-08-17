@@ -16,8 +16,7 @@ public class Pistol : MonoBehaviour, IWeapon
 
     private void Start()
     {
-        Transform = transform;
-        
+        Transform = transform;        
     }
 
     

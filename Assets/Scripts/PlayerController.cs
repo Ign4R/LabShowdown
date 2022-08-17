@@ -156,14 +156,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        Debug.Log("Taken");
         weapon = collision.GetComponent<IWeapon>();
         weapon.Transform.position = hand.position;
         weapon.Transform.rotation = hand.rotation;
         weapon.Transform.SetParent(hand);
         weapon.Collider2D.enabled = false;
-
-        
     }
 
     //Editor Debug
