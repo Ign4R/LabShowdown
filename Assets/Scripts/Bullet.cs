@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 0;
     private Rigidbody2D rb;
-    private int damage;
+    private int damage= 10;
 
     private void Awake()
     {
