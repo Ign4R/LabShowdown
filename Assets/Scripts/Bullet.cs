@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 0;
     private Rigidbody2D rb;
+    private int damage;
 
     private void Awake()
     {
@@ -18,8 +19,10 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        //rb.velocity = new Vector3(speed, rb.velocity.y, 0f);
         rb.velocity = transform.right * speed;
-        //transform.position = new Vector3(transform.position.x + (Time.deltaTime * speed), transform.position.y, transform.position.z);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        collision.GetComponent<HealthController>()?.TakeDamage(damage);
     }
 }
