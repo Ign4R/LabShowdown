@@ -6,27 +6,48 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed;
+
     [SerializeField] private float jumpHeight;
-    [SerializeField] private float raycastDistance;
+
     [SerializeField] private LayerMask floor;
+
     [SerializeField] private float coyoteTimeSet;
+
     [SerializeField] private float inputBufferTimeSet;
+
     [SerializeField] private Transform hand;
+
     [SerializeField] private Transform arm;
+
     private InputActionAsset inputAsset;
+
     private InputActionMap player;
+
     private InputAction movement;
+
     private Queue<string> inputBuffer;
+
     private Rigidbody2D rb;
+
     private RaycastHit2D floorRaycast;
+    private RaycastHit2D sideUpRaycast;
+    private RaycastHit2D sideBackRaycast;
+    private bool canFalling;
+
+    [SerializeField] private float raycastHitDistance;
+    [SerializeField] private float raycastFloorDistance;
+
     private float coyoteTime;
+
     private bool alreadyJumped;
+
     private IWeapon weapon;
-    private GameObject weaponObject;
 
-    public Transform Transform => throw new System.NotImplementedException();
-
-    // private animationController animator;
+    [SerializeField] private Transform floorOffset;
+    [SerializeField] private Transform hitOffsetUp;
+    [SerializeField] private Transform hitOffsetBack;
+    private Vector3 directionRaycast;
+ 
 
 
     private void Awake()
@@ -38,50 +59,52 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         inputBuffer = new Queue<string>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        FloorRaycast();
+        Raycasts();
         Movement();
         Jump();
         Timer();
     }
 
-    private void FloorRaycast()
+    private void Raycasts()
     {
-        floorRaycast = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floor);
+        floorRaycast = Physics2D.Raycast(floorOffset.position, Vector2.down, raycastFloorDistance, floor);
+        sideUpRaycast = Physics2D.Raycast(hitOffsetUp.position, Vector2.left, raycastHitDistance, floor);
+        sideBackRaycast = Physics2D.Raycast(hitOffsetBack.position, Vector2.left, raycastHitDistance, floor);
     }
 
     private void Movement()
     {
-        Vector3 aux;
-        rb.velocity = new Vector3(movement.ReadValue<Vector2>().x * speed, rb.velocity.y, 0f);
-        aux = transform.localScale;
-        /*if(direction != 0)
-        {
-            aux.x = Mathf.Abs(aux.x) * direction;
-        }
-        transform.localScale = aux;*/
+        if (!sideUpRaycast && !sideBackRaycast)
+            rb.velocity = new Vector3(movement.ReadValue<Vector2>().x * speed, rb.velocity.y, 0f);
+
         if (movement.ReadValue<Vector2>().x < 0)
         {
+            raycastHitDistance = 0.6f;
             var ang = transform.rotation.eulerAngles;
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
         }
         if (movement.ReadValue<Vector2>().x > 0)
         {
+            raycastHitDistance = -0.6f;
+            directionRaycast = Vector2.left;
             var ang = transform.rotation.eulerAngles;
             ang.y = 0;
             transform.rotation = Quaternion.Euler(ang);
-        }
+        }   
+            
     }
 
     private void Jump()
     {
-        if (floorRaycast == true)
+        if (floorRaycast == true && canFalling)
         {
             if (inputBuffer.Count > 0)
             {
@@ -143,6 +166,11 @@ public class PlayerController : MonoBehaviour
             alreadyJumped = false;
             coyoteTime = 0;
         }
+        else
+        {
+            canFalling = true;
+        }
+
     }
 
     private void RemoveInput()
@@ -194,7 +222,9 @@ public class PlayerController : MonoBehaviour
     //Editor Debug
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Vector2.down * raycastDistance);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(floorOffset.position, Vector2.down * raycastFloorDistance);
+        Gizmos.DrawRay(hitOffsetUp.position, Vector2.left * raycastHitDistance);
+        Gizmos.DrawRay(hitOffsetBack.position, Vector2.left * raycastHitDistance);
     }
 }
