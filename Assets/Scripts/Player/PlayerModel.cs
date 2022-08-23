@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+
+public class PlayerModel : MonoBehaviour
 {
     [SerializeField] private float speed;
 
@@ -18,12 +18,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform hand;
 
     [SerializeField] private Transform arm;
-
-    private InputActionAsset inputAsset;
-
-    private InputActionMap player;
-
-    private InputAction movement;
 
     private Queue<string> inputBuffer;
 
@@ -47,63 +41,54 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform hitOffsetUp;
     [SerializeField] private Transform hitOffsetBack;
     private Vector3 directionRaycast;
- 
+
 
 
     private void Awake()
     {
-        inputAsset = this.GetComponent<PlayerInput>().actions;
-        player = inputAsset.FindActionMap("Player");
         rb = GetComponent<Rigidbody2D>();
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+
         inputBuffer = new Queue<string>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Raycasts();
-        Movement();
-        Jump();
-        Timer();
-    }
 
-    private void Raycasts()
+    public void Raycasts()
     {
         floorRaycast = Physics2D.Raycast(floorOffset.position, Vector2.down, raycastFloorDistance, floor);
         sideUpRaycast = Physics2D.Raycast(hitOffsetUp.position, Vector2.left, raycastHitDistance, floor);
         sideBackRaycast = Physics2D.Raycast(hitOffsetBack.position, Vector2.left, raycastHitDistance, floor);
     }
 
-    private void Movement()
+    public void Movement(float x)
     {
         if (!sideUpRaycast && !sideBackRaycast)
-            rb.velocity = new Vector3(movement.ReadValue<Vector2>().x * speed, rb.velocity.y, 0f);
+            rb.velocity = new Vector3(x * speed, rb.velocity.y, 0f);
 
-        if (movement.ReadValue<Vector2>().x < 0)
+        if (x < 0)
         {
             raycastHitDistance = 0.6f;
             var ang = transform.rotation.eulerAngles;
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
         }
-        if (movement.ReadValue<Vector2>().x > 0)
+        if (x > 0)
         {
             raycastHitDistance = -0.6f;
             directionRaycast = Vector2.left;
             var ang = transform.rotation.eulerAngles;
             ang.y = 0;
             transform.rotation = Quaternion.Euler(ang);
-        }   
-            
+        }
+
     }
 
-    private void Jump()
+    public void Jump()
     {
+        
         if (floorRaycast == true && canFalling)
         {
             if (inputBuffer.Count > 0)
@@ -130,25 +115,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void JumpInput(InputAction.CallbackContext context)
+    public void JumpQueue()
     {
         inputBuffer.Enqueue("jump");
         Invoke("RemoveInput", inputBufferTimeSet);
     }
 
-    private void AimUp(InputAction.CallbackContext context)
+
+
+    public void AimUp()
     {
         arm.Rotate(0f, 0f, 90f, Space.Self);
     }
 
-    private void AimUpRelease(InputAction.CallbackContext context)
+    public void AimUpRelease()
     {
         arm.Rotate(0f, 0f, -90f, Space.Self);
     }
 
-    private void Timer()
+    public void Attack()
     {
-        if(floorRaycast == true)
+        weapon.Attack();
+    }
+
+    public void Timer()
+    {
+        if (floorRaycast == true)
         {
             return;
         }
@@ -175,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
     private void RemoveInput()
     {
-        if(inputBuffer.Count > 0)
+        if (inputBuffer.Count > 0)
         {
             inputBuffer.Dequeue();
         }
@@ -195,31 +187,6 @@ public class PlayerController : MonoBehaviour
         weapon.Collider2D.enabled = false;
     }
 
-    public void Attack(InputAction.CallbackContext context)
-    {
-        weapon.Attack();
-    }
-
-    private void OnEnable()
-    {
-        movement = player.FindAction("Movement");
-        player.FindAction("Attack").performed += Attack;
-        player.FindAction("Jump").performed += JumpInput;
-        player.FindAction("AimUp").performed += AimUp;
-        player.FindAction("AimUpRelease").performed += AimUpRelease;
-        player.Enable();
-    }
-
-    private void OnDisable()
-    {
-        player.FindAction("Attack").performed -= Attack;
-        player.FindAction("Jump").performed -= JumpInput;
-        player.FindAction("AimUp").performed -= AimUp;
-        player.FindAction("AimUpRelease").performed -= AimUpRelease;
-        player.Disable();
-    }
- 
-    //Editor Debug
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
@@ -227,4 +194,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawRay(hitOffsetUp.position, Vector2.left * raycastHitDistance);
         Gizmos.DrawRay(hitOffsetBack.position, Vector2.left * raycastHitDistance);
     }
+
+
+
 }
