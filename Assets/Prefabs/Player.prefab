@@ -373,8 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86ca2d705d46ca44876dfdc7233da05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpHeight: 6
+  stats: {fileID: 11400000, guid: 1d1c12a92fd0b0942b94384559338fdf, type: 2}
   floor:
     serializedVersion: 2
     m_Bits: 64
@@ -526,4 +525,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c1acc9513255b44a5e12d24e32c92a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100

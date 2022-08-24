@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    public PlayerStats Stats { get => this.stats; }
 
-    [SerializeField] private float jumpHeight;
+    [SerializeField] private PlayerStats stats;
 
     [SerializeField] private LayerMask floor;
 
@@ -46,12 +46,14 @@ public class PlayerModel : MonoBehaviour
 
     private void Awake()
     {
+        stats = ScriptableObject.CreateInstance<PlayerStats>();
+        
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
     {
-
+        
         inputBuffer = new Queue<string>();
     }
 
@@ -66,7 +68,7 @@ public class PlayerModel : MonoBehaviour
     public void Movement(float x)
     {
         if (!sideUpRaycast && !sideBackRaycast)
-            rb.velocity = new Vector3(x * speed, rb.velocity.y, 0f);
+            rb.velocity = new Vector3(x * stats.speed, rb.velocity.y, 0f);
 
         if (x < 0)
         {
@@ -95,7 +97,7 @@ public class PlayerModel : MonoBehaviour
             {
                 if (inputBuffer.Peek() == "jump")
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
+                    rb.velocity = new Vector3(rb.velocity.x, stats.jumpHeight, 0f);
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                 }
@@ -108,7 +110,7 @@ public class PlayerModel : MonoBehaviour
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
                     alreadyJumped = true;
-                    rb.velocity = new Vector3(rb.velocity.x, jumpHeight, 0f);
+                    rb.velocity = new Vector3(rb.velocity.x, stats.jumpHeight, 0f);
                     inputBuffer.Dequeue();
                 }
             }

@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    private int currentHealth;
+    private float currentHealth;
 
-    [SerializeField]
-    private int maxHealth;
+    private float maxHealth;
+
 
     private void Start()
     {
+        maxHealth = GetComponent<PlayerModel>().Stats.health;
         currentHealth = maxHealth;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
