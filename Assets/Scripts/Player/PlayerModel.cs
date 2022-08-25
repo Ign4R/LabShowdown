@@ -46,7 +46,9 @@ public class PlayerModel : MonoBehaviour
 
     private void Awake()
     {
+        var aux = stats;
         stats = ScriptableObject.CreateInstance<PlayerStats>();
+        stats = aux;
         
         rb = GetComponent<Rigidbody2D>();
     }
