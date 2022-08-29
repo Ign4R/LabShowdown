@@ -23,6 +23,6 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<HealthController>()?.TakeDamage(damage);
+        collision.GetComponent<StatsController>()?.TakeDamage(damage);
     }
 }

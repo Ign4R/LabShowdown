@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-    public PlayerStats Stats { get => this.stats; }
-
-    [SerializeField] private PlayerStats stats;
-
     [SerializeField] private LayerMask floor;
 
     [SerializeField] private float coyoteTimeSet;
@@ -37,6 +33,8 @@ public class PlayerModel : MonoBehaviour
 
     private IWeapon weapon;
 
+    private StatsController statsController;
+
     [SerializeField] private Transform floorOffset;
     [SerializeField] private Transform hitOffsetUp;
     [SerializeField] private Transform hitOffsetBack;
@@ -46,10 +44,8 @@ public class PlayerModel : MonoBehaviour
 
     private void Awake()
     {
-        var aux = stats;
-        stats = ScriptableObject.CreateInstance<PlayerStats>();
-        stats = aux;
-        
+        statsController = GetComponent<StatsController>();
+
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -70,7 +66,7 @@ public class PlayerModel : MonoBehaviour
     public void Movement(float x)
     {
         if (!sideUpRaycast && !sideBackRaycast)
-            rb.velocity = new Vector3(x * stats.speed, rb.velocity.y, 0f);
+            rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
 
         if (x < 0)
         {
@@ -99,7 +95,7 @@ public class PlayerModel : MonoBehaviour
             {
                 if (inputBuffer.Peek() == "jump")
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, stats.jumpHeight, 0f);
+                    rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                 }
@@ -112,7 +108,7 @@ public class PlayerModel : MonoBehaviour
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
                     alreadyJumped = true;
-                    rb.velocity = new Vector3(rb.velocity.x, stats.jumpHeight, 0f);
+                    rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
                     inputBuffer.Dequeue();
                 }
             }
