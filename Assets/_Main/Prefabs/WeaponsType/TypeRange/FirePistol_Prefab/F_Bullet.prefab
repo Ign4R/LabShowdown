@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4126480187518474783}
   - component: {fileID: -4983440229183765456}
   m_Layer: 0
-  m_Name: FireBullet
+  m_Name: F_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
