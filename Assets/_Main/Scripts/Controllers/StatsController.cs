@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class StatsController : MonoBehaviour
 {
-    public float Speed { get => this.speed;}
+    
+   [SerializeField] private PlayerStats playerStats;
 
-    public float JumpHeight { get => this.jumpHeight;}
+    //TODO: [DUDA] PONER ESTAS VARIABLES ACA O LLAMARLAS DESDE EL PLAYER MODEL?
+    private float speed;
 
-    [SerializeField] private float maxHealth;
-
-    [SerializeField] private float speed;
-
-    [SerializeField] private float jumpHeight;
+    private float jumpHeight;
 
     private float currentHealth;
 
+
+    public float Speed { get => speed; set => speed = value; }
+    public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
+
     private void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = playerStats.MaxHealth;
+        speed = playerStats.Speed;
+        jumpHeight = playerStats.JumpHeight;
     }
     public void TakeDamage(float damage)
     {

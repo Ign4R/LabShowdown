@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8802b2f5fd682c94eb19518294343216, type: 3}
   m_Name: Stats
   m_EditorClassIdentifier: 
-  health: 100
+  maxHealth: 0
   speed: 5
   jumpHeight: 6

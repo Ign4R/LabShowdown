@@ -44,6 +44,7 @@ public class PlayerModel : MonoBehaviour
 
     private void Awake()
     {
+
         statsController = GetComponent<StatsController>();
 
         rb = GetComponent<Rigidbody2D>();
@@ -113,6 +114,7 @@ public class PlayerModel : MonoBehaviour
                 }
             }
         }
+
     }
 
     public void JumpQueue()
