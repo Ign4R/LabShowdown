@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-
-public class Katana : MonoBehaviour, IWeapon
-{
+ public class Katana: MonoBehaviour, IWeapon
+ {
     public Transform Transform { get; set; }
 
     public Collider2D Collider2D { get; set; }
 
-    float hitTimer; // Este timer es temporal, hay que quitarlo
+    public Rigidbody2D Rigidbody2D { get; set; }
+    public LayerMask WeaponLayerMask { get; set; }
+
     private void Awake()
     {
         Collider2D = GetComponent<Collider2D>();
@@ -20,15 +20,7 @@ public class Katana : MonoBehaviour, IWeapon
     }
     private void Update()
     {
-       /* if (hitTimer < 0)
-        {
-            Collider2D.enabled = false;
-        }
-        else
-        {
-            Collider2D.enabled = true;
-            hitTimer -= Time.deltaTime;
-        }*/
+
     }
 
     public void Attack()
@@ -38,13 +30,7 @@ public class Katana : MonoBehaviour, IWeapon
 
     private void Hit()
     {
-        //Collider2D.enabled = true;
-        HitTimerSet();
-        //Cambiar por evento del animator
+        
     }
+ }
 
-    private void HitTimerSet()
-    {
-        hitTimer = 1;
-    }
-}

@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         movement = player.FindAction("Movement");
         player.FindAction("Attack").performed += AttackInput;
+        player.FindAction("Drop").performed += DropInput;
         player.FindAction("Jump").performed += JumpInput;
         player.FindAction("AimUp").performed += AimUpInput;
         player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         player.FindAction("Attack").performed -= AttackInput;
+        player.FindAction("Drop").performed -= DropInput;
         player.FindAction("Jump").performed -= JumpInput;
         player.FindAction("AimUp").performed -= AimUpInput;
         player.FindAction("AimUpRelease").performed -= AimUpReleaseInput;
@@ -54,7 +56,10 @@ public class PlayerController : MonoBehaviour
     {
         model.Attack();
     }
-
+    private void DropInput(InputAction.CallbackContext context)
+    {
+        model.DropWeapon();
+    }
     private void JumpInput(InputAction.CallbackContext context)
     {
         model.JumpQueue();

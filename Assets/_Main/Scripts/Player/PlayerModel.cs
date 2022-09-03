@@ -15,6 +15,9 @@ public class PlayerModel : MonoBehaviour
 
     [SerializeField] private Transform arm;
 
+
+    [SerializeField] private Transform dropPosition;
+
     private Queue<string> inputBuffer;
 
     private Rigidbody2D rb;
@@ -40,8 +43,6 @@ public class PlayerModel : MonoBehaviour
     [SerializeField] private Transform hitOffsetBack;
     private Vector3 directionRaycast;
 
-
-
     private void Awake()
     {
 
@@ -52,7 +53,6 @@ public class PlayerModel : MonoBehaviour
 
     void Start()
     {
-        
         inputBuffer = new Queue<string>();
     }
 
@@ -90,7 +90,7 @@ public class PlayerModel : MonoBehaviour
     public void Jump()
     {
         
-        if (floorRaycast == true && canFalling)
+        if (floorRaycast == true)
         {
             if (inputBuffer.Count > 0)
             {
@@ -123,8 +123,6 @@ public class PlayerModel : MonoBehaviour
         Invoke("RemoveInput", inputBufferTimeSet);
     }
 
-
-
     public void AimUp()
     {
         arm.Rotate(0f, 0f, 90f, Space.Self);
@@ -139,7 +137,21 @@ public class PlayerModel : MonoBehaviour
     {
         weapon.Attack();
     }
+    public void DropWeapon()
+    {
+        if (weapon != null)
+        {
+            gameObject.layer = 7; //vuelve a tener la layer "player" 
+            weapon.Transform.SetParent(null);
+            weapon.Transform.position = dropPosition.transform.position;
+            weapon.Collider2D.enabled = true;
+            weapon.Rigidbody2D.isKinematic = false;
+            weapon.Rigidbody2D.simulated = true;
+            weapon = null;
 
+        }
+    }
+     
     public void Timer()
     {
         if (floorRaycast == true)
@@ -151,7 +163,17 @@ public class PlayerModel : MonoBehaviour
             coyoteTime += Time.deltaTime;
         }
     }
-
+    private void RemoveInput()
+    {
+        if (inputBuffer.Count > 0)
+        {
+            inputBuffer.Dequeue();
+        }
+        else
+        {
+            return;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -167,26 +189,17 @@ public class PlayerModel : MonoBehaviour
 
     }
 
-    private void RemoveInput()
-    {
-        if (inputBuffer.Count > 0)
-        {
-            inputBuffer.Dequeue();
-        }
-        else
-        {
-            return;
-        }
-    }
+   
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("Taken");
-        weapon = collision.GetComponent<IWeapon>();
-        weapon.Transform.position = hand.position;
-        weapon.Transform.rotation = hand.rotation;
-        weapon.Transform.SetParent(hand);
-        weapon.Collider2D.enabled = false;
+        
+        if(weapon == null)
+        { 
+            weapon = collision.GetComponent<IWeapon>();          
+            GrabWeapon();     
+        }
+
     }
 
     private void OnDrawGizmos()
@@ -195,6 +208,20 @@ public class PlayerModel : MonoBehaviour
         Gizmos.DrawRay(floorOffset.position, Vector2.down * raycastFloorDistance);
         Gizmos.DrawRay(hitOffsetUp.position, Vector2.left * raycastHitDistance);
         Gizmos.DrawRay(hitOffsetBack.position, Vector2.left * raycastHitDistance);
+    }
+
+    private void GrabWeapon()
+    {
+        weapon.Transform.position = hand.position;
+        weapon.Transform.rotation = hand.rotation;
+        weapon.Transform.SetParent(hand);
+        weapon.Collider2D.enabled = false;
+        weapon.Rigidbody2D.isKinematic = true;
+        weapon.Rigidbody2D.simulated = false;
+        weapon.Rigidbody2D.velocity = Vector3.zero;
+        gameObject.layer = default; // setiamos la layer en default para que traspase las armas
+                                    // y no choque contra ellas si hay problemas con esto agregar otra layer
+
     }
 
 

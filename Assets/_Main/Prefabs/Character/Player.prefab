@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1429389541}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RaycastSideUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1208948194613168047}
   - component: {fileID: 374547371813535670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1507422022771536452}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,8 +143,40 @@ Transform:
   m_LocalPosition: {x: 0.749, y: -0.058000088, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1944823820486757569}
   m_Father: {fileID: 1208948194613168047}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6742974110535640881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1944823820486757569}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1944823820486757569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742974110535640881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.02, y: 4.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507422022771536452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6780748116546133349
@@ -156,7 +188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2404322152156539883}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6448290666952490606}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RaycastSideBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8592621940190385027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RaycastFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +289,7 @@ GameObject:
   - component: {fileID: 8945418367330153185}
   - component: {fileID: 8945418367330153184}
   - component: {fileID: 8945418367330153212}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,6 +334,7 @@ MonoBehaviour:
   inputBufferTimeSet: 0.25
   hand: {fileID: 1507422022771536452}
   arm: {fileID: 2404322152156539883}
+  dropPosition: {fileID: 1944823820486757569}
   raycastHitDistance: 1.35
   raycastFloorDistance: 0.09
   floorOffset: {fileID: 8592621940190385027}
