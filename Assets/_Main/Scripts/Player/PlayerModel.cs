@@ -130,12 +130,16 @@ public class PlayerModel : MonoBehaviour
 
     public void AimUpRelease()
     {
-        arm.Rotate(0f, 0f, -90f, Space.Self);
+        arm.Rotate(0, 0, -90f, Space.Self);
     }
 
     public void Attack()
     {
-        weapon.Attack();
+        if (weapon != null)
+        {
+            weapon.Attack();
+        }
+       
     }
     public void DropWeapon()
     {
@@ -193,8 +197,7 @@ public class PlayerModel : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
-        if(weapon == null)
+        if(collision.gameObject.layer == 8)
         { 
             weapon = collision.GetComponent<IWeapon>();          
             GrabWeapon();     

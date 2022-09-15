@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol : MonoBehaviour, IWeapon
+public class Rifle : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject bullet;
+
+    [SerializeField] private Transform positionBullet;
     public Transform Transform { get; set; }
 
     public Collider2D Collider2D { get; set; }
@@ -25,7 +27,7 @@ public class Pistol : MonoBehaviour, IWeapon
     
     public void Attack()
     {
-        Instantiate(bullet, transform.position, transform.rotation);
+        Instantiate(bullet, positionBullet.position, transform.rotation);
     }
 
 }

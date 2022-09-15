@@ -6,7 +6,8 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 0;
     private Rigidbody2D rb;
-    private int damage= 10;
+    [SerializeField] private int damage;
+    [SerializeField] private int lifeTime;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         Move();
+        Destroy(gameObject, lifeTime);
     }
 
     private void Move()
@@ -24,5 +26,12 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         collision.GetComponent<StatsController>()?.TakeDamage(damage);
+        if (collision != null) 
+        {
+          
+            //Destroy(gameObject);
+        }
+        
+        
     }
 }
