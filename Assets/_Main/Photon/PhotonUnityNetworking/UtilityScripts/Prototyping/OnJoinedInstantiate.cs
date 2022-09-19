@@ -192,7 +192,7 @@ namespace Photon.Pun.UtilityScripts
                     GetSpawnPoint(out spawnPos, out spawnRot);
 
 
-                    var newobj = PhotonNetwork.Instantiate(o.name, spawnPos, spawnRot, 0);
+                    var newobj = PhotonNetwork.Instantiate(o, spawnPos, spawnRot, 0);
                     SpawnedObjects.Push(newobj);
                 }
             }

@@ -45,10 +45,10 @@ namespace Photon.Pun.UtilityScripts
             switch (this.InstantiateType)
             {
                 case InstantiateOption.Mine:
-                    PhotonNetwork.Instantiate(this.Prefab.name, eventData.pointerCurrentRaycast.worldPosition + new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
+                    PhotonNetwork.Instantiate(this.Prefab, eventData.pointerCurrentRaycast.worldPosition + new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
                     break;
                 case InstantiateOption.Scene:
-                    PhotonNetwork.InstantiateRoomObject(this.Prefab.name, eventData.pointerCurrentRaycast.worldPosition + new Vector3(0, 0.5f, 0), Quaternion.identity, 0, null);
+                    PhotonNetwork.InstantiateRoomObject(this.Prefab, eventData.pointerCurrentRaycast.worldPosition + new Vector3(0, 0.5f, 0), Quaternion.identity, 0, null);
                     break;
             }
         }

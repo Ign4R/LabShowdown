@@ -89,7 +89,7 @@ namespace Photon.Pun.Demo.Asteroids
                 Vector3 torque = Random.insideUnitSphere * Random.Range(500.0f, 1500.0f);
                 object[] instantiationData = {force, torque, true};
 
-                PhotonNetwork.InstantiateRoomObject("BigAsteroid", position, Quaternion.Euler(Random.value * 360.0f, Random.value * 360.0f, Random.value * 360.0f), 0, instantiationData);
+                PhotonNetwork.InstantiateRoomObject(gameObject, position, Quaternion.Euler(Random.value * 360.0f, Random.value * 360.0f, Random.value * 360.0f), 0, instantiationData);
             }
         }
 
@@ -191,7 +191,7 @@ namespace Photon.Pun.Demo.Asteroids
             Vector3 position = new Vector3(x, 0.0f, z);
             Quaternion rotation = Quaternion.Euler(0.0f, angularStart, 0.0f);
 
-            PhotonNetwork.Instantiate("Spaceship", position, rotation, 0);      // avoid this call on rejoin (ship was network instantiated before)
+            PhotonNetwork.Instantiate(gameObject, position, rotation, 0);      // avoid this call on rejoin (ship was network instantiated before)
 
             if (PhotonNetwork.IsMasterClient)
             {

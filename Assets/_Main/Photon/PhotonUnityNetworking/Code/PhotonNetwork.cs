@@ -37,13 +37,13 @@ namespace Photon.Pun
         public byte @group;
         public Quaternion rotation;
         public Vector3 position;
-        public string prefabName;
+        public GameObject prefab;
         public Player creator;
         public int timestamp;
 
-        public InstantiateParameters(string prefabName, Vector3 position, Quaternion rotation, byte @group, object[] data, byte objLevelPrefix, int[] viewIDs, Player creator, int timestamp)
+        public InstantiateParameters(GameObject prefab, Vector3 position, Quaternion rotation, byte @group, object[] data, byte objLevelPrefix, int[] viewIDs, Player creator, int timestamp)
         {
-            this.prefabName = prefabName;
+            this.prefab = prefab;
             this.position = position;
             this.rotation = rotation;
             this.@group = @group;
@@ -2454,7 +2454,7 @@ namespace Photon.Pun
         }
 
 
-        public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
+        public static GameObject Instantiate(GameObject prefab, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
         {
             if (CurrentRoom == null)
             {
@@ -2462,17 +2462,17 @@ namespace Photon.Pun
                 return null;
             }
 
-            Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
+            Pun.InstantiateParameters netParams = new InstantiateParameters(prefab, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
             return NetworkInstantiate(netParams, false);
         }
 
         [Obsolete("Renamed. Use InstantiateRoomObject instead")]
-        public static GameObject InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
+        public static GameObject InstantiateSceneObject(GameObject prefab, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
         {
-            return InstantiateRoomObject(prefabName, position, rotation, group, data);
+            return InstantiateRoomObject(prefab, position, rotation, group, data);
         }
 
-        public static GameObject InstantiateRoomObject(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
+        public static GameObject InstantiateRoomObject(GameObject prefab, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
         {
             if (CurrentRoom == null)
             {
@@ -2482,7 +2482,7 @@ namespace Photon.Pun
 
             if (LocalPlayer.IsMasterClient)
             {
-                Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
+                Pun.InstantiateParameters netParams = new InstantiateParameters(prefab, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
                 return NetworkInstantiate(netParams, true);
             }
 
@@ -2493,7 +2493,7 @@ namespace Photon.Pun
         {
 
             // some values always present:
-            string prefabName = (string)networkEvent[keyByteZero];
+            GameObject prefab = (GameObject)networkEvent[keyByteZero];
             int serverTime = (int)networkEvent[keyByteSix];
             int instantiationId = (int)networkEvent[keyByteSeven];
 
@@ -2552,12 +2552,12 @@ namespace Photon.Pun
             }
 
 
-            Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, incomingInstantiationData, objLevelPrefix, viewsIDs, creator, serverTime);
+            Pun.InstantiateParameters netParams = new InstantiateParameters(prefab, position, rotation, group, incomingInstantiationData, objLevelPrefix, viewsIDs, creator, serverTime);
             return NetworkInstantiate(netParams, false, true);
         }
 
 
-        private static readonly HashSet<string> PrefabsWithoutMagicCallback = new HashSet<string>();
+        private static readonly HashSet<GameObject> PrefabsWithoutMagicCallback = new HashSet<GameObject>();
 
         private static GameObject NetworkInstantiate(Pun.InstantiateParameters parameters, bool roomObject = false, bool instantiateEvent = false)
         {
@@ -2570,18 +2570,18 @@ namespace Photon.Pun
             GameObject go = null;
             PhotonView[] photonViews;
 
-            go = prefabPool.Instantiate(parameters.prefabName, parameters.position, parameters.rotation);
+            go = prefabPool.Instantiate(parameters.prefab, parameters.position, parameters.rotation);
 
 
             if (go == null)
             {
-                Debug.LogError("Failed to network-Instantiate: " + parameters.prefabName);
+                Debug.LogError("Failed to network-Instantiate: " + parameters.prefab);
                 return null;
             }
 
             if (go.activeSelf)
             {
-                Debug.LogWarning("PrefabPool.Instantiate() should return an inactive GameObject. " + prefabPool.GetType().Name + " returned an active object. PrefabId: " + parameters.prefabName);
+                Debug.LogWarning("PrefabPool.Instantiate() should return an inactive GameObject. " + prefabPool.GetType().Name + " returned an active object. PrefabId: " + parameters.prefab);
             }
 
 
@@ -2590,7 +2590,7 @@ namespace Photon.Pun
 
             if (photonViews.Length == 0)
             {
-                Debug.LogError("PhotonNetwork.Instantiate() can only instantiate objects with a PhotonView component. This prefab does not have one: " + parameters.prefabName);
+                Debug.LogError("PhotonNetwork.Instantiate() can only instantiate objects with a PhotonView component. This prefab does not have one: " + parameters.prefab);
                 return null;
             }
 
@@ -2634,7 +2634,7 @@ namespace Photon.Pun
             go.SetActive(true);
 
             // if IPunInstantiateMagicCallback is implemented on any script of the instantiated GO, let's call it directly:
-            if (!PrefabsWithoutMagicCallback.Contains(parameters.prefabName))
+            if (!PrefabsWithoutMagicCallback.Contains(parameters.prefab))
             {
                 var list = go.GetComponents<IPunInstantiateMagicCallback>();
                 if (list.Length > 0)
@@ -2647,7 +2647,7 @@ namespace Photon.Pun
                 }
                 else
                 {
-                    PrefabsWithoutMagicCallback.Add(parameters.prefabName);
+                    PrefabsWithoutMagicCallback.Add(parameters.prefab);
                 }
             }
 
@@ -2665,7 +2665,7 @@ namespace Photon.Pun
 
             SendInstantiateEvHashtable.Clear();     // SendInstantiate reuses this Hashtable to reduce GC
 
-            SendInstantiateEvHashtable[keyByteZero] = parameters.prefabName;
+            SendInstantiateEvHashtable[keyByteZero] = parameters.prefab;
 
             if (parameters.position != Vector3.zero)
             {

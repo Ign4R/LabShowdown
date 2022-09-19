@@ -372,6 +372,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Controller2"",
+            ""bindingGroup"": ""Controller2"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -536,6 +547,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         {
             if (m_Keyboard2SchemeIndex == -1) m_Keyboard2SchemeIndex = asset.FindControlSchemeIndex("Keyboard2");
             return asset.controlSchemes[m_Keyboard2SchemeIndex];
+        }
+    }
+    private int m_Controller2SchemeIndex = -1;
+    public InputControlScheme Controller2Scheme
+    {
+        get
+        {
+            if (m_Controller2SchemeIndex == -1) m_Controller2SchemeIndex = asset.FindControlSchemeIndex("Controller2");
+            return asset.controlSchemes[m_Controller2SchemeIndex];
         }
     }
     public interface IPlayerActions

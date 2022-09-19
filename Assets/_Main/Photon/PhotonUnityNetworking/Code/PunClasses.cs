@@ -864,20 +864,20 @@ namespace Photon.Pun
         /// <param name="position">Location of the new object.</param>
         /// <param name="rotation">Rotation of the new object.</param>
         /// <returns></returns>
-        public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation)
+        public GameObject Instantiate(GameObject prefabId, Vector3 position, Quaternion rotation)
         {
             GameObject res = null;
-            bool cached = this.ResourceCache.TryGetValue(prefabId, out res);
+            bool cached = this.ResourceCache.TryGetValue(prefabId.name, out res);
             if (!cached)
             {
-                res = Resources.Load<GameObject>(prefabId);
+                res = Resources.Load<GameObject>(prefabId.name);
                 if (res == null)
                 {
                     Debug.LogError("DefaultPool failed to load \"" + prefabId + "\". Make sure it's in a \"Resources\" folder. Or use a custom IPunPrefabPool.");
                 }
                 else
                 {
-                    this.ResourceCache.Add(prefabId, res);
+                    this.ResourceCache.Add(prefabId.name, res);
                 }
             }
 
@@ -896,6 +896,8 @@ namespace Photon.Pun
         {
             GameObject.Destroy(gameObject);
         }
+
+       
     }
 
 
