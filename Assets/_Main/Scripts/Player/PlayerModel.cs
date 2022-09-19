@@ -15,7 +15,7 @@ public class PlayerModel : MonoBehaviour
 
     [SerializeField] private Transform arm;
 
-    private Queue<string> inputBuffer;
+    private Queue<string> inputBuffer  = new Queue<string>();
 
     private Rigidbody2D rb;
 
@@ -48,12 +48,13 @@ public class PlayerModel : MonoBehaviour
         statsController = GetComponent<StatsController>();
 
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Start()
     {
         
-        inputBuffer = new Queue<string>();
+        
     }
 
 
@@ -115,6 +116,12 @@ public class PlayerModel : MonoBehaviour
             }
         }
 
+    }
+
+    public void CancelledJump()
+    {
+        if(rb.velocity.y > 0)
+            rb.velocity = new Vector3(rb.velocity.x, 0f, 0f);
     }
 
     public void JumpQueue()

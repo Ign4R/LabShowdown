@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
         movement = player.FindAction("Movement");
         player.FindAction("Attack").performed += AttackInput;
         player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("Jump").canceled += JumpInput;
         player.FindAction("AimUp").performed += AimUpInput;
         player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
         player.Enable();
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         player.FindAction("Attack").performed -= AttackInput;
         player.FindAction("Jump").performed -= JumpInput;
+        player.FindAction("Jump").canceled -= JumpInput;
         player.FindAction("AimUp").performed -= AimUpInput;
         player.FindAction("AimUpRelease").performed -= AimUpReleaseInput;
         player.Disable();
@@ -56,8 +58,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void JumpInput(InputAction.CallbackContext context)
-    {
+    { 
         model.JumpQueue();
+
+        if (context.canceled)
+        {
+            Debug.Log("me cancele");
+            model.CancelledJump();
+        }
     }
 
     private void AimUpInput(InputAction.CallbackContext context)
