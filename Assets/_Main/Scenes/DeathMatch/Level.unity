@@ -592,7 +592,7 @@ MonoBehaviour:
   - {fileID: 8945418367330153191, guid: e0cb6273b0224ed4c8da2c6ddf99ab13, type: 3}
   - {fileID: 8945418367330153191, guid: 457f4e7827464ff45b3d668914fb53b9, type: 3}
   - {fileID: 8945418367330153191, guid: 138b21be04e9b4c40a34dd39a60cea5d, type: 3}
-  maxPlayersInScene: 2
+  maxPlayersInScene: 4
   spawns:
   - {fileID: 1132835343}
   - {fileID: 737656335}
