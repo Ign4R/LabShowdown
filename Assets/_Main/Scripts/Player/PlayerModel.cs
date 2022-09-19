@@ -7,9 +7,9 @@ public class PlayerModel : MonoBehaviour
 {
     [SerializeField] private LayerMask floor;
 
-    [SerializeField] private float coyoteTimeSet;
+    [SerializeField] private float coyoteTimeSet = 0.25f;
 
-    [SerializeField] private float inputBufferTimeSet;
+    [SerializeField] private float inputBufferTimeSet= 0.25f;
 
     [SerializeField] private Transform hand;
 
@@ -18,7 +18,7 @@ public class PlayerModel : MonoBehaviour
 
     [SerializeField] private Transform dropPosition;
 
-    private Queue<string> inputBuffer;
+    private Queue<string> inputBuffer = new Queue<string>();
 
     private Rigidbody2D rb;
 
@@ -50,12 +50,6 @@ public class PlayerModel : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
     }
-
-    void Start()
-    {
-        inputBuffer = new Queue<string>();
-    }
-
 
     public void Raycasts()
     {

@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
     private PlayerModel model;
 
     private InputActionAsset inputAsset;
@@ -25,7 +24,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         model.Movement(movement.ReadValue<Vector2>().x);
-        model.Jump();
+        model.Jump();    
         model.Timer();
         model.Raycasts();
     }
