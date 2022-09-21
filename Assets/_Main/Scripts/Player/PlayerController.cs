@@ -62,12 +62,16 @@ public class PlayerController : MonoBehaviour
 
     private void JumpInput(InputAction.CallbackContext context)
     { 
-        model.JumpQueue();
+        
 
         if (context.canceled)
         {
             Debug.Log("me cancele");
             model.CancelledJump();
+        }
+        else
+        {
+            model.JumpQueue();
         }
     }
 
