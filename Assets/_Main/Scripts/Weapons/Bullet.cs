@@ -13,8 +13,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private int lifeTime;
 
-    private int damage= 10;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

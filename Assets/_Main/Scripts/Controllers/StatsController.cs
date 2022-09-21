@@ -43,4 +43,10 @@ public class StatsController : MonoBehaviour
         print($"Die {gameObject.name}");
         Destroy(gameObject);
     }
+
+    public float SetSpeedPercentage(float percentage)
+    {
+        speed = speed * (percentage * 0.1f);
+        return Speed;
+    }
 }

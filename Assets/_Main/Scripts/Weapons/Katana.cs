@@ -1,17 +1,21 @@
-﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
- public class Katana: MonoBehaviour, IWeapon
- {
+
+public class Katana : MonoBehaviour, IWeapon
+{
+    public Rigidbody2D Rigidbody2D { get; set; }
     public Transform Transform { get; set; }
 
     public Collider2D Collider2D { get; set; }
 
-    public Rigidbody2D Rigidbody2D { get; set; }
-    public LayerMask WeaponLayerMask { get; set; }
+    float hitTimer; // Este timer es temporal, hay que quitarlo
 
+    [SerializeField] private float hitTimerSet;
     private void Awake()
     {
         Collider2D = GetComponent<Collider2D>();
+        Rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -20,17 +24,16 @@ using UnityEngine;
     }
     private void Update()
     {
-
+        
     }
 
     public void Attack()
     {
-        Hit();
+        if (hitTimer <= 0)
+        {
+            //Activar animacion de ataque cuerpo-cuerpo
+            GetComponent<Collider2D>().enabled = true;
+            hitTimer = hitTimerSet;
+        }
     }
-
-    private void Hit()
-    {
-        
-    }
- }
-
+}

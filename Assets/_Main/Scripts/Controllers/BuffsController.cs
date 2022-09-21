@@ -4,42 +4,63 @@ using UnityEngine;
 
 public class BuffsController : MonoBehaviour
 {
-    [SerializeField] private float setIgniteTimer;
+    [SerializeField] private float frozeenTimerSet;
 
-    private int frozenLevel;
-    private float fronzenTimer;
+    [SerializeField] private float igniteTimerSet;
+
+    [SerializeField] private float igniteDamagePS;
+
+    private float frozeenLevel;
+
+    private float frozeenTimer;
+
     private float igniteTimer;
-    private float igniteDamage;
+
+    private StatsController statsController;
+
+    private void Awake()
+    {
+        statsController = GetComponent<StatsController>();
+    }
     void Start()
     {
-        
+
     }
 
+    // Update is called once per frame
     void Update()
     {
+        if(frozeenTimer > 0)
+        {
+            frozeenTimer -= Time.deltaTime;
+        }
+        else if(frozeenLevel > 0) //Chequear si es optimo
+        {
+            statsController.SetSpeedPercentage(100 + frozeenLevel*10);
+            frozeenLevel = 0;
+        }
 
         if (igniteTimer > 0)
         {
             igniteTimer -= Time.deltaTime;
+            statsController.TakeDamage(igniteDamagePS*Time.deltaTime);
         }
     }
 
-    public void Frozen()
+    public void Frozeen()
     {
-
-        if (frozenLevel < 6)
+        if (frozeenLevel < 5)
         {
-            frozenLevel ++;
-            // Efecto (se agregara cuando es ten las Stats) LCH 17-08
-            /*player.StatsController.SetSpeed(-0.1 * fronzenLevel * baseSpeed);
-            if (fronzenLvel == 6)
-            {
-
-            }*/
+            frozeenLevel++;
+            statsController.SetSpeedPercentage(90);
         }
+        //Play Frozeen Animation
+        frozeenTimer = frozeenTimerSet;
     }
+
     public void Ignite()
     {
-        //PlayerController.LifeController.GetDamage(igniteDamage)
+        igniteTimer = igniteTimerSet;
+        //play Ignite Animation
     }
-}
+ }
