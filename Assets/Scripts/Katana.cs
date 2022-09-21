@@ -9,6 +9,8 @@ public class Katana : MonoBehaviour, IWeapon
     public Collider2D Collider2D { get; set; }
 
     float hitTimer; // Este timer es temporal, hay que quitarlo
+
+    [SerializeField] private float hitTimerSet;
     private void Awake()
     {
         Collider2D = GetComponent<Collider2D>();
@@ -20,31 +22,16 @@ public class Katana : MonoBehaviour, IWeapon
     }
     private void Update()
     {
-       /* if (hitTimer < 0)
-        {
-            Collider2D.enabled = false;
-        }
-        else
-        {
-            Collider2D.enabled = true;
-            hitTimer -= Time.deltaTime;
-        }*/
+        if 
     }
 
     public void Attack()
     {
-        Hit();
-    }
-
-    private void Hit()
-    {
-        //Collider2D.enabled = true;
-        HitTimerSet();
-        //Cambiar por evento del animator
-    }
-
-    private void HitTimerSet()
-    {
-        hitTimer = 1;
+        if (hitTimer <= 0)
+        {
+            //Activar animacion de ataque cuerpo-cuerpo
+            GetComponent<Collider2D>().enabled = true;
+            hitTimer = hitTimerSet;
+        }
     }
 }

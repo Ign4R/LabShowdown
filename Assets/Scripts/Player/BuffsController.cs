@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffController : MonoBehaviour
+public class BuffsController : MonoBehaviour
 {
     [SerializeField] private float frozeenTimerSet;
 
     [SerializeField] private float igniteTimerSet;
+
+    [SerializeField] private float igniteDamagePS;
 
     private float frozeenLevel;
 
@@ -28,36 +30,37 @@ public class BuffController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(frozeenTimer >= 0)
+        if(frozeenTimer > 0)
         {
             frozeenTimer -= Time.deltaTime;
         }
-        else if(frozeenTimer > 1)
+        else if(frozeenLevel > 0) //Chequear si es optimo
         {
-            frozeenTimer = 0;
+            statsController.SetSpeedPercentage(100 + frozeenLevel*10);
+            frozeenLevel = 0;
         }
 
-        if (igniteTimer >= 0)
+        if (igniteTimer > 0)
         {
             igniteTimer -= Time.deltaTime;
+            statsController.TakeDamage(igniteDamagePS*Time.deltaTime);
         }
     }
 
     public void Frozeen()
     {
-        if (frozeenLevel <= 5)
+        if (frozeenLevel < 5)
         {
             frozeenLevel++;
+            statsController.SetSpeedPercentage(90);
         }
-        if (frozeenLevel > 0)
-        {
-            statsController.SetSpeedPercentage(frozeenLevel * 10);
-            frozeenTimer = frozeenTimerSet;
-        }
+        //Play Frozeen Animation
+        frozeenTimer = frozeenTimerSet;
     }
 
     public void Ignite()
     {
-
+        igniteTimer = igniteTimerSet;
+        //play Ignite Animation
     }
  }
