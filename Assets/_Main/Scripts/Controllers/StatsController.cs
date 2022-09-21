@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StatsController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class StatsController : MonoBehaviour
     private float jumpHeight;
 
     private float currentHealth;
+
+    public static event Action OnDie;
 
 
     public float Speed { get => speed; set => speed = value; }
@@ -31,6 +34,7 @@ public class StatsController : MonoBehaviour
         {
             currentHealth = 0;
             Die();
+            OnDie?.Invoke();
         }
 
     }

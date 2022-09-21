@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
 
     private InputAction movement;
 
+    private PlayerInput playerInput;
+
 
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
         inputAsset = this.GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
         player.FindAction("Attack").performed += AttackInput;
         player.FindAction("Drop").performed += DropInput;
         player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("Jump").canceled += JumpInput;
         player.FindAction("AimUp").performed += AimUpInput;
         player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
         player.Enable();
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
         player.FindAction("Attack").performed -= AttackInput;
         player.FindAction("Drop").performed -= DropInput;
         player.FindAction("Jump").performed -= JumpInput;
+        player.FindAction("Jump").canceled -= JumpInput;
         player.FindAction("AimUp").performed -= AimUpInput;
         player.FindAction("AimUpRelease").performed -= AimUpReleaseInput;
         player.Disable();
@@ -61,8 +66,18 @@ public class PlayerController : MonoBehaviour
         model.DropWeapon();
     }
     private void JumpInput(InputAction.CallbackContext context)
-    {
-        model.JumpQueue();
+    { 
+        
+
+        if (context.canceled)
+        {
+            Debug.Log("me cancele");
+            model.CancelledJump();
+        }
+        else
+        {
+            model.JumpQueue();
+        }
     }
 
     private void AimUpInput(InputAction.CallbackContext context)
