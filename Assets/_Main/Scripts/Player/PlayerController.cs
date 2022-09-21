@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
 
     private InputAction movement;
 
+    private PlayerInput playerInput;
+
 
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
         inputAsset = this.GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
