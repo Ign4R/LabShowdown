@@ -117,6 +117,12 @@ public class PlayerModel : MonoBehaviour
 
     }
 
+    public void CancelledJump()
+    {
+        if (rb.velocity.y > 0)
+            rb.velocity = new Vector3(rb.velocity.x, 0f, 0f);
+    }
+
     public void JumpQueue()
     {
         inputBuffer.Enqueue("jump");
