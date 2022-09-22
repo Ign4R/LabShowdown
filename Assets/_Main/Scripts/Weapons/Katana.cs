@@ -8,6 +8,7 @@ public class Katana : MonoBehaviour, IWeapon
     public Transform Transform { get; set; }
 
     public Collider2D Collider2D { get; set; }
+    public SpriteRenderer SpriteRenderer { get; set; }
 
     float hitTimer; // Este timer es temporal, hay que quitarlo
 
@@ -16,6 +17,7 @@ public class Katana : MonoBehaviour, IWeapon
     {
         Collider2D = GetComponent<Collider2D>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()

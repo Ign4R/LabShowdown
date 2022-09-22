@@ -18,7 +18,7 @@ public class PlayerModel : MonoBehaviour
 
     [SerializeField] private Transform dropPosition;
 
-    private Queue<string> inputBuffer;
+    private Queue<string> inputBuffer = new Queue<string>();
 
     private Rigidbody2D rb;
 
@@ -50,12 +50,6 @@ public class PlayerModel : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
     }
-
-    void Start()
-    {
-        inputBuffer = new Queue<string>();
-    }
-
 
     public void Raycasts()
     {
@@ -157,6 +151,7 @@ public class PlayerModel : MonoBehaviour
             weapon.Collider2D.enabled = true;
             weapon.Rigidbody2D.isKinematic = false;
             weapon.Rigidbody2D.simulated = true;
+            weapon.SpriteRenderer.sortingOrder = 0;
             weapon = null;
 
         }
@@ -205,7 +200,7 @@ public class PlayerModel : MonoBehaviour
     {
         if(collision.gameObject.layer == 8)
         { 
-            weapon = collision.GetComponent<IWeapon>();          
+            weapon = collision.GetComponent<IWeapon>();           
             GrabWeapon();     
         }
 
@@ -221,10 +216,12 @@ public class PlayerModel : MonoBehaviour
 
     private void GrabWeapon()
     {
+      
         weapon.Transform.position = hand.position;
         weapon.Transform.rotation = hand.rotation;
         weapon.Transform.SetParent(hand);
         weapon.Collider2D.enabled = false;
+        weapon.SpriteRenderer.sortingOrder = 2;
         weapon.Rigidbody2D.isKinematic = true;
         weapon.Rigidbody2D.simulated = false;
         weapon.Rigidbody2D.velocity = Vector3.zero;
