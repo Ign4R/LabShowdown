@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerConfigManager : MonoBehaviour
 {
@@ -27,8 +29,35 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void SetPlayerSkin(int index, Sprite skin)
     {
-
+        playerConfigs[index].PlayerSkin = skin;
     }
+
+    public void ReadyPlayer(int index)
+    {
+        playerConfigs[index].IsReady = true;
+        if (playerConfigs.Count == maxPlayers && playerConfigs.All(p => p.IsReady == true))
+        {
+            //modificar para randon minijuego
+            SceneManager.LoadScene(1);
+        }
+    }
+
+    public void HandlePlayerJoin(PlayerInput playerInput)
+    {
+        Debug.Log("se unio player" + playerInput.playerIndex);
+        
+        if(!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
+        {
+            playerInput.transform.SetParent(transform);
+            playerConfigs.Add(new PlayerConfiguration(playerInput));
+        }
+    }
+
+    public List<PlayerConfiguration> GetPlayerConfigurations()
+    {
+        return playerConfigs;
+    }
+
 }
 
 public class PlayerConfiguration
