@@ -231,8 +231,6 @@ GameObject:
   - component: {fileID: -6450994257713340987}
   - component: {fileID: 8945418367330153187}
   - component: {fileID: 4054237934200011364}
-  - component: {fileID: 8670192049036057219}
-  - component: {fileID: -548087414516601913}
   - component: {fileID: 8945418367330153185}
   - component: {fileID: 8945418367330153184}
   - component: {fileID: 8945418367330153212}
@@ -300,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9c39bf4c0a77748b39493416e8f93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skin: {fileID: 8945418367330153185}
 --- !u!114 &4054237934200011364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,113 +312,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: 1d1c12a92fd0b0942b94384559338fdf, type: 2}
---- !u!114 &8670192049036057219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8945418367330153191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861ede8939cf5074894761597d590f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skin: {fileID: 8945418367330153185}
---- !u!114 &-548087414516601913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8945418367330153191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 2d60f94e511ef3d479c5d3d6f8b53538, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8945418367330153187}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveInputRead
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ab5dacfb-1b42-4415-8768-52a5e1862702
-    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/dpad,/XInputControllerWindows/leftStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8945418367330153187}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: JumpInputRead
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9741a549-871a-4585-9a6c-9ae9c0b2a88e
-    m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8945418367330153187}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: AimUpInputRead
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 449e55d5-88af-4608-a38f-e3f21d8e524d
-    m_ActionName: Player/AimUp[/Keyboard/w,/XInputControllerWindows/dpad/up,/XInputControllerWindows/leftStick/up]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8945418367330153187}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: AttackInputRead
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 4c65c379-763d-4850-9cb3-9f31ae0a282c
-    m_ActionName: Player/Attack[/Keyboard/f,/XInputControllerWindows/buttonWest]
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!212 &8945418367330153185
 SpriteRenderer:
   m_ObjectHideFlags: 0

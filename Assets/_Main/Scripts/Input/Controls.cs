@@ -179,6 +179,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""ca153491-3509-4b05-ad89-57d2f4d58f7e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": """",
                     ""id"": ""c075b318-c9c3-4a27-a33d-49fb373f281c"",
                     ""path"": ""<Keyboard>/w"",
@@ -364,6 +375,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""UiMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""3d97d2a6-1371-4503-b765-bf32b92a936d"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UiMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
                 }
             ]
         }

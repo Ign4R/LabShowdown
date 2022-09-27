@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer skin;
+    private PlayerConfiguration playerConfig;
 
     private PlayerModel model;
 
@@ -16,14 +18,26 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput playerInput;
 
-
-    private void Awake()
+    public void InitializePlayer(PlayerConfiguration pc)
     {
-        playerInput = GetComponent<PlayerInput>();
-        inputAsset = this.GetComponent<PlayerInput>().actions;
+        playerConfig = pc;
+        skin.sprite = pc.PlayerSkin;
+        playerInput = playerConfig.Input;
+        inputAsset =playerConfig.Input.actions;
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
+        movement = player.FindAction("Movement");
+        player.FindAction("Attack").performed += AttackInput;
+        player.FindAction("Drop").performed += DropInput;
+        player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("Jump").canceled += JumpInput;
+        player.FindAction("AimUp").performed += AimUpInput;
+        player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
+        player.Enable();
+
     }
+
+  
 
     void Update()
     {
@@ -33,17 +47,6 @@ public class PlayerController : MonoBehaviour
         model.Raycasts();
     }
 
-    private void OnEnable()
-    {
-        movement = player.FindAction("Movement");
-        player.FindAction("Attack").performed += AttackInput;
-        player.FindAction("Drop").performed += DropInput;
-        player.FindAction("Jump").performed += JumpInput;
-        player.FindAction("Jump").canceled += JumpInput;
-        player.FindAction("AimUp").performed += AimUpInput;
-        player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
-        player.Enable();
-    }
 
     private void OnDisable()
     {
@@ -56,7 +59,6 @@ public class PlayerController : MonoBehaviour
         player.Disable();
     }
  
-
     private void AttackInput(InputAction.CallbackContext context)
     {
         model.Attack();
