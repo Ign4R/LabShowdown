@@ -6,7 +6,7 @@ using UnityEngine;
 public class DeathMatch : MonoBehaviour
 {
 
-    private int playerQuantity;
+    private int playerQuantity = 2;
 
 
     private void Awake()

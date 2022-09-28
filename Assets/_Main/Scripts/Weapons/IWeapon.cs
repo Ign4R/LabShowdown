@@ -9,5 +9,6 @@ public interface IWeapon
     Rigidbody2D Rigidbody2D { get; }
 
     SpriteRenderer SpriteRenderer { get; set; }
+
     void Attack();
 }

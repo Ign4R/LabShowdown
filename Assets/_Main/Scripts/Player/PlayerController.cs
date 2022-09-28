@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput playerInput;
 
+    public PlayerConfiguration PlayerConfig { get => playerConfig; }
+
     public void InitializePlayer(PlayerConfiguration pc)
     {
         playerConfig = pc;
