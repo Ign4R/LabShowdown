@@ -58,7 +58,7 @@ public class DeathMatch : MonoBehaviour
         }
         if(PlayerConfigManager.Instance.playersList.Count == 1)
         {
-            Debug.Log("gano el player" + PlayerConfigManager.Instance.playersList[0].PlayerIndex);
+            Debug.Log("gano el player" + (PlayerConfigManager.Instance.playersList[0].PlayerIndex + 1));
             
         }
 
