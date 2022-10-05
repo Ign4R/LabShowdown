@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerConfigManager : MonoBehaviour
 {
     private List<PlayerConfiguration> playerConfigs;
+    public List<PlayerConfiguration> playersList;
 
     [SerializeField] private int maxPlayers = 2;
 
@@ -24,6 +25,7 @@ public class PlayerConfigManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfiguration>();
+            playersList = new List<PlayerConfiguration>();
         }
     }
 
@@ -57,6 +59,8 @@ public class PlayerConfigManager : MonoBehaviour
     {
         return playerConfigs;
     }
+
+   
 
 }
 

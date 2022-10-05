@@ -21,9 +21,11 @@ public class StatsController : MonoBehaviour
 
     private PlayerController playerController;
 
-    public static event Action OnDie;
+    public static event Action<int> OnDie;
 
     public static event Action<int, int> OnLifeDecrese;
+
+    public static event Action<int> OnRespawn;
 
 
     public float Speed { get => speed; set => speed = value; }
@@ -44,17 +46,18 @@ public class StatsController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0 && lifes == 0)
+        if (currentHealth <= 0 && lifes == 1)
         {
             currentHealth = 0;
             Die();
-            OnDie?.Invoke();
+            OnDie?.Invoke(playerController.PlayerConfig.PlayerIndex);
         }
         if (currentHealth <= 0 && lifes > 0)
         {
             lifes--;
             OnLifeDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
             currentHealth = maxHealth;
+            OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);
         }
 
     }
