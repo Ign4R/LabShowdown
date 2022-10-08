@@ -2,16 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rifle : MonoBehaviour, IWeapon
+public class Gun : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject bullet;
 
     [SerializeField] private Transform positionBullet;
+
+    [SerializeField] private float cadence;
+
+    [SerializeField] private bool isFullAuto;
+
+    private float cadenceTimer;
+
+    public int ammunition { get; set; }
+
     public Transform Transform { get; set; }
 
     public Collider2D Collider2D { get; set; }
 
     public Rigidbody2D Rigidbody2D { get; set; }
+
     public SpriteRenderer SpriteRenderer { get; set; }
 
     private void Awake()
@@ -21,15 +31,28 @@ public class Rifle : MonoBehaviour, IWeapon
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Update()
+    {
+        if (cadenceTimer > 0)
+        {
+            cadenceTimer -= Time.deltaTime;
+        }
+    }
+
     private void Start()
     {
-        Transform = transform;        
+        Transform = transform;
     }
 
-    
     public void Attack()
     {
-        Instantiate(bullet, positionBullet.position, transform.rotation);
+        if (cadenceTimer <= 0 || isFullAuto == false)
+        {
+            Instantiate(bullet, positionBullet.position, transform.rotation);
+            if (isFullAuto == true)
+            {
+                cadenceTimer = 1 / cadence;
+            }
+        }
     }
-
 }

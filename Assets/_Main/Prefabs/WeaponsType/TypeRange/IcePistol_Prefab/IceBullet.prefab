@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4126480187518474783}
   - component: {fileID: -4983440229183765456}
   m_Layer: 0
-  m_Name: F_Bullet
+  m_Name: IceBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.31764707, b: 0.15566039, a: 1}
+  m_Color: {r: 0, g: 0.33333334, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  bulletType: 1
+  bulletType: 2
 --- !u!50 &-4983440229183765456
 Rigidbody2D:
   serializedVersion: 4

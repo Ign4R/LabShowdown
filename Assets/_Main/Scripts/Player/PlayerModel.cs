@@ -78,12 +78,10 @@ public class PlayerModel : MonoBehaviour
             ang.y = 0;
             transform.rotation = Quaternion.Euler(ang);
         }
-
     }
 
     public void Jump()
-    {
-        
+    {        
         if (floorRaycast == true)
         {
             if (inputBuffer.Count > 0)
@@ -108,7 +106,6 @@ public class PlayerModel : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void CancelledJump()
@@ -133,9 +130,9 @@ public class PlayerModel : MonoBehaviour
         arm.Rotate(0, 0, -90f, Space.Self);
     }
 
-    public void Attack()
+    public void Attack(float input)
     {
-        if (weapon != null)
+        if (weapon != null && input > 0)
         {
             weapon.Attack();
         }

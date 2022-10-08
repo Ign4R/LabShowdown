@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput playerInput;
 
+    private InputAction attack;
+
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         model.Movement(movement.ReadValue<Vector2>().x);
+        model.Attack(attack.ReadValue<float>());
         model.Jump();
         model.Timer();
         model.Raycasts();
@@ -36,7 +39,8 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         movement = player.FindAction("Movement");
-        player.FindAction("Attack").performed += AttackInput;
+        //player.FindAction("Attack").performed += AttackInput;
+        attack = player.FindAction("Attack");
         player.FindAction("Drop").performed += DropInput;
         player.FindAction("Jump").performed += JumpInput;
         player.FindAction("Jump").canceled += JumpInput;
@@ -47,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        player.FindAction("Attack").performed -= AttackInput;
+        //player.FindAction("Attack").performed -= AttackInput;
         player.FindAction("Drop").performed -= DropInput;
         player.FindAction("Jump").performed -= JumpInput;
         player.FindAction("Jump").canceled -= JumpInput;
@@ -56,11 +60,11 @@ public class PlayerController : MonoBehaviour
         player.Disable();
     }
  
-
+    /*
     private void AttackInput(InputAction.CallbackContext context)
     {
         model.Attack();
-    }
+    }*/
     private void DropInput(InputAction.CallbackContext context)
     {
         model.DropWeapon();
