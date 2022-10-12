@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IWeapon 
+public interface IWeapon
 {
     Transform Transform { get; set; }
+
     Collider2D Collider2D { get; }
+
     Rigidbody2D Rigidbody2D { get; }
 
     SpriteRenderer SpriteRenderer { get; set; }
+
+    int ammunition { get; set; }
 
     void Attack();
 }

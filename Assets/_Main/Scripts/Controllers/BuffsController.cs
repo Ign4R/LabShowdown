@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BuffsController : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class BuffsController : MonoBehaviour
         }
         else if(frozeenLevel > 0) //Chequear si es optimo
         {
-            statsController.SetSpeedPercentage(100 + frozeenLevel*10);
+            statsController.SetSpeedPercentage((1/(MathF.Pow(0.9f, frozeenLevel)))/0.01f);
             frozeenLevel = 0;
         }
 

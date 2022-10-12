@@ -5,9 +5,13 @@ using UnityEngine;
 public class Katana : MonoBehaviour, IWeapon
 {
     public Rigidbody2D Rigidbody2D { get; set; }
+
     public Transform Transform { get; set; }
 
+    public int ammunition { get; set; }
+
     public Collider2D Collider2D { get; set; }
+
     public SpriteRenderer SpriteRenderer { get; set; }
 
     float hitTimer; // Este timer es temporal, hay que quitarlo

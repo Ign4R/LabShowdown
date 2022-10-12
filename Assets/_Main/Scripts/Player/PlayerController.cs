@@ -18,7 +18,12 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput playerInput;
 
+
     public PlayerConfiguration PlayerConfig { get => playerConfig; }
+
+    private InputAction attack;
+
+
 
     public void InitializePlayer(PlayerConfiguration pc)
     {
@@ -29,7 +34,7 @@ public class PlayerController : MonoBehaviour
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
         movement = player.FindAction("Movement");
-        player.FindAction("Attack").performed += AttackInput;
+        //player.FindAction("Attack").performed += AttackInput;
         player.FindAction("Drop").performed += DropInput;
         player.FindAction("Jump").performed += JumpInput;
         player.FindAction("Jump").canceled += JumpInput;
@@ -44,15 +49,30 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         model.Movement(movement.ReadValue<Vector2>().x);
+        model.Attack(attack.ReadValue<float>());
         model.Jump();
         model.Timer();
         model.Raycasts();
     }
 
 
+    private void OnEnable()
+    {
+        movement = player.FindAction("Movement");
+        //player.FindAction("Attack").performed += AttackInput;
+        attack = player.FindAction("Attack");
+        player.FindAction("Drop").performed += DropInput;
+        player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("Jump").canceled += JumpInput;
+        player.FindAction("AimUp").performed += AimUpInput;
+        player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
+        player.Enable();
+    }
+
+
     private void OnDisable()
     {
-        player.FindAction("Attack").performed -= AttackInput;
+        //player.FindAction("Attack").performed -= AttackInput;
         player.FindAction("Drop").performed -= DropInput;
         player.FindAction("Jump").performed -= JumpInput;
         player.FindAction("Jump").canceled -= JumpInput;
@@ -61,10 +81,11 @@ public class PlayerController : MonoBehaviour
         player.Disable();
     }
  
-    private void AttackInput(InputAction.CallbackContext context)
-    {
-        model.Attack();
-    }
+
+    //private void AttackInput(InputAction.CallbackContext context)
+    //{
+    //    model.Attack();
+    //}
     private void DropInput(InputAction.CallbackContext context)
     {
         model.DropWeapon();

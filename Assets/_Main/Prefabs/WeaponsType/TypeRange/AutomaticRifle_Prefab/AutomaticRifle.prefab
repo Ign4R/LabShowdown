@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 1462224086029154735}
   - component: {fileID: 10042051}
   m_Layer: 8
-  m_Name: AK
+  m_Name: AutomaticRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

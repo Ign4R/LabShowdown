@@ -69,7 +69,7 @@ public class StatsController : MonoBehaviour
 
     public float SetSpeedPercentage(float percentage)
     {
-        speed = speed * (percentage * 0.1f);
+        speed = speed * (percentage * 0.01f);
         return Speed;
     }
 
