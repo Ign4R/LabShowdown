@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6494263223995550574}
   - component: {fileID: -4126480187518474783}
   - component: {fileID: -4983440229183765456}
+  - component: {fileID: -4204067738452583269}
   m_Layer: 0
   m_Name: FiredBullet
   m_TagString: Untagged
@@ -100,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   bulletType: 1
+  damage: 0
+  lifeTime: 20
 --- !u!50 &-4983440229183765456
 Rigidbody2D:
   serializedVersion: 4
@@ -121,3 +124,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &-4204067738452583269
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739967693825095692}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

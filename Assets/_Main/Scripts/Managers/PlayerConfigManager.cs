@@ -46,7 +46,7 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput playerInput)
     {
-        Debug.Log("se unio player" + playerInput.playerIndex);
+        Debug.Log("se unio player " + playerInput.playerIndex + 1);
         
         if(!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
         {

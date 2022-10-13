@@ -7,14 +7,11 @@ public class Gun : MonoBehaviour, IWeapon
     [SerializeField] private GameObject bullet;
 
     [SerializeField] private Transform positionBullet;
+    [SerializeField] private int ammo;
 
     [SerializeField] private float cadence;
 
-    [SerializeField] private bool isFullAuto;
-
     private float cadenceTimer;
-
-    public int ammunition { get; set; }
 
     public Transform Transform { get; set; }
 
@@ -23,6 +20,7 @@ public class Gun : MonoBehaviour, IWeapon
     public Rigidbody2D Rigidbody2D { get; set; }
 
     public SpriteRenderer SpriteRenderer { get; set; }
+    public int Ammo { get => this.ammo; private set => ammo = value; }
 
     private void Awake()
     {
@@ -46,13 +44,17 @@ public class Gun : MonoBehaviour, IWeapon
 
     public void Attack()
     {
-        if (cadenceTimer <= 0 || isFullAuto == false)
+        if (cadenceTimer <= 0)
         {
             Instantiate(bullet, positionBullet.position, transform.rotation);
-            if (isFullAuto == true)
-            {
-                cadenceTimer = 1 / cadence;
-            }
+            ammo--;
+            cadenceTimer = 1 / cadence;
+
         }
+    }
+
+    public void DestroyWeapon()
+    {
+        Destroy(gameObject);
     }
 }

@@ -8,7 +8,7 @@ public class Katana : MonoBehaviour, IWeapon
 
     public Transform Transform { get; set; }
 
-    public int ammunition { get; set; }
+    public int Ammo { get; set; }
 
     public Collider2D Collider2D { get; set; }
 
@@ -41,5 +41,10 @@ public class Katana : MonoBehaviour, IWeapon
             GetComponent<Collider2D>().enabled = true;
             hitTimer = hitTimerSet;
         }
+    }
+
+    public void DestroyWeapon()
+    {
+        throw new System.NotImplementedException();
     }
 }

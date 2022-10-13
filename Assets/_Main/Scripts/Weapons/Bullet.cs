@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
         collision.GetComponent<StatsController>()?.TakeDamage(damage);
 
-        if (collision != null) 
+        if (collision != null && collision.gameObject.layer ==9) 
         {
           
             Destroy(gameObject);
@@ -43,10 +43,10 @@ public class Bullet : MonoBehaviour
         switch (bulletType)
         {
             case 1:
-                collision.GetComponent<BuffsController>().Ignite();
+                collision.GetComponent<BuffsController>()?.Ignite();
                 break;
             case 2:
-                collision.GetComponent<BuffsController>().Frozeen();
+                collision.GetComponent<BuffsController>()?.Frozeen();
                 break;
         }
 

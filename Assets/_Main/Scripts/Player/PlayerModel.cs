@@ -107,7 +107,10 @@ public class PlayerModel : MonoBehaviour
             }
         }
     }
-
+    private void Update()
+    {
+        
+    }
     public void CancelledJump()
     {
         if (rb.velocity.y > 0)
@@ -135,14 +138,21 @@ public class PlayerModel : MonoBehaviour
         if (weapon != null && input > 0)
         {
             weapon.Attack();
+            if (weapon.Ammo <= 0)
+            {
+                gameObject.layer = 7;
+                weapon.DestroyWeapon();
+                weapon = null;
+            }
         }
-       
+        
+
     }
     public void DropWeapon()
     {
         if (weapon != null)
         {
-            gameObject.layer = 7; //vuelve a tener la layer "player" 
+            gameObject.layer = 7; //TODO: layer 8 es "player" 
             weapon.Transform.SetParent(null);
             weapon.Transform.position = dropPosition.transform.position;
             weapon.Collider2D.enabled = true;
@@ -191,16 +201,23 @@ public class PlayerModel : MonoBehaviour
 
     }
 
-   
-
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 8)
-        { 
-            weapon = collision.GetComponent<IWeapon>();           
-            GrabWeapon();     
+        
+        if (weapon == null && collision.gameObject.layer == 8)
+        {         
+            weapon = collision.GetComponent<IWeapon>();
+            GrabWeapon();
+        }      
+
+        if(weapon != null && collision.gameObject.layer == 8)
+        {
+            print("chau");
+            gameObject.layer = default; //TODO: reemplazar esto por una logica
+                                        //con los mesh collision
         }
 
+       
     }
 
     private void OnDrawGizmos()
@@ -222,8 +239,6 @@ public class PlayerModel : MonoBehaviour
         weapon.Rigidbody2D.isKinematic = true;
         weapon.Rigidbody2D.simulated = false;
         weapon.Rigidbody2D.velocity = Vector3.zero;
-        gameObject.layer = default; // setiamos la layer en default para que traspase las armas
-                                    // y no choque contra ellas si hay problemas con esto agregar otra layer
 
     }
 

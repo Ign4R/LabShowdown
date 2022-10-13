@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
         inputAsset =playerConfig.Input.actions;
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
+        attack = player.FindAction("Attack");
         movement = player.FindAction("Movement");
         //player.FindAction("Attack").performed += AttackInput;
         player.FindAction("Drop").performed += DropInput;
@@ -55,21 +56,6 @@ public class PlayerController : MonoBehaviour
         model.Raycasts();
     }
 
-
-    private void OnEnable()
-    {
-        movement = player.FindAction("Movement");
-        //player.FindAction("Attack").performed += AttackInput;
-        attack = player.FindAction("Attack");
-        player.FindAction("Drop").performed += DropInput;
-        player.FindAction("Jump").performed += JumpInput;
-        player.FindAction("Jump").canceled += JumpInput;
-        player.FindAction("AimUp").performed += AimUpInput;
-        player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
-        player.Enable();
-    }
-
-
     private void OnDisable()
     {
         //player.FindAction("Attack").performed -= AttackInput;
@@ -91,12 +77,10 @@ public class PlayerController : MonoBehaviour
         model.DropWeapon();
     }
     private void JumpInput(InputAction.CallbackContext context)
-    { 
-        
-
+    {
         if (context.canceled)
         {
-            Debug.Log("me cancele");
+          
             model.CancelledJump();
         }
         else
