@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  speed: 5
-  jumpHeight: 8
+  speed: 7
+  jumpHeight: 12
