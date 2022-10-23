@@ -61,21 +61,19 @@ public class PlayerModel : MonoBehaviour
     public void Movement(float x)
     {
         rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
-        if (sideLeftRaycast)
+        if (sideLeftRaycast || sideRightRaycast)
         {        
             rb.velocity = new Vector3(x * statsController.Speed, speedY, 0f);
         }
-        //else if (sideRightRaycast)
-        //{
-        //    rb.velocity = new Vector3(-Mathf.Abs(temp), -2, 0f);
-        //}
 
         if (x < 0)
         {
-            spriteRender.flipX = true;         
+            spriteRender.flipX = true;
+            arm.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         if (x > 0)
         {
+            arm.transform.rotation = Quaternion.Euler(0, 0, 0);
             spriteRender.flipX = false;           
         }
     }
