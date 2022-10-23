@@ -1113,7 +1113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831101126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.12, y: -35.7, z: 0}
+  m_LocalPosition: {x: -4, y: -34.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1834,7 +1834,7 @@ MonoBehaviour:
   playersLives:
   - {fileID: 456229971}
   - {fileID: 558387739}
-  playersLivesQuantity: 3
+  playersLivesQuantity: 234
   weapons:
   - {fileID: 709072603049720823, guid: 20ec26a3ef7b10f48a6dae05ef3cfe87, type: 3}
   - {fileID: 4762362544766882657, guid: 9ca5f919d4fd5d947a34a6aeed994296, type: 3}

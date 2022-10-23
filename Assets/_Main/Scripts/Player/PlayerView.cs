@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -8,17 +6,6 @@ public class PlayerView : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();   
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        StatsController.OnDamage += TakeDamageAnim;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     public void TakeDamageAnim()
     {

@@ -9,25 +9,21 @@ using UnityEngine.UI;
 
 public class PlayerConfigManager : MonoBehaviour
 {
+    [Header("MIN PLAYERS TO READY GAME")]
+    [SerializeField] private int countPlayers;
+
     [SerializeField] private TextMeshProUGUI info;
-    [SerializeField] private Button decreaseButton;
-    [SerializeField] private Button increaseButton;
+    //[SerializeField] private Button decreaseButton;
+    //[SerializeField] private Button increaseButton;
     private List<PlayerConfiguration> playerConfigs;
     public List<PlayerConfiguration> playersList;
-
     [SerializeField] private GameObject playerInputPrefab;
-    [SerializeField] private int maxPlayers = 2;
-    [SerializeField] private TextMeshProUGUI maxPlayersText;
-    private bool canCreateSecondKeyboard=false;
+    [SerializeField] private TextMeshProUGUI minPlayersText;
+    private bool canCreateSecondKeyboard = false;
     private Controls controlsInput;
     public static PlayerConfigManager Instance { get; private set; }
 
-    private void Start()
-    {
-       
-        //maxPlayers = int.Parse(maxPlayersText.text);
-    }
-
+   
     private void Awake()
     {
         controlsInput = new Controls();
@@ -42,7 +38,21 @@ public class PlayerConfigManager : MonoBehaviour
             playersList = new List<PlayerConfiguration>();
         }
     }
+    private void Start()
+    {
+        minPlayersText.text = "NO READY";
+    }
 
+    private void OnEnable()
+    {
+        controlsInput.Enable();
+    }
+
+    private void Update()
+    {
+        print(countPlayers + "gasdasd");
+        if (canCreateSecondKeyboard) CreateSecondKeyboard();
+    }
     public void SetPlayerSkin(int index, Sprite skin)
     {
         playerConfigs[index].PlayerSkin = skin;
@@ -50,36 +60,28 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void ReadyPlayer(int index)
     {
-        decreaseButton.interactable = false;
-        increaseButton.interactable = false;
+       
         playerConfigs[index].IsReady = true;
-        if (playerConfigs.Count == maxPlayers && playerConfigs.All(p => p.IsReady == true))
+        if (playerConfigs.Count == countPlayers && playerConfigs.All(p => p.IsReady == true))
         {
             DontDestroyOnLoad(Instance);
             SceneManager.LoadScene(1);
         }
     }
-    private void OnEnable()
-    {
-        controlsInput.Enable();
-    }
-    private void OnDisable()
-    {
-        controlsInput.Disable();
-    }
-    private void Update()
-    {
-      
-        print(controlsInput);
-        if (canCreateSecondKeyboard) CreateSecondKeyboard();
-        print(maxPlayers);
-    }
+
     public void HandlePlayerJoin(PlayerInput playerInput)
     {
-      
         Debug.Log("se unio player " + playerInput.playerIndex + 1);
-        
-        if(!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
+        if (playerInput.playerIndex + 1 > 1) //Chequea que el minimo de players sea el index de players cuando sea mayor a 1
+        {
+            countPlayers = playerInput.playerIndex + 1;
+            minPlayersText.text = "READY MIN";
+            if(countPlayers > 3)
+            {
+                minPlayersText.text = "READY MAX";
+            }
+        }
+        if (!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
         {
             playerInput.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(playerInput));
@@ -87,8 +89,9 @@ public class PlayerConfigManager : MonoBehaviour
         }
         if (playerInput.currentControlScheme == "Keyboard")
         {
-            info.text = "Press Enter 2doKeyboard";
             canCreateSecondKeyboard = true;
+            info.text = "Press Enter 2doKeyboard";
+
         }
     }
 
@@ -97,12 +100,10 @@ public class PlayerConfigManager : MonoBehaviour
         return playerConfigs;
     }
     public void CreateSecondKeyboard()
-    {
-       
+    {      
         bool temp = controlsInput.Player.AnyKey.ReadValue<float>() > 0.1f;
         if (temp) //TECLA PARA INSTANCIA EL SEGUNDO PLAYER KEYBOARD
         {
-          
             var prefabConfig = Instantiate(playerInputPrefab, transform);
             var playerInput = prefabConfig.GetComponent<PlayerInput>();
             playerInput.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
@@ -110,15 +111,12 @@ public class PlayerConfigManager : MonoBehaviour
             info.text = "Connect a Joystick";
         }
     }
-    public void SetPlayersMax(int num)
+    public void SetPlayersMax()
     {
-        var countPlayer = maxPlayers += num;
-        maxPlayersText.text = countPlayer.ToString();
+        var prefabConfig = Instantiate(playerInputPrefab, transform);
+        var playerInput = prefabConfig.GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
 
-        if (countPlayer == 1) decreaseButton.interactable = false;
-        else decreaseButton.interactable = true;
-        if (countPlayer == 4) increaseButton.interactable = false;
-        else increaseButton.interactable = true;      
     }
     public void RefreshMenu()
     {

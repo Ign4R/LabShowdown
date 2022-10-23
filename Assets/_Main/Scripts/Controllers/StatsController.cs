@@ -20,6 +20,7 @@ public class StatsController : MonoBehaviour
     private int lifes;
 
     private PlayerController playerController;
+    private PlayerView playerView;
 
     public static event Action<int> OnDie;
 
@@ -36,6 +37,7 @@ public class StatsController : MonoBehaviour
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
+        playerView = GetComponent<PlayerView>();
     }
 
     private void Start()
@@ -48,7 +50,7 @@ public class StatsController : MonoBehaviour
     public void TakeDamage(float damage)
     {     
         currentHealth -= damage;
-        OnDamage?.Invoke();
+        playerView.TakeDamageAnim();
         if (currentHealth <= 0 && lifes == 1)
         {
             currentHealth = 0;

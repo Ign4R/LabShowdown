@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1429389540
+--- !u!1 &2725839476630164534
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1429389541}
+  - component: {fileID: 8388233008624025446}
   m_Layer: 7
-  m_Name: RaycastSideUp
+  m_Name: RaycastSideMid (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1429389541
+--- !u!4 &8388233008624025446
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1429389540}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.88, y: 0.482, z: 0}
+  m_GameObject: {fileID: 2725839476630164534}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.38, y: 1.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -157,7 +157,7 @@ Transform:
   m_Father: {fileID: 8945418367330153186}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6805032303453651575
+--- !u!1 &8102271235387269287
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,28 +165,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6448290666952490606}
+  - component: {fileID: 1402315444186852960}
   m_Layer: 7
-  m_Name: RaycastSideBack
+  m_Name: RaycastSideMid
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6448290666952490606
+--- !u!4 &1402315444186852960
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6805032303453651575}
+  m_GameObject: {fileID: 8102271235387269287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.71, y: 0.09885788, z: -0.0036473782}
+  m_LocalPosition: {x: -2.3, y: 1.7299999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8945418367330153186}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8400477548233195016
 GameObject:
@@ -217,7 +217,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8945418367330153186}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8945418367330153191
 GameObject:
@@ -258,9 +258,9 @@ Transform:
   m_Children:
   - {fileID: 1944823820486757569}
   - {fileID: 2404322152156539883}
+  - {fileID: 1402315444186852960}
+  - {fileID: 8388233008624025446}
   - {fileID: 8592621940190385027}
-  - {fileID: 1429389541}
-  - {fileID: 6448290666952490606}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,11 +284,12 @@ MonoBehaviour:
   hand: {fileID: 1507422022771536452}
   arm: {fileID: 2404322152156539883}
   dropPosition: {fileID: 1944823820486757569}
-  raycastHitDistance: 1.53
+  raycastHorizontalDistance: 3.8
   raycastFloorDistance: 0.9
   floorOffset: {fileID: 8592621940190385027}
-  hitOffsetUp: {fileID: 1429389541}
-  hitOffsetBack: {fileID: 6448290666952490606}
+  hitOffsetLeft: {fileID: 1402315444186852960}
+  hitOffsetRight: {fileID: 8388233008624025446}
+  speedY: -25
 --- !u!114 &8945418367330153187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,7 +377,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -64911083, guid: 6fe1f66cc304f3f4984cabcb2df2ff36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.0531409, y: 1.1266665}
@@ -398,7 +399,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14478493, y: -0.30101418}
+  m_Offset: {x: 0.015158296, y: -0.30101418}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -409,7 +410,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.759303, y: 3.9120126}
+  m_Size: {x: 4.292449, y: 3.9120126}
   m_EdgeRadius: 0
 --- !u!50 &8945418367330153212
 Rigidbody2D:

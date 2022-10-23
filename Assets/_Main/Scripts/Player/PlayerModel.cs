@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class PlayerModel : MonoBehaviour
 {
+
+    [SerializeField] private int speedY; //TODO: pasarlo a stats
+
     [SerializeField] private LayerMask floor;
 
     [SerializeField] private float coyoteTimeSet;
@@ -18,65 +20,63 @@ public class PlayerModel : MonoBehaviour
 
     [SerializeField] private Transform dropPosition;
 
-    private Queue<string> inputBuffer = new Queue<string>();
-
-    private Rigidbody2D rb;
-
-    private RaycastHit2D floorRaycast;
-    private RaycastHit2D sideUpRaycast;
-    private RaycastHit2D sideBackRaycast;
-    private bool canFalling;
-
-    [SerializeField] private float raycastHitDistance;
+    [SerializeField] private float raycastHorizontalDistance;
     [SerializeField] private float raycastFloorDistance;
 
-    private float coyoteTime;
+    [SerializeField] private Transform floorOffset;
+    [SerializeField] private Transform hitOffsetLeft;
+    [SerializeField] private Transform hitOffsetRight;
 
+
+    private Queue<string> inputBuffer = new Queue<string>();
+
+    private RaycastHit2D floorRaycast;
+    private RaycastHit2D sideLeftRaycast;
+    private RaycastHit2D sideRightRaycast;
+    private float coyoteTime;
     private bool alreadyJumped;
 
     private IWeapon weapon;
 
     private StatsController statsController;
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRender;
 
-    [SerializeField] private Transform floorOffset;
-    [SerializeField] private Transform hitOffsetUp;
-    [SerializeField] private Transform hitOffsetBack;
-    private Vector3 directionRaycast;
 
     private void Awake()
     {
 
         statsController = GetComponent<StatsController>();
-
+        spriteRender= GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     public void Raycasts()
     {
         floorRaycast = Physics2D.Raycast(floorOffset.position, Vector2.down, raycastFloorDistance, floor);
-        sideUpRaycast = Physics2D.Raycast(hitOffsetUp.position, Vector2.left, raycastHitDistance, floor);
-        sideBackRaycast = Physics2D.Raycast(hitOffsetBack.position, Vector2.left, raycastHitDistance, floor);
+        sideRightRaycast = Physics2D.Raycast(hitOffsetRight.position, Vector2.down, raycastHorizontalDistance , floor);
+        sideLeftRaycast = Physics2D.Raycast(hitOffsetLeft.position, Vector2.down, raycastHorizontalDistance , floor);
     }
 
     public void Movement(float x)
     {
-        if (!sideUpRaycast && !sideBackRaycast)
-            rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
+        rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
+        if (sideLeftRaycast)
+        {        
+            rb.velocity = new Vector3(x * statsController.Speed, speedY, 0f);
+        }
+        //else if (sideRightRaycast)
+        //{
+        //    rb.velocity = new Vector3(-Mathf.Abs(temp), -2, 0f);
+        //}
 
         if (x < 0)
         {
-            raycastHitDistance = 0.6f;
-            var ang = transform.rotation.eulerAngles;
-            ang.y = 180;
-            transform.rotation = Quaternion.Euler(ang);
+            spriteRender.flipX = true;         
         }
         if (x > 0)
         {
-            raycastHitDistance = -0.6f;
-            directionRaycast = Vector2.left;
-            var ang = transform.rotation.eulerAngles;
-            ang.y = 0;
-            transform.rotation = Quaternion.Euler(ang);
+            spriteRender.flipX = false;           
         }
     }
 
@@ -195,10 +195,7 @@ public class PlayerModel : MonoBehaviour
             alreadyJumped = false;
             coyoteTime = 0;
         }
-        else
-        {
-            canFalling = true;
-        }
+
 
     }
 
@@ -220,14 +217,6 @@ public class PlayerModel : MonoBehaviour
        
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(floorOffset.position, Vector2.down * raycastFloorDistance);
-        Gizmos.DrawRay(hitOffsetUp.position, Vector2.left * raycastHitDistance);
-        Gizmos.DrawRay(hitOffsetBack.position, Vector2.left * raycastHitDistance);
-    }
-
     private void GrabWeapon()
     {
       
@@ -240,6 +229,14 @@ public class PlayerModel : MonoBehaviour
         weapon.Rigidbody2D.simulated = false;
         weapon.Rigidbody2D.velocity = Vector3.zero;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(floorOffset.position, Vector2.down * raycastFloorDistance);
+        Gizmos.DrawRay(hitOffsetRight.position, Vector2.down * raycastHorizontalDistance);
+        Gizmos.DrawRay(hitOffsetLeft.position, Vector2.down * raycastHorizontalDistance);
     }
 
 

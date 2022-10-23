@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
@@ -18,15 +16,12 @@ public class DeathMatch : MonoBehaviour
     private float currentTimeSpawn;
     [SerializeField] private float timeToSpawn;
     private List<GameObject> players;
-    private int temp;
-
 
     void Start()
     {
         currentTimeSpawn = 0;
         InitializeLevel();
     }
-
 
     private void InitializeLevel()
     {
@@ -57,8 +52,6 @@ public class DeathMatch : MonoBehaviour
             currentTimeSpawn = timeToSpawn;
         }
 
-
-
     }
     private void OnRespawnHandler(int playerIndex)
     {
@@ -80,7 +73,6 @@ public class DeathMatch : MonoBehaviour
             SceneManager.LoadScene("Menu");
 
         }
-
     }
 
     public void Spawner()

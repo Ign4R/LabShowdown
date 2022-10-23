@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,7 +39,6 @@ public class PlayerController : MonoBehaviour
         model = GetComponent<PlayerModel>();
         attack = player.FindAction("Attack");
         movement = player.FindAction("Movement");
-        //player.FindAction("Attack").performed += AttackInput;
         player.FindAction("Drop").performed += DropInput;
         player.FindAction("Jump").performed += JumpInput;
         player.FindAction("Jump").canceled += JumpInput;
@@ -64,7 +61,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        //player.FindAction("Attack").performed -= AttackInput;
         player.FindAction("Drop").performed -= DropInput;
         player.FindAction("Jump").performed -= JumpInput;
         player.FindAction("Jump").canceled -= JumpInput;
