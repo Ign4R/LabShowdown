@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AnyKey",
+                    "type": "Button",
+                    "id": "d252309a-a103-4a6b-b150-f8411dfefd24",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -86,6 +95,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97956f9e-24ec-4e35-9707-5deac55dd9ef",
+                    "path": "<Keyboard>/numpad0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -146,6 +166,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "down",
+                    "id": "7b4d5742-d35d-42a1-a017-688e465dc743",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "5c37bdc7-47f2-41d4-a27b-153cdae028b8",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "47d93fc9-a657-4f3f-b3b6-74e70bde0899",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "c4a06be0-3646-4985-be97-2b11cc41fd41",
                     "path": "<Gamepad>/leftStick",
@@ -180,6 +233,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bb40869d-cbbe-4949-9133-f7ca764e02d9",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "AimUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c61ad886-1ede-43dd-93b1-6b3501233160",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
@@ -196,6 +260,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "052b6ead-0dde-47ed-aaca-8c8a61dd103b",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -224,6 +299,17 @@
                 },
                 {
                     "name": "",
+                    "id": "33337b04-d757-4482-bb2b-552b40e412a1",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "AimUpRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0c09cd6d-472b-4889-9fbc-e1f0e7b3cdc4",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
@@ -246,6 +332,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7f285282-aeb5-4e27-a688-32234d1f186e",
+                    "path": "<Keyboard>/numpad5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2dfe1cb2-b199-466b-8b3b-f3e3e2d19348",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -261,7 +358,7 @@
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Keyboard2",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -364,6 +461,72 @@
                     "action": "UiMovement",
                     "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD",
+                    "id": "649be1a2-6e27-43fc-8453-842cdc1d2a44",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "UiMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "down",
+                    "id": "cfb4c250-b693-46e0-aae6-3eac6f966c87",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "UiMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "81c70a51-e0aa-4e67-a68e-bce5cbb9a80c",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "UiMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "8d2d8aed-14c1-484d-a8c7-72a99c05b04e",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "UiMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "8e254e8d-7a1f-47b5-b474-13d2348b7eb6",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "UiMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "5c34a563-a904-4f0a-98ce-54d240e85533",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "AnyKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -386,6 +549,17 @@
             "devices": [
                 {
                     "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard2",
+            "bindingGroup": "Keyboard2",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
                     "isOptional": true,
                     "isOR": false
                 }

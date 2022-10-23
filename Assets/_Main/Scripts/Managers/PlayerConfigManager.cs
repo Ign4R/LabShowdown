@@ -9,14 +9,17 @@ using UnityEngine.UI;
 
 public class PlayerConfigManager : MonoBehaviour
 {
-    private bool doDestroyLoad;
+    [SerializeField] private TextMeshProUGUI info;
     [SerializeField] private Button decreaseButton;
     [SerializeField] private Button increaseButton;
     private List<PlayerConfiguration> playerConfigs;
     public List<PlayerConfiguration> playersList;
 
+    [SerializeField] private GameObject playerInputPrefab;
     [SerializeField] private int maxPlayers = 2;
     [SerializeField] private TextMeshProUGUI maxPlayersText;
+    private bool canCreateSecondKeyboard=false;
+    private Controls controlsInput;
     public static PlayerConfigManager Instance { get; private set; }
 
     private void Start()
@@ -27,7 +30,8 @@ public class PlayerConfigManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance!= null)
+        controlsInput = new Controls();
+        if (Instance!= null)
         {
             Debug.Log("Se trato de crear otra instancia de PlayerConfig");
         }
@@ -55,8 +59,19 @@ public class PlayerConfigManager : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
+    private void OnEnable()
+    {
+        controlsInput.Enable();
+    }
+    private void OnDisable()
+    {
+        controlsInput.Disable();
+    }
     private void Update()
     {
+      
+        print(controlsInput);
+        if (canCreateSecondKeyboard) CreateSecondKeyboard();
         print(maxPlayers);
     }
     public void HandlePlayerJoin(PlayerInput playerInput)
@@ -68,6 +83,12 @@ public class PlayerConfigManager : MonoBehaviour
         {
             playerInput.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(playerInput));
+
+        }
+        if (playerInput.currentControlScheme == "Keyboard")
+        {
+            info.text = "Press Enter 2doKeyboard";
+            canCreateSecondKeyboard = true;
         }
     }
 
@@ -75,7 +96,20 @@ public class PlayerConfigManager : MonoBehaviour
     {
         return playerConfigs;
     }
-
+    public void CreateSecondKeyboard()
+    {
+       
+        bool temp = controlsInput.Player.AnyKey.ReadValue<float>() > 0.1f;
+        if (temp) //TECLA PARA INSTANCIA EL SEGUNDO PLAYER KEYBOARD
+        {
+          
+            var prefabConfig = Instantiate(playerInputPrefab, transform);
+            var playerInput = prefabConfig.GetComponent<PlayerInput>();
+            playerInput.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
+            canCreateSecondKeyboard = false;
+            info.text = "Connect a Joystick";
+        }
+    }
     public void SetPlayersMax(int num)
     {
         var countPlayer = maxPlayers += num;

@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152981222}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -494, y: 144, z: 0}
+  m_LocalPosition: {x: -494, y: 235, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1461,7 +1461,7 @@ GameObject:
   - component: {fileID: 1786795574}
   - component: {fileID: 1786795573}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1484,8 +1484,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20.9141, y: -492}
-  m_SizeDelta: {x: 461.4039, y: 50}
+  m_AnchoredPosition: {x: 41, y: -454.5161}
+  m_SizeDelta: {x: 832.7756, y: 124.9678}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1786795573
 MonoBehaviour:
@@ -1540,8 +1540,8 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 3
-  m_HorizontalAlignment: 1
+  m_fontStyle: 7
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1920,6 +1920,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 517945506855946734, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
+      propertyPath: m_MaxPlayerCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 1786795573}
     - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
       propertyPath: decreaseButton
       value: 

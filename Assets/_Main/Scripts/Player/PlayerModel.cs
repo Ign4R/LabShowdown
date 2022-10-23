@@ -191,6 +191,7 @@ public class PlayerModel : MonoBehaviour
 
         if (collision.gameObject.layer == 6)
         {
+            
             alreadyJumped = false;
             coyoteTime = 0;
         }
