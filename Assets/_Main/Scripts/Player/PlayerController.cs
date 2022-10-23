@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         model.Movement(movement.ReadValue<Vector2>().x);
         model.Attack(attack.ReadValue<float>());
-        model.Jump();
+        model.Jump(movement.ReadValue<Vector2>().x);
         model.Timer();
         model.Raycasts();
     }

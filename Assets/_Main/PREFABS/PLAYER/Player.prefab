@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2725839476630164534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.38, y: 1.64, z: 0}
+  m_LocalPosition: {x: 2.38, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,7 +182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8102271235387269287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3, y: 1.61, z: 0}
+  m_LocalPosition: {x: -2.3, y: 1.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -213,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8400477548233195016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0127, y: -1.75, z: 0}
+  m_LocalPosition: {x: -0.1, y: -2.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedY: -10
+  speedYFalling: 20
   floor:
     serializedVersion: 2
     m_Bits: 64
@@ -286,7 +287,7 @@ MonoBehaviour:
   arm: {fileID: 2404322152156539883}
   dropPosition: {fileID: 1944823820486757569}
   raycastHorizontalDistance: 3.8
-  raycastFloorDistance: 0.9
+  raycastFloorDistance: 0.66
   floorOffset: {fileID: 8592621940190385027}
   hitOffsetLeft: {fileID: 1402315444186852960}
   hitOffsetRight: {fileID: 8388233008624025446}
@@ -377,7 +378,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -64911083, guid: 6fe1f66cc304f3f4984cabcb2df2ff36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.0531409, y: 1.1266665}

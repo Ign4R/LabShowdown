@@ -6,6 +6,7 @@ public class PlayerModel : MonoBehaviour
 {
 
     [SerializeField] private int speedY; //TODO: pasarlo a stats
+    [SerializeField] private int speedYFalling=21; //TODO: pasarlo a stats
 
     [SerializeField] private LayerMask floor;
 
@@ -60,9 +61,19 @@ public class PlayerModel : MonoBehaviour
 
     public void Movement(float x)
     {
-        rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
-        if (sideLeftRaycast || sideRightRaycast)
-        {        
+        if (!sideRightRaycast && !sideLeftRaycast)
+        {
+            rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
+        }
+       
+        if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
+        {
+            print(speedYFalling);
+            //rb.velocity = new Vector3(rb.velocity.x, -speedYFalling, 0f);
+            
+        }
+        if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
+        { 
             rb.velocity = new Vector3(x * statsController.Speed, speedY, 0f);
         }
 
@@ -78,18 +89,27 @@ public class PlayerModel : MonoBehaviour
         }
     }
 
-    public void Jump()
-    {        
-        if (floorRaycast == true)
+    public void Jump(float x)
+    {
+        if (floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast)
         {
             if (inputBuffer.Count > 0)
             {
                 if (inputBuffer.Peek() == "jump")
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
+                    if (!sideLeftRaycast && !sideRightRaycast)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
+                    }
+
                 }
+
             }
         }
         else if (inputBuffer.Count > 0)
@@ -98,21 +118,28 @@ public class PlayerModel : MonoBehaviour
             {
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
-                    alreadyJumped = true;
-                    rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
                     inputBuffer.Dequeue();
+                    alreadyJumped = true;
+                    if (!sideLeftRaycast && !sideRightRaycast)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
+                    }
                 }
             }
         }
     }
     private void Update()
     {
-        
+        print(speedYFalling);
     }
     public void CancelledJump()
     {
-        if (rb.velocity.y > 0)
-            rb.velocity = new Vector3(rb.velocity.x, 0f, 0f);
+        if (rb.velocity.y > 0 /*&& !sideLeftRaycast && !sideRightRaycast*/)
+            rb.velocity = new Vector3(rb.velocity.x, speedY, 0f);
     }
 
     public void JumpQueue()
