@@ -14,7 +14,7 @@ public class DeathMatch : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] playersLives;
     [SerializeField] private int playersLivesQuantity;
     [SerializeField] private GameObject[]  weapons;
-    [SerializeField] private GameObject[]  weaponsPositions;
+    [SerializeField] private GameObject[]  pointsSpawns;
     private float currentTimeSpawn;
     [SerializeField] private float timeToSpawn;
     private List<GameObject> players;
@@ -56,8 +56,8 @@ public class DeathMatch : MonoBehaviour
             Spawner();
             currentTimeSpawn = timeToSpawn;
         }
-       
-       
+
+
 
     }
     private void OnRespawnHandler(int playerIndex)
@@ -85,13 +85,7 @@ public class DeathMatch : MonoBehaviour
 
     public void Spawner()
     {
-        temp++;
-        if (temp <= 5) 
-        {
-            Instantiate(weapons[Random.Range(1, 3)], weaponsPositions[Random.Range(1, 5)].transform.position, Quaternion.identity);
-        }
-        
-
+        Instantiate(weapons[Random.Range(0, 4)], pointsSpawns[Random.Range(0, 4)].transform.position, Quaternion.Euler(0,0,90));
     }
 
 

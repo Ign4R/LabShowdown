@@ -17,4 +17,6 @@ public class UIManager : MonoBehaviour
     {
         playersLives[player].text = lives.ToString();
     }
+
+
 }

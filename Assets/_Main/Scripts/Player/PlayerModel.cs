@@ -138,7 +138,7 @@ public class PlayerModel : MonoBehaviour
         if (weapon != null && input > 0)
         {
             weapon.Attack();
-            if (weapon.Ammo <= 0)
+            if (weapon.Ammo <= 0 && weapon.CanLifeTime)
             {
                 gameObject.layer = 7;
                 weapon.DestroyWeapon();
@@ -212,7 +212,6 @@ public class PlayerModel : MonoBehaviour
 
         if(weapon != null && collision.gameObject.layer == 8)
         {
-            print("chau");
             gameObject.layer = default; //TODO: reemplazar esto por una logica
                                         //con los mesh collision
         }
@@ -222,7 +221,7 @@ public class PlayerModel : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.red;
         Gizmos.DrawRay(floorOffset.position, Vector2.down * raycastFloorDistance);
         Gizmos.DrawRay(hitOffsetUp.position, Vector2.left * raycastHitDistance);
         Gizmos.DrawRay(hitOffsetBack.position, Vector2.left * raycastHitDistance);

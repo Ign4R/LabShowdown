@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerConfigManager : MonoBehaviour
 {
+    private bool doDestroyLoad;
+    [SerializeField] private Button decreaseButton;
+    [SerializeField] private Button increaseButton;
     private List<PlayerConfiguration> playerConfigs;
     public List<PlayerConfiguration> playersList;
 
     [SerializeField] private int maxPlayers = 2;
-
+    [SerializeField] private TextMeshProUGUI maxPlayersText;
     public static PlayerConfigManager Instance { get; private set; }
+
+    private void Start()
+    {
+       
+        //maxPlayers = int.Parse(maxPlayersText.text);
+    }
 
     private void Awake()
     {
@@ -20,10 +31,9 @@ public class PlayerConfigManager : MonoBehaviour
         {
             Debug.Log("Se trato de crear otra instancia de PlayerConfig");
         }
-        else
+        else 
         {
-            Instance = this;
-            DontDestroyOnLoad(Instance);
+            Instance = this;           
             playerConfigs = new List<PlayerConfiguration>();
             playersList = new List<PlayerConfiguration>();
         }
@@ -36,16 +46,22 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void ReadyPlayer(int index)
     {
+        decreaseButton.interactable = false;
+        increaseButton.interactable = false;
         playerConfigs[index].IsReady = true;
         if (playerConfigs.Count == maxPlayers && playerConfigs.All(p => p.IsReady == true))
         {
-            //modificar para randon minijuego
+            DontDestroyOnLoad(Instance);
             SceneManager.LoadScene(1);
         }
     }
-
+    private void Update()
+    {
+        print(maxPlayers);
+    }
     public void HandlePlayerJoin(PlayerInput playerInput)
     {
+      
         Debug.Log("se unio player " + playerInput.playerIndex + 1);
         
         if(!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
@@ -60,8 +76,21 @@ public class PlayerConfigManager : MonoBehaviour
         return playerConfigs;
     }
 
-   
+    public void SetPlayersMax(int num)
+    {
+        var countPlayer = maxPlayers += num;
+        maxPlayersText.text = countPlayer.ToString();
 
+        if (countPlayer == 1) decreaseButton.interactable = false;
+        else decreaseButton.interactable = true;
+        if (countPlayer == 4) increaseButton.interactable = false;
+        else increaseButton.interactable = true;      
+    }
+    public void RefreshMenu()
+    {
+       
+        SceneManager.LoadScene(0);
+    }
 }
 
 public class PlayerConfiguration

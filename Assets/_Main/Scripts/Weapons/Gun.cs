@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour, IWeapon
 
     [SerializeField] private Transform positionBullet;
     [SerializeField] private int ammo;
+    [SerializeField] private bool canLifeTime;
 
     [SerializeField] private float cadence;
 
@@ -20,7 +21,9 @@ public class Gun : MonoBehaviour, IWeapon
     public Rigidbody2D Rigidbody2D { get; set; }
 
     public SpriteRenderer SpriteRenderer { get; set; }
-    public int Ammo { get => this.ammo; private set => ammo = value; }
+    public int Ammo { get => ammo; private set => ammo = value; }
+
+    public bool CanLifeTime { get => canLifeTime; private set => canLifeTime = value; }
 
     private void Awake()
     {
@@ -39,6 +42,7 @@ public class Gun : MonoBehaviour, IWeapon
 
     private void Start()
     {
+        canLifeTime = true;
         Transform = transform;
     }
 

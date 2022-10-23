@@ -5,25 +5,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("ENABLE ONLY TO TEST")]
+    [SerializeField] private bool canTest;
     [SerializeField] private SpriteRenderer skin;
+
     private PlayerConfiguration playerConfig;
 
     private PlayerModel model;
 
-    private InputActionAsset inputAsset;
+    [SerializeField] private InputActionAsset inputAsset;
 
-    private InputActionMap player;
+    [SerializeField] private InputActionMap player;
 
-    private InputAction movement;
+    [SerializeField] private InputAction movement;
 
-    private PlayerInput playerInput;
+   [SerializeField] private PlayerInput playerInput;
 
 
     public PlayerConfiguration PlayerConfig { get => playerConfig; }
 
     private InputAction attack;
 
-
+    private void Start()
+    {
+        if(canTest) Test();
+    }
 
     public void InitializePlayer(PlayerConfiguration pc)
     {
@@ -68,10 +74,23 @@ public class PlayerController : MonoBehaviour
     }
  
 
-    //private void AttackInput(InputAction.CallbackContext context)
-    //{
-    //    model.Attack();
-    //}
+    public void Test()
+    {
+        playerConfig = new PlayerConfiguration(playerInput);
+        model = GetComponent<PlayerModel>();
+        playerInput = playerConfig.Input;
+        inputAsset = playerConfig.Input.actions;
+        player = inputAsset.FindActionMap("Player");
+        model = GetComponent<PlayerModel>();
+        attack = player.FindAction("Attack");
+        movement = player.FindAction("Movement");
+        player.FindAction("Drop").performed += DropInput;
+        player.FindAction("Jump").performed += JumpInput;
+        player.FindAction("Jump").canceled += JumpInput;
+        player.FindAction("AimUp").performed += AimUpInput;
+        player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
+        player.Enable();
+    }
     private void DropInput(InputAction.CallbackContext context)
     {
         model.DropWeapon();

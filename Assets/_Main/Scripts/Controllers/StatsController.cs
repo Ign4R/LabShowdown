@@ -27,6 +27,8 @@ public class StatsController : MonoBehaviour
 
     public static event Action<int> OnRespawn;
 
+    public static event Action OnDamage;
+
 
     public float Speed { get => speed; set => speed = value; }
     public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
@@ -44,8 +46,9 @@ public class StatsController : MonoBehaviour
         jumpHeight = playerStats.JumpHeight;
     }
     public void TakeDamage(float damage)
-    {
+    {     
         currentHealth -= damage;
+        OnDamage?.Invoke();
         if (currentHealth <= 0 && lifes == 1)
         {
             currentHealth = 0;

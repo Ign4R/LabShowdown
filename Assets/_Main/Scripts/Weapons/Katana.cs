@@ -14,6 +14,8 @@ public class Katana : MonoBehaviour, IWeapon
 
     public SpriteRenderer SpriteRenderer { get; set; }
 
+    public bool CanLifeTime => throw new System.NotImplementedException();
+
     float hitTimer; // Este timer es temporal, hay que quitarlo
 
     [SerializeField] private float hitTimerSet;

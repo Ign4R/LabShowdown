@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42821de11732a241a3c7a75ecb73729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decreaseButton: {fileID: 0}
+  increaseButton: {fileID: 0}
   maxPlayers: 2
+  maxPlayersText: {fileID: 0}
 --- !u!114 &517945506855946734
 MonoBehaviour:
   m_ObjectHideFlags: 0

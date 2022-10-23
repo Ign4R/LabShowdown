@@ -12,7 +12,7 @@ public interface IWeapon
     SpriteRenderer SpriteRenderer { get; set; }
 
     int Ammo { get; }
-
+    bool CanLifeTime { get; }
     void Attack();
     void DestroyWeapon();
 }
