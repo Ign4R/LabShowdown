@@ -92,13 +92,13 @@ public class Gun : MonoBehaviour, IWeapon
             TouchGround = true;
             currentTime = 1;
         }
-        else
-        {          
+        if (collision.gameObject.layer == 7) 
+        {         
             currentTime = 0f;
         }
-        if (collision.gameObject.layer == 8 && TouchGround) 
+        if (collision.gameObject.layer == 8 && !TouchGround) //El que colisiona con weapon y no toca el piso, destruye el objeto a colisionar
         {
-            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 
