@@ -41,7 +41,6 @@ public class PlayerModel : MonoBehaviour
 
     private StatsController statsController;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRender;
 
     public IWeapon Weapon { get => weapon; private set => weapon = value; }
 
@@ -49,7 +48,6 @@ public class PlayerModel : MonoBehaviour
     {
 
         statsController = GetComponent<StatsController>();
-        spriteRender= GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -79,13 +77,15 @@ public class PlayerModel : MonoBehaviour
 
         if (x < 0)
         {
-            spriteRender.flipX = true;
-            arm.transform.rotation = Quaternion.Euler(0, 180, 0);
+            var ang = transform.rotation.eulerAngles;
+            ang.y = 180;
+            transform.rotation = Quaternion.Euler(ang);
         }
         if (x > 0)
         {
-            arm.transform.rotation = Quaternion.Euler(0, 0, 0);
-            spriteRender.flipX = false;           
+            var ang = transform.rotation.eulerAngles;
+            ang.y = 180;
+            transform.rotation = Quaternion.Euler(ang);
         }
     }
 
@@ -133,9 +133,6 @@ public class PlayerModel : MonoBehaviour
                 }
             }
         }
-    }
-    private void Update()
-    {
     }
     public void CancelledJump()
     {
