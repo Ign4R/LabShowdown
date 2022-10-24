@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 256794775}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedYWallSlide: -12
   speedYFalling: -20
-  speedYCanceledJump: -20
   floor:
     serializedVersion: 2
     m_Bits: 64

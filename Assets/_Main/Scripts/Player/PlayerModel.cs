@@ -136,7 +136,6 @@ public class PlayerModel : MonoBehaviour
     }
     private void Update()
     {
-        print(Weapon+ "11111111111111111111111111111111");
     }
     public void CancelledJump()
     {
@@ -166,8 +165,7 @@ public class PlayerModel : MonoBehaviour
         {
             Weapon.Attack();
             if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
-            {
-                gameObject.layer = 7;
+            {              
                 Weapon.DestroyWeapon();
                 WeaponIsNull();
             }
@@ -177,13 +175,14 @@ public class PlayerModel : MonoBehaviour
     }
     public void WeaponIsNull()
     {
+        gameObject.layer = 7;
         Weapon = null;
     }
     public void DropWeapon()
     {
         if (Weapon != null)
         {
-            gameObject.layer = 7; //TODO: layer 7 es "player" 
+            //TODO: layer 7 es "player" 
             Weapon._Transform.SetParent(null);
             Weapon._Transform.position = dropPosition.transform.position;
             Weapon._Collider2D.enabled = true;

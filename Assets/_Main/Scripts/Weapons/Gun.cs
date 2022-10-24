@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject bullet;
+    private GameObject go;
 
     [SerializeField] private Transform positionBullet;
     [SerializeField] private int ammo;
@@ -29,11 +30,11 @@ public class Gun : MonoBehaviour, IWeapon
     public float CurrentTime { get => currentTime; private set => currentTime = value; }
 
     public bool TouchGround { get; private set; }
-    public GameObject GO { get; private set; }
+    public GameObject GO { get => go; private set => go = value; }
 
     private void Awake()
     {
-        GO = gameObject;
+        go = gameObject;
         _Collider2D = GetComponent<Collider2D>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,6 +42,7 @@ public class Gun : MonoBehaviour, IWeapon
     }
     private void Start()
     {
+        
         TouchGround = false;
         currentTime = 0f;
         canDestroy = true;
@@ -85,7 +87,6 @@ public class Gun : MonoBehaviour, IWeapon
     public void OnTriggerEnter2D(Collider2D collision)
     {
         currentTime = 1;
-        print(currentTime);
         if (collision.gameObject.layer == 6 && collision.gameObject.layer != 7)
         {
             TouchGround = true;
