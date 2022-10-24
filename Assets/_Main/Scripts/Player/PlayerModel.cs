@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerModel : MonoBehaviour
 {
 
-    [SerializeField] private int speedY; //TODO: pasarlo a stats
-    [SerializeField] private int speedYFalling=21; //TODO: pasarlo a stats
+    [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
+    [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
 
     [SerializeField] private LayerMask floor;
 
@@ -43,6 +43,7 @@ public class PlayerModel : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRender;
 
+    public IWeapon Weapon { get => weapon; private set => weapon = value; }
 
     private void Awake()
     {
@@ -68,13 +69,12 @@ public class PlayerModel : MonoBehaviour
        
         if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
         {
-            print(speedYFalling);
-            //rb.velocity = new Vector3(rb.velocity.x, -speedYFalling, 0f);
+            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
             
         }
         if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
         { 
-            rb.velocity = new Vector3(x * statsController.Speed, speedY, 0f);
+            rb.velocity = new Vector3(x * statsController.Speed, speedYWallSlide, 0f);
         }
 
         if (x < 0)
@@ -97,8 +97,6 @@ public class PlayerModel : MonoBehaviour
             {
                 if (inputBuffer.Peek() == "jump")
                 {
-                    inputBuffer.Dequeue();
-                    alreadyJumped = true;
                     if (!sideLeftRaycast && !sideRightRaycast)
                     {
                         rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
@@ -107,6 +105,9 @@ public class PlayerModel : MonoBehaviour
                     {
                         rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
                     }
+                    inputBuffer.Dequeue();
+                    alreadyJumped = true;
+                   
 
                 }
 
@@ -118,8 +119,6 @@ public class PlayerModel : MonoBehaviour
             {
                 if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                 {
-                    inputBuffer.Dequeue();
-                    alreadyJumped = true;
                     if (!sideLeftRaycast && !sideRightRaycast)
                     {
                         rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
@@ -128,18 +127,21 @@ public class PlayerModel : MonoBehaviour
                     {
                         rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
                     }
+                    inputBuffer.Dequeue();
+                    alreadyJumped = true;
+
                 }
             }
         }
     }
     private void Update()
     {
-        print(speedYFalling);
+        print(Weapon+ "11111111111111111111111111111111");
     }
     public void CancelledJump()
     {
-        if (rb.velocity.y > 0 /*&& !sideLeftRaycast && !sideRightRaycast*/)
-            rb.velocity = new Vector3(rb.velocity.x, speedY, 0f);
+        if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
+            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
     }
 
     public void JumpQueue()
@@ -160,31 +162,35 @@ public class PlayerModel : MonoBehaviour
 
     public void Attack(float input)
     {
-        if (weapon != null && input > 0)
+        if (Weapon != null && input > 0)
         {
-            weapon.Attack();
-            if (weapon.Ammo <= 0 && weapon.CanLifeTime)
+            Weapon.Attack();
+            if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
             {
                 gameObject.layer = 7;
-                weapon.DestroyWeapon();
-                weapon = null;
+                Weapon.DestroyWeapon();
+                WeaponIsNull();
             }
         }
         
 
     }
+    public void WeaponIsNull()
+    {
+        Weapon = null;
+    }
     public void DropWeapon()
     {
-        if (weapon != null)
+        if (Weapon != null)
         {
-            gameObject.layer = 7; //TODO: layer 8 es "player" 
-            weapon.Transform.SetParent(null);
-            weapon.Transform.position = dropPosition.transform.position;
-            weapon.Collider2D.enabled = true;
-            weapon.Rigidbody2D.isKinematic = false;
-            weapon.Rigidbody2D.simulated = true;
-            weapon.SpriteRenderer.sortingOrder = 0;
-            weapon = null;
+            gameObject.layer = 7; //TODO: layer 7 es "player" 
+            Weapon._Transform.SetParent(null);
+            Weapon._Transform.position = dropPosition.transform.position;
+            Weapon._Collider2D.enabled = true;
+            Weapon.Rigidbody2D.isKinematic = false;
+            Weapon.Rigidbody2D.simulated = true;
+            Weapon._SpriteRenderer.sortingOrder = 0;
+            WeaponIsNull();
 
         }
     }
@@ -227,13 +233,13 @@ public class PlayerModel : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (weapon == null && collision.gameObject.layer == 8)
+        if (Weapon == null && collision.gameObject.layer == 8)
         {         
-            weapon = collision.GetComponent<IWeapon>();
+            Weapon = collision.GetComponent<IWeapon>();
             GrabWeapon();
         }      
 
-        if(weapon != null && collision.gameObject.layer == 8)
+        if(Weapon != null && collision.gameObject.layer == 8)
         {
             gameObject.layer = default; //TODO: reemplazar esto por una logica
                                         //con los mesh collision
@@ -245,14 +251,14 @@ public class PlayerModel : MonoBehaviour
     private void GrabWeapon()
     {
       
-        weapon.Transform.position = hand.position;
-        weapon.Transform.rotation = hand.rotation;
-        weapon.Transform.SetParent(hand);
-        weapon.Collider2D.enabled = false;
-        weapon.SpriteRenderer.sortingOrder = 2;
-        weapon.Rigidbody2D.isKinematic = true;
-        weapon.Rigidbody2D.simulated = false;
-        weapon.Rigidbody2D.velocity = Vector3.zero;
+        Weapon._Transform.position = hand.position;
+        Weapon._Transform.rotation = hand.rotation;
+        Weapon._Transform.SetParent(hand);
+        Weapon._Collider2D.enabled = false;
+        Weapon._SpriteRenderer.sortingOrder = 2;
+        Weapon.Rigidbody2D.isKinematic = true;
+        Weapon.Rigidbody2D.simulated = false;
+        Weapon.Rigidbody2D.velocity = Vector3.zero;
 
     }
 

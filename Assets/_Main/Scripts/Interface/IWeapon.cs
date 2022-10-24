@@ -4,15 +4,19 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    Transform Transform { get; set; }
-    Collider2D Collider2D { get; }
-
+    Transform _Transform { get; set; }
+    Collider2D _Collider2D { get; }
     Rigidbody2D Rigidbody2D { get; }
 
-    SpriteRenderer SpriteRenderer { get; set; }
+    SpriteRenderer _SpriteRenderer { get; set; }
 
+    GameObject GO { get; }
     int Ammo { get; }
-    bool CanLifeTime { get; }
+    bool CanDestroy { get; }
+    bool TouchGround { get; }
+    float CurrentTime { get; }
     void Attack();
     void DestroyWeapon();
+
+    void OnTriggerEnter2D(Collider2D collision);
 }

@@ -276,8 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86ca2d705d46ca44876dfdc7233da05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedY: -10
-  speedYFalling: 20
+  speedYWallSlide: -12
+  speedYFalling: -20
+  speedYCanceledJump: -20
   floor:
     serializedVersion: 2
     m_Bits: 64

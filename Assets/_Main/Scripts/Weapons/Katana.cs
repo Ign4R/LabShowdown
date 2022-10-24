@@ -6,29 +6,37 @@ public class Katana : MonoBehaviour, IWeapon
 {
     public Rigidbody2D Rigidbody2D { get; set; }
 
-    public Transform Transform { get; set; }
+    public Transform _Transform { get; set; }
 
     public int Ammo { get; set; }
 
-    public Collider2D Collider2D { get; set; }
+    public Collider2D _Collider2D { get; set; }
 
-    public SpriteRenderer SpriteRenderer { get; set; }
+    public SpriteRenderer _SpriteRenderer { get; set; }
 
-    public bool CanLifeTime => throw new System.NotImplementedException();
+    public bool CanDestroy => throw new System.NotImplementedException();
+
+    public float CurrentTime => throw new System.NotImplementedException();
+
+    public Physics2D _Physics2D => throw new System.NotImplementedException();
+
+    public bool TouchGround => throw new System.NotImplementedException();
+
+    public GameObject GO => throw new System.NotImplementedException();
 
     float hitTimer; // Este timer es temporal, hay que quitarlo
 
     [SerializeField] private float hitTimerSet;
     private void Awake()
     {
-        Collider2D = GetComponent<Collider2D>();
+        _Collider2D = GetComponent<Collider2D>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        _SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        Transform = transform;
+        _Transform = transform;
     }
     private void Update()
     {
@@ -47,6 +55,17 @@ public class Katana : MonoBehaviour, IWeapon
 
     public void DestroyWeapon()
     {
+        Destroy(gameObject);
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
         throw new System.NotImplementedException();
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        throw new System.NotImplementedException();
+    }
+
 }

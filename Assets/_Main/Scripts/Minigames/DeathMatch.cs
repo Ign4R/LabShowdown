@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement; 
 using TMPro;
 using Random = UnityEngine.Random;
+using System;
 
 public class DeathMatch : MonoBehaviour
 {
@@ -11,14 +12,17 @@ public class DeathMatch : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private TextMeshProUGUI[] playersLives;
     [SerializeField] private int playersLivesQuantity;
-    [SerializeField] private GameObject[]  weapons;
-    [SerializeField] private GameObject[]  pointsSpawns;
+    [SerializeField] private GameObject[] weapons;
+    [SerializeField] private GameObject[] pointsSpawns;
     private float currentTimeSpawn;
-    [SerializeField] private float timeToSpawn;
+    [SerializeField] private float cooldownSpawn;
+    [SerializeField] private float timeLifeOfWeapons;
     private List<GameObject> players;
+    public static float TimeLife { get ; private set ; }
 
     void Start()
     {
+        TimeLife = timeLifeOfWeapons;
         currentTimeSpawn = 0;
         InitializeLevel();
     }
@@ -49,7 +53,7 @@ public class DeathMatch : MonoBehaviour
         if (currentTimeSpawn <= 0)
         {
             Spawner();
-            currentTimeSpawn = timeToSpawn;
+            currentTimeSpawn = cooldownSpawn;
         }
 
     }
@@ -77,7 +81,8 @@ public class DeathMatch : MonoBehaviour
 
     public void Spawner()
     {
-        Instantiate(weapons[Random.Range(0, 4)], pointsSpawns[Random.Range(0, 4)].transform.position, Quaternion.Euler(0,0,90));
+        
+        Instantiate(weapons[Random.Range(0, 5)], pointsSpawns[Random.Range(0, 3)].transform.position, Quaternion.Euler(0,0,90));
     }
 
 
@@ -85,5 +90,9 @@ public class DeathMatch : MonoBehaviour
     {
         StatsController.OnDie -= OnDieHandler;
         StatsController.OnRespawn -= OnRespawnHandler;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
     }
 }

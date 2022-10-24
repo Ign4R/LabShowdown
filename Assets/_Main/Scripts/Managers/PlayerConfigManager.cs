@@ -50,7 +50,6 @@ public class PlayerConfigManager : MonoBehaviour
 
     private void Update()
     {
-        print(countPlayers + "gasdasd");
         if (canCreateSecondKeyboard) CreateSecondKeyboard();
     }
     public void SetPlayerSkin(int index, Sprite skin)
@@ -71,7 +70,7 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput playerInput)
     {
-        Debug.Log("se unio player " + playerInput.playerIndex + 1);
+        Debug.Log("se unio player " + (playerInput.playerIndex + 1));
         if (playerInput.playerIndex + 1 > 1) //Chequea que el minimo de players sea el index de players cuando sea mayor a 1
         {
             countPlayers = playerInput.playerIndex + 1;
