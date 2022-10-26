@@ -84,7 +84,7 @@ public class PlayerModel : MonoBehaviour
         if (x > 0)
         {
             var ang = transform.rotation.eulerAngles;
-            ang.y = 180;
+            ang.y = 0;
             transform.rotation = Quaternion.Euler(ang);
         }
     }
