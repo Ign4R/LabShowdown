@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 5757107027434552752}
   - component: {fileID: 7891191690728957557}
   m_Layer: 5
-  m_Name: PlayerCanvasMenu
+  m_Name: SelectionSkinCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

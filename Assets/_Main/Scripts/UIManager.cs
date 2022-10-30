@@ -7,17 +7,15 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] playersLives;
-
     void Start()
     {
         StatsController.OnLifeDecrese += LivesTextUpdate;
     }
 
-    private void LivesTextUpdate(int lives)
-    {
-        var temp = PlayerConfigManager.Instance.CountPlayers;
-        //playersLives[player].text = lives.ToString();
-        playersLives[temp].text = lives.ToString();
+    private void LivesTextUpdate(int player ,int lives)
+    {    
+        playersLives[player].text = lives.ToString();
+        //playersLives[playerController.PlayerConfig.PlayerIndex].text = lives.ToString();
     }
 
 

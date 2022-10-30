@@ -62,6 +62,7 @@ MonoBehaviour:
   playersLives:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   playersLivesQuantity: 10
   weapons:
   - {fileID: 709072603049720823, guid: 20ec26a3ef7b10f48a6dae05ef3cfe87, type: 3}

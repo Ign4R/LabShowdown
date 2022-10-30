@@ -125,7 +125,7 @@ public class PlayerConfigManager : MonoBehaviour
     }
 }
 
-public class PlayerConfiguration
+public class PlayerConfiguration: MonoBehaviour
 {
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
@@ -137,4 +137,9 @@ public class PlayerConfiguration
         PlayerIndex = playerInput.playerIndex;
         Input = playerInput;
     }
+    private void Update()
+    {
+        print(PlayerIndex);
+    }
+
 }
