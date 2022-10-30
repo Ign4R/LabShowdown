@@ -27,15 +27,17 @@ public class DeathMatch : MonoBehaviour
         InitializeLevel();
     }
 
+
     private void InitializeLevel()
     {
         players = new List<GameObject>();
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigurations().ToArray();
         PlayerConfigManager.Instance.playersList.Clear();
-
+       
 
         for (int i = 0; i < playerConfigs.Length; i++)
         {
+
             var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             player.GetComponent<PlayerController>().InitializePlayer(playerConfigs[i]);
             player.GetComponent<StatsController>().SetLifes(playersLivesQuantity);
@@ -49,6 +51,7 @@ public class DeathMatch : MonoBehaviour
     }
     private void Update()
     {
+       
         currentTimeSpawn -= Time.deltaTime;
         if (currentTimeSpawn <= 0)
         {

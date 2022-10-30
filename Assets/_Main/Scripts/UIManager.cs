@@ -13,9 +13,11 @@ public class UIManager : MonoBehaviour
         StatsController.OnLifeDecrese += LivesTextUpdate;
     }
 
-    private void LivesTextUpdate(int player, int lives)
+    private void LivesTextUpdate(int lives)
     {
-        playersLives[player].text = lives.ToString();
+        var temp = PlayerConfigManager.Instance.CountPlayers;
+        //playersLives[player].text = lives.ToString();
+        playersLives[temp].text = lives.ToString();
     }
 
 

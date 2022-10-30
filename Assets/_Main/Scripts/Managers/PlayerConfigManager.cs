@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class PlayerConfigManager : MonoBehaviour
 {
-    [Header("MIN PLAYERS TO READY GAME")]
-    [SerializeField] private int countPlayers;
+    //[Header("MIN PLAYERS TO READY GAME")]
+     private int countPlayers;
 
     [SerializeField] private TextMeshProUGUI info;
     //[SerializeField] private Button decreaseButton;
@@ -22,10 +22,11 @@ public class PlayerConfigManager : MonoBehaviour
     private bool canCreateSecondKeyboard = false;
     private Controls controlsInput;
     public static PlayerConfigManager Instance { get; private set; }
+    public int CountPlayers { get => countPlayers; set => countPlayers = value; }
 
-   
     private void Awake()
     {
+        
         controlsInput = new Controls();
         if (Instance!= null)
         {

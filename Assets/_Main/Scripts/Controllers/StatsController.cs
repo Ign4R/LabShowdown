@@ -24,7 +24,7 @@ public class StatsController : MonoBehaviour
 
     public static event Action<int> OnDie;
 
-    public static event Action<int, int> OnLifeDecrese;
+    public static event Action<int> OnLifeDecrese;
 
     public static event Action<int> OnRespawn;
 
@@ -60,7 +60,7 @@ public class StatsController : MonoBehaviour
         if (currentHealth <= 0 && lifes > 0)
         {
             lifes--;
-            OnLifeDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
+            OnLifeDecrese?.Invoke(lifes);
             currentHealth = maxHealth;
             OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);
         }
