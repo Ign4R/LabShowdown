@@ -41,7 +41,6 @@ public class DeathMatch : MonoBehaviour
 
             var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             player.GetComponent<PlayerController>().InitializePlayer(playerConfigs[i]);
-
             player.GetComponent<StatsController>().SetLifes(playersLivesQuantity);
 
             OnCreateHUD?.Invoke(playerConfigs[i], playersLivesQuantity);

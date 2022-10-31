@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerCanvasManager : MonoBehaviour
 {
+   
     private int playerIndex;
+    [SerializeField] private Color[] skinColors;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private GameObject readyPanel;
     [SerializeField] private GameObject readyInfo;
@@ -34,6 +36,7 @@ public class PlayerCanvasManager : MonoBehaviour
         if (!inputEnable) return;
 
         MenuManager.Instance.SetPlayerSkin(playerIndex, skin);
+        MenuManager.Instance.SetColorPlayer(playerIndex, skinColors[playerIndex]);
         readyPanel.SetActive(true);
         readyButton.Select();
         menuPanel.SetActive(false);

@@ -55,8 +55,14 @@ public class MenuManager : MonoBehaviour
         if (canCreateSecondKeyboard) CreateSecondKeyboard();
     }
     public void SetPlayerSkin(int index, Sprite skin)
-    {
+    {      
         playerConfigs[index].PlayerSkin = skin;
+       
+    }
+
+    public void SetColorPlayer(int index, Color skinColor)
+    {
+        playerConfigs[index].SkinColor = skinColor;
     }
 
     public void ReadyPlayer(int index)
@@ -125,6 +131,7 @@ public class PlayerConfiguration
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
     public Sprite PlayerSkin { get; set; }
+    public Color SkinColor { get; set; }
 
     public PlayerConfiguration(PlayerInput playerInput)
     {

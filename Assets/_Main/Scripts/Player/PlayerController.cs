@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         playerConfig = pc;
         skin.sprite = pc.PlayerSkin;
+        skin.material.color = new Color(pc.SkinColor.r, pc.SkinColor.g, pc.SkinColor.b);
         playerInput = playerConfig.Input;
         inputAsset =playerConfig.Input.actions;
         player = inputAsset.FindActionMap("Player");

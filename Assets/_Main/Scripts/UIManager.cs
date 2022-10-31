@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
         int playerIndex = playerConfiguration.PlayerIndex;
         playersHUD[playerIndex].SetActive(true);
         playersHUD[playerIndex].GetComponent<TextMeshProUGUI>().text = lives.ToString();
+        playersHUD[playerIndex].GetComponentInChildren<Image>().sprite = playerConfiguration.PlayerSkin;
     }
 
 

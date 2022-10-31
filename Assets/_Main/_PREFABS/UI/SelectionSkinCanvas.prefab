@@ -1287,6 +1287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fc52d14fefdd841899e9d2bb4d694c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skinColors:
+  - {r: 0.08395338, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.15566039, b: 0.99639136, a: 0}
+  - {r: 0.93819284, g: 1, b: 0, a: 0}
+  - {r: 0, g: 0.7809465, b: 1, a: 0}
   titleText: {fileID: 7833466065415381286}
   readyPanel: {fileID: 2941947149556472274}
   readyInfo: {fileID: 80456580001574732}
