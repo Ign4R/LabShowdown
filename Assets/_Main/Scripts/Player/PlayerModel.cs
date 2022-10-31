@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerModel : MonoBehaviour
 {
 
+     private bool cancelledJump;
     [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
     [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
 
@@ -41,12 +42,13 @@ public class PlayerModel : MonoBehaviour
 
     private StatsController statsController;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
     public IWeapon Weapon { get => weapon; private set => weapon = value; }
 
     private void Awake()
     {
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
         statsController = GetComponent<StatsController>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -91,8 +93,10 @@ public class PlayerModel : MonoBehaviour
 
     public void Jump(float x)
     {
+        //TODO: REWORK JUMP
         if (floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast)
         {
+            cancelledJump = false;
             if (inputBuffer.Count > 0)
             {
                 if (inputBuffer.Peek() == "jump")
@@ -136,8 +140,18 @@ public class PlayerModel : MonoBehaviour
     }
     public void CancelledJump()
     {
+        cancelledJump = true;
         if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
+        {
             rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
+          
+        }         
+    }
+
+    public void LimitHeight()
+    {
+        if (rb.velocity.y <= -1 && !floorRaycast && !cancelledJump)
+            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f); 
     }
 
     public void JumpQueue()
@@ -158,9 +172,10 @@ public class PlayerModel : MonoBehaviour
 
     public void Attack(float input)
     {
+         hand.GetComponentInChildren<IWeapon>()?.Attack();
         if (Weapon != null && input > 0)
         {
-            Weapon.Attack();
+           
             if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
             {              
                 Weapon.DestroyWeapon();
@@ -174,6 +189,8 @@ public class PlayerModel : MonoBehaviour
     {
         gameObject.layer = 7;
         Weapon = null;
+      
+       
     }
     public void DropWeapon()
     {
@@ -185,7 +202,7 @@ public class PlayerModel : MonoBehaviour
             Weapon._Collider2D.enabled = true;
             Weapon.Rigidbody2D.isKinematic = false;
             Weapon.Rigidbody2D.simulated = true;
-            Weapon._SpriteRenderer.sortingOrder = 0;
+            Weapon._SpriteRenderer.sortingLayerName = "Weapon";
             WeaponIsNull();
 
         }
@@ -218,7 +235,7 @@ public class PlayerModel : MonoBehaviour
 
         if (collision.gameObject.layer == 6)
         {
-            
+           
             alreadyJumped = false;
             coyoteTime = 0;
         }
@@ -228,34 +245,33 @@ public class PlayerModel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
         if (Weapon == null && collision.gameObject.layer == 8)
-        {         
+        {
             Weapon = collision.GetComponent<IWeapon>();
             GrabWeapon();
-        }      
 
-        if(Weapon != null && collision.gameObject.layer == 8)
-        {
-            gameObject.layer = default; //TODO: reemplazar esto por una logica
-                                        //con los mesh collision
         }
 
-       
+
     }
+
 
     private void GrabWeapon()
     {
-      
+        
+        Weapon._Collider2D.enabled = false;
         Weapon._Transform.position = hand.position;
         Weapon._Transform.rotation = hand.rotation;
         Weapon._Transform.SetParent(hand);
-        Weapon._Collider2D.enabled = false;
+        gameObject.layer = default;
+        Weapon._SpriteRenderer.sortingLayerName = "Player";
         Weapon._SpriteRenderer.sortingOrder = 2;
+        spriteRenderer.sortingOrder = 1;
         Weapon.Rigidbody2D.isKinematic = true;
         Weapon.Rigidbody2D.simulated = false;
-        Weapon.Rigidbody2D.velocity = Vector3.zero;
-
+        Weapon.Rigidbody2D.velocity = Vector3.zero;    
+      
     }
 
     private void OnDrawGizmos()

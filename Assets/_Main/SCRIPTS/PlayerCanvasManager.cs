@@ -33,7 +33,7 @@ public class PlayerCanvasManager : MonoBehaviour
     {
         if (!inputEnable) return;
 
-        PlayerConfigManager.Instance.SetPlayerSkin(playerIndex, skin);
+        MenuManager.Instance.SetPlayerSkin(playerIndex, skin);
         readyPanel.SetActive(true);
         readyButton.Select();
         menuPanel.SetActive(false);
@@ -43,7 +43,7 @@ public class PlayerCanvasManager : MonoBehaviour
     {
         if (!inputEnable) return;
 
-        PlayerConfigManager.Instance.ReadyPlayer(playerIndex);
+        MenuManager.Instance.ReadyPlayer(playerIndex);
         readyButton.gameObject.SetActive(false);
         readyInfo.gameObject.SetActive(true);
     }

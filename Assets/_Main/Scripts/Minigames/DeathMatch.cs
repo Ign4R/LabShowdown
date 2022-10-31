@@ -7,6 +7,7 @@ using System;
 
 public class DeathMatch : MonoBehaviour
 {
+    public static event Action<PlayerConfiguration, int> OnCreateHUD;
     [SerializeField] private Transform[] playerSpawns;
     [SerializeField] private Transform[] respawnPoints;
     [SerializeField] private GameObject playerPrefab;
@@ -31,8 +32,8 @@ public class DeathMatch : MonoBehaviour
     private void InitializeLevel()
     {
         players = new List<GameObject>();
-        var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigurations().ToArray();
-        PlayerConfigManager.Instance.playersList.Clear();
+        var playerConfigs = MenuManager.Instance.GetPlayerConfigurations().ToArray();
+        MenuManager.Instance.PlayersList.Clear();
        
 
         for (int i = 0; i < playerConfigs.Length; i++)
@@ -40,9 +41,12 @@ public class DeathMatch : MonoBehaviour
 
             var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             player.GetComponent<PlayerController>().InitializePlayer(playerConfigs[i]);
+
             player.GetComponent<StatsController>().SetLifes(playersLivesQuantity);
-            playersLives[i].text = playersLivesQuantity.ToString();
-            PlayerConfigManager.Instance.playersList.Add(playerConfigs[i]);
+
+            OnCreateHUD?.Invoke(playerConfigs[i], playersLivesQuantity);
+
+            MenuManager.Instance.PlayersList.Add(playerConfigs[i]);
             players.Add(player);
         }
 
@@ -67,16 +71,16 @@ public class DeathMatch : MonoBehaviour
 
     private void OnDieHandler(int playerIndex)
     {
-        for (int i = 0; i < PlayerConfigManager.Instance.playersList.Count; i++)
+        for (int i = 0; i < MenuManager.Instance.PlayersList.Count; i++)
         {
-            if(playerIndex == PlayerConfigManager.Instance.playersList[i].PlayerIndex)
+            if(playerIndex == MenuManager.Instance.PlayersList[i].PlayerIndex)
             {
-                PlayerConfigManager.Instance.playersList.RemoveAt(playerIndex);
+                MenuManager.Instance.PlayersList.RemoveAt(playerIndex);
             }
         }
-        if(PlayerConfigManager.Instance.playersList.Count == 1)
+        if(MenuManager.Instance.PlayersList.Count == 1)
         {          
-            Debug.Log("gano el player" + (PlayerConfigManager.Instance.playersList[0].PlayerIndex + 1));
+            Debug.Log("gano el player" + (MenuManager.Instance.PlayersList[0].PlayerIndex + 1));
             SceneManager.LoadScene("Menu");
 
         }

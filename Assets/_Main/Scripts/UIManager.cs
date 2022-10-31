@@ -6,17 +6,30 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI[] playersLives;
-    void Start()
+    [SerializeField] private GameObject[] playersHUD;
+
+    private void Awake()
     {
-        StatsController.OnLifeDecrese += LivesTextUpdate;
+        DeathMatch.OnCreateHUD += InstanceHUD;
+    }
+    void Start()
+    {     
+        StatsController.OnLifeDecrese += UpdateLivesHUD;
     }
 
-    private void LivesTextUpdate(int player ,int lives)
-    {    
-        playersLives[player].text = lives.ToString();
-        //playersLives[playerController.PlayerConfig.PlayerIndex].text = lives.ToString();
+    private void UpdateLivesHUD(int player, int lives)
+    {
+        playersHUD[player].GetComponent<TextMeshProUGUI>().text = lives.ToString();
     }
+
+    public void InstanceHUD(PlayerConfiguration playerConfiguration, int lives)
+    {
+       
+        int playerIndex = playerConfiguration.PlayerIndex;
+        playersHUD[playerIndex].SetActive(true);
+        playersHUD[playerIndex].GetComponent<TextMeshProUGUI>().text = lives.ToString();
+    }
+
 
 
 }

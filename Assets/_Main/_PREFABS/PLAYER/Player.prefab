@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8388233008624025446}
   m_Layer: 7
-  m_Name: RaycastSideMid (1)
+  m_Name: RaycastSideMid2
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2725839476630164534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.38, y: 2, z: 0}
+  m_LocalPosition: {x: 2.38, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,7 +182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8102271235387269287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3, y: 1.97, z: 0}
+  m_LocalPosition: {x: -2.3, y: 2.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -286,7 +286,7 @@ MonoBehaviour:
   hand: {fileID: 1507422022771536452}
   arm: {fileID: 2404322152156539883}
   dropPosition: {fileID: 1944823820486757569}
-  raycastHorizontalDistance: 3.8
+  raycastHorizontalDistance: 4.24
   raycastFloorDistance: 0.66
   floorOffset: {fileID: 8592621940190385027}
   hitOffsetLeft: {fileID: 1402315444186852960}
@@ -304,24 +304,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canTest: 0
-  skin: {fileID: 8945418367330153185}
-  inputAsset: {fileID: -944628639613478452, guid: 2d60f94e511ef3d479c5d3d6f8b53538, type: 3}
-  player:
-    m_Name: Player
-    m_Id: 2ce6c0c1-f824-421e-93e5-061200ae00e2
-    m_Asset: {fileID: -944628639613478452, guid: 2d60f94e511ef3d479c5d3d6f8b53538, type: 3}
-    m_Actions: []
-    m_Bindings: []
-  movement:
-    m_Name: Movement
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: d2ee5995-a714-48b1-b09a-380f91c038f4
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  playerInput: {fileID: 0}
 --- !u!114 &4054237934200011364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,8 +355,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1050441129
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -64911083, guid: 6fe1f66cc304f3f4984cabcb2df2ff36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -400,7 +382,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.015158296, y: -0.30101418}
+  m_Offset: {x: 0.015158176, y: -0.23205781}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -411,7 +393,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.292449, y: 3.9120126}
+  m_Size: {x: 4.292449, y: 3.7740998}
   m_EdgeRadius: 0
 --- !u!50 &8945418367330153212
 Rigidbody2D:

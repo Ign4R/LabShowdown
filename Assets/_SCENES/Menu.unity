@@ -968,7 +968,7 @@ MonoBehaviour:
   m_text: Lab Showdown
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: bbdd996ee54ded14eb69072b1531dc48, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1332,7 +1332,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 517945506855946728, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
       propertyPath: m_Name
-      value: PlayerConfigManager
+      value: MenuManager
       objectReference: {fileID: 0}
     - target: {fileID: 517945506855946729, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
       propertyPath: m_RootOrder

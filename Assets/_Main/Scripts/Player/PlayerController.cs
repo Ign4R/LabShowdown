@@ -5,27 +5,32 @@ public class PlayerController : MonoBehaviour
 {
     [Header("ENABLE ONLY TO TEST")]
     [SerializeField] private bool canTest;
-    [SerializeField] private SpriteRenderer skin;
+    private SpriteRenderer skin;
 
     private PlayerConfiguration playerConfig;
 
     private PlayerModel model;
 
-    [SerializeField] private InputActionAsset inputAsset;
+    private InputActionAsset inputAsset;
 
-    [SerializeField] private InputActionMap player;
+    private InputActionMap player;
 
-    [SerializeField] private InputAction movement;
+    private InputAction movement;
 
-   [SerializeField] private PlayerInput playerInput;
+   private PlayerInput playerInput;
 
 
     public PlayerConfiguration PlayerConfig { get => playerConfig; }
 
     private InputAction attack;
 
+    private void Awake()
+    {
+        skin = GetComponent<SpriteRenderer>();
+    }
     private void Start()
     {
+        print(skin);
         if(canTest) Test();
     }
 
@@ -55,6 +60,7 @@ public class PlayerController : MonoBehaviour
         model.Movement(movement.ReadValue<Vector2>().x);
         model.Attack(attack.ReadValue<float>());
         model.Jump(movement.ReadValue<Vector2>().x);
+        model.LimitHeight();
         model.Timer();
         model.Raycasts();
     }

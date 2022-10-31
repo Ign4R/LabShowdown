@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4126480187518474783}
   - component: {fileID: -4983440229183765456}
   - component: {fileID: -4204067738452583269}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FiredBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

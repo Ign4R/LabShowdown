@@ -7,36 +7,37 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PlayerConfigManager : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
-    //[Header("MIN PLAYERS TO READY GAME")]
-     private int countPlayers;
+
+    [Header("MINIM PLAYERS TO READY GAME")]
+    [SerializeField] private int countPlayers;
 
     [SerializeField] private TextMeshProUGUI info;
     //[SerializeField] private Button decreaseButton;
     //[SerializeField] private Button increaseButton;
     private List<PlayerConfiguration> playerConfigs;
-    public List<PlayerConfiguration> playersList;
+    public List<PlayerConfiguration> PlayersList { get; private set; }
     [SerializeField] private GameObject playerInputPrefab;
     [SerializeField] private TextMeshProUGUI minPlayersText;
     private bool canCreateSecondKeyboard = false;
     private Controls controlsInput;
-    public static PlayerConfigManager Instance { get; private set; }
+    public static MenuManager Instance { get; private set; }
     public int CountPlayers { get => countPlayers; set => countPlayers = value; }
 
     private void Awake()
     {
-        
+
         controlsInput = new Controls();
-        if (Instance!= null)
+        if (Instance != null)
         {
             Debug.Log("Se trato de crear otra instancia de PlayerConfig");
         }
-        else 
+        else
         {
-            Instance = this;           
+            Instance = this;
             playerConfigs = new List<PlayerConfiguration>();
-            playersList = new List<PlayerConfiguration>();
+            PlayersList = new List<PlayerConfiguration>();
         }
     }
     private void Start()
@@ -60,9 +61,9 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void ReadyPlayer(int index)
     {
-       
+
         playerConfigs[index].IsReady = true;
-        if (playerConfigs.Count == countPlayers && playerConfigs.All(p => p.IsReady == true))
+        if (playerConfigs.Count > 1 && playerConfigs.All(p => p.IsReady == true))
         {
             DontDestroyOnLoad(Instance);
             SceneManager.LoadScene(1);
@@ -72,13 +73,14 @@ public class PlayerConfigManager : MonoBehaviour
     public void HandlePlayerJoin(PlayerInput playerInput)
     {
         Debug.Log("se unio player " + (playerInput.playerIndex + 1));
-        if (playerInput.playerIndex + 1 > 1) //Chequea que el minimo de players sea el index de players cuando sea mayor a 1
+
+        countPlayers = playerInput.playerIndex + 1;
+        if (countPlayers > 1) //Chequea que el minimo de players sea el index de players cuando sea mayor a 1
         {
-            countPlayers = playerInput.playerIndex + 1;
-            minPlayersText.text = "READY MIN";
-            if(countPlayers > 3)
+            minPlayersText.text = "READY MIN"; //TODO:
+            if (countPlayers > 3)
             {
-                minPlayersText.text = "READY MAX";
+                minPlayersText.text = "READY MAX"; //TODO:
             }
         }
         if (!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
@@ -90,7 +92,7 @@ public class PlayerConfigManager : MonoBehaviour
         if (playerInput.currentControlScheme == "Keyboard")
         {
             canCreateSecondKeyboard = true;
-            info.text = "Press Enter 2doKeyboard";
+            info.text = "Press Enter 2doKeyboard"; //TODO:
 
         }
     }
@@ -100,7 +102,7 @@ public class PlayerConfigManager : MonoBehaviour
         return playerConfigs;
     }
     public void CreateSecondKeyboard()
-    {      
+    {
         bool temp = controlsInput.Player.AnyKey.ReadValue<float>() > 0.1f;
         if (temp) //TECLA PARA INSTANCIA EL SEGUNDO PLAYER KEYBOARD
         {
@@ -111,21 +113,13 @@ public class PlayerConfigManager : MonoBehaviour
             info.text = "Connect a Joystick";
         }
     }
-    public void SetPlayersMax()
-    {
-        var prefabConfig = Instantiate(playerInputPrefab, transform);
-        var playerInput = prefabConfig.GetComponent<PlayerInput>();
-        playerInput.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
-
-    }
     public void RefreshMenu()
     {
-       
         SceneManager.LoadScene(0);
     }
 }
 
-public class PlayerConfiguration: MonoBehaviour
+public class PlayerConfiguration 
 {
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
@@ -136,10 +130,6 @@ public class PlayerConfiguration: MonoBehaviour
     {
         PlayerIndex = playerInput.playerIndex;
         Input = playerInput;
-    }
-    private void Update()
-    {
-        print(PlayerIndex);
     }
 
 }

@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -989533405
+  m_SortingLayerID: -1050441129
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 75a99571977f90940b131801d32e7fc4, type: 3}
@@ -104,7 +104,7 @@ MonoBehaviour:
   bullet: {fileID: 1739967693825095692, guid: 73ab2abaf9d716741b3b508938e3cf05, type: 3}
   positionBullet: {fileID: 5458483996018761746}
   ammo: 10
-  canLifeTime: 1
+  canDestroy: 0
   cadence: 7
 --- !u!61 &6884512106788442425
 BoxCollider2D:
@@ -119,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.20300698, y: 0.10494375}
+  m_Offset: {x: -0.4668014, y: -0.24937963}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14.709564, y: 5.609209}
+  m_Size: {x: 14.240938, y: 5.5697536}
   m_EdgeRadius: 0
 --- !u!50 &5458483995506430549
 Rigidbody2D:

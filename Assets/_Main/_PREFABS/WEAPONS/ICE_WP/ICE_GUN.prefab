@@ -165,7 +165,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -989533405
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ee147d3ec02331d4faac669e95d2e6eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,7 +194,6 @@ MonoBehaviour:
   positionBullet: {fileID: 729597516561740008}
   ammo: 10
   canDestroy: 0
-  timeLife: 5
   cadence: 7
 --- !u!61 &2191792988830646723
 BoxCollider2D:

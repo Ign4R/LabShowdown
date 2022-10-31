@@ -28,7 +28,7 @@ public class StatsController : MonoBehaviour
 
     public static event Action<int> OnRespawn;
 
-    public static event Action OnDamage;
+
 
 
     public float Speed { get => speed; set => speed = value; }

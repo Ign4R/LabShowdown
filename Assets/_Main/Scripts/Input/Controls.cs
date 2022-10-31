@@ -144,6 +144,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": """",
+                    ""id"": ""28a6b1e8-5f8e-47b5-8b18-219bef16ca52"",
+                    ""path"": ""<Keyboard>/rightCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard2"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": ""WASD"",
                     ""id"": ""f4866f68-6b3d-4042-8c8b-f07f38803175"",
                     ""path"": ""2DVector"",
@@ -310,6 +321,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""177832ea-3897-4b02-a868-f448d4d356af"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard2"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""7b447640-3395-4216-b448-e7ff585f51dd"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
@@ -356,6 +378,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""7f285282-aeb5-4e27-a688-32234d1f186e"",
                     ""path"": ""<Keyboard>/numpad5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard2"",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fd9bedc-ec0e-40de-86fa-e9f3770ac4b5"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard2"",
