@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerModel : MonoBehaviour
 {
 
-     private bool cancelledJump;
+    private bool cancelledJump;
+    private Transform weaponPrefab;
     [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
     [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
 
@@ -65,6 +66,7 @@ public class PlayerModel : MonoBehaviour
         if (!sideRightRaycast && !sideLeftRaycast)
         {
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
+           
         }
        
         if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
@@ -172,17 +174,19 @@ public class PlayerModel : MonoBehaviour
 
     public void Attack(float input)
     {
-         hand.GetComponentInChildren<IWeapon>()?.Attack();
+        if (hand.childCount >= 1)
+        {
+            Weapon = hand.GetComponentInChildren<IWeapon>();
+        }
         if (Weapon != null && input > 0)
         {
-           
+            Weapon.Attack();
             if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
-            {              
-                Weapon.DestroyWeapon();
+            {
+                Weapon.DestroyWeapon();                            
                 WeaponIsNull();
             }
         }
-        
 
     }
     public void WeaponIsNull()
@@ -194,6 +198,10 @@ public class PlayerModel : MonoBehaviour
     }
     public void DropWeapon()
     {
+        if (hand.childCount >= 1)
+        {
+            Weapon = hand.GetComponentInChildren<IWeapon>();
+        }
         if (Weapon != null)
         {
             //TODO: layer 7 es "player" 
@@ -242,36 +250,38 @@ public class PlayerModel : MonoBehaviour
 
 
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (hand.childCount >= 1)//TODO: CAMBIAR MAS ADELANTE
+        {
+            gameObject.layer = default; 
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (Weapon == null && collision.gameObject.layer == 8)
         {
-            Weapon = collision.GetComponent<IWeapon>();
+            collision.GetComponent<Collider2D>().enabled = false;
+            collision.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            collision.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+            collision.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            weaponPrefab = collision.GetComponent<Transform>();
             GrabWeapon();
-
         }
-
 
     }
 
 
     private void GrabWeapon()
     {
-        
-        Weapon._Collider2D.enabled = false;
-        Weapon._Transform.position = hand.position;
-        Weapon._Transform.rotation = hand.rotation;
-        Weapon._Transform.SetParent(hand);
-        gameObject.layer = default;
-        Weapon._SpriteRenderer.sortingLayerName = "Player";
-        Weapon._SpriteRenderer.sortingOrder = 2;
         spriteRenderer.sortingOrder = 1;
-        Weapon.Rigidbody2D.isKinematic = true;
-        Weapon.Rigidbody2D.simulated = false;
-        Weapon.Rigidbody2D.velocity = Vector3.zero;    
-      
+        weaponPrefab.position = hand.position;
+        weaponPrefab.rotation = hand.rotation;
+        weaponPrefab.SetParent(hand);       
     }
 
     private void OnDrawGizmos()

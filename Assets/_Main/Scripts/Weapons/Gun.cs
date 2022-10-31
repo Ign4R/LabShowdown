@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour, IWeapon
     private void Update()
     {
         //print(currentTime);
-
+        
         if (currentTime >= 1) currentTime += Time.deltaTime;
 
         if (currentTime > DeathMatch.TimeLife)
@@ -95,11 +95,14 @@ public class Gun : MonoBehaviour, IWeapon
         if (collision.gameObject.layer == 7) 
         {         
             currentTime = 0f;
+            
         }
         if (collision.gameObject.layer == 8 && !TouchGround) //El que colisiona con weapon y no toca el piso, destruye el objeto a colisionar
         {
             Destroy(collision.gameObject);
         }
+
+   
     }
 
 
