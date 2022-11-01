@@ -15,12 +15,21 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {     
-        StatsController.OnLifeDecrese += UpdateLivesHUD;
+        StatsController.OnLivesDecrese += UpdateLivesHUD;
+        StatsController.OnUpdateHealth += UpdateHealthHUD;
     }
-
-    private void UpdateLivesHUD(int player, int lives)
+    private void Update()
     {
-        playersHUD[player].GetComponent<TextMeshProUGUI>().text = lives.ToString();
+        
+    }
+    private void UpdateLivesHUD(int playerIndex, int lives)
+    {
+        playersHUD[playerIndex].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = lives.ToString();
+    }
+    private void UpdateHealthHUD(int playerIndex, float health,float maxHealth)
+    {
+        playersHUD[playerIndex].GetComponentInChildren<Image>().fillAmount = health / maxHealth;     
+        //TODO: Parametro Lives
     }
 
     public void InstanceHUD(PlayerConfiguration playerConfiguration, int lives)
@@ -28,8 +37,8 @@ public class UIManager : MonoBehaviour
        
         int playerIndex = playerConfiguration.PlayerIndex;
         playersHUD[playerIndex].SetActive(true);
-        playersHUD[playerIndex].GetComponent<TextMeshProUGUI>().text = lives.ToString();
-        playersHUD[playerIndex].GetComponentInChildren<Image>().sprite = playerConfiguration.PlayerSkin;
+        playersHUD[playerIndex].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = lives.ToString();
+        playersHUD[playerIndex].transform.GetChild(1).GetComponentInChildren<Image>().sprite = playerConfiguration.PlayerSkin;
     }
 
 

@@ -150,12 +150,6 @@ MonoBehaviour:
   - {fileID: 965005051354063205}
   - {fileID: 2900407870392737575}
   - {fileID: 1314647581}
-  playerPrefab: {fileID: 8945418367330153191, guid: 34a276556a9b7be47aa77a973c7dc7bb, type: 3}
-  playersLives:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playersLivesQuantity: 10
   weapons:
   - {fileID: 709072603049720823, guid: 20ec26a3ef7b10f48a6dae05ef3cfe87, type: 3}
   - {fileID: 5203701097231575821, guid: d61489d983af8fc4d9f92e897c0de102, type: 3}
@@ -163,11 +157,13 @@ MonoBehaviour:
   - {fileID: 4762362544766882657, guid: 9ca5f919d4fd5d947a34a6aeed994296, type: 3}
   - {fileID: 5203701097231575821, guid: d61489d983af8fc4d9f92e897c0de102, type: 3}
   - {fileID: 4762362544766882657, guid: 9ca5f919d4fd5d947a34a6aeed994296, type: 3}
-  pointsSpawns:
+  pointsSpawnWeapons:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerPrefab: {fileID: 8945418367330153191, guid: 34a276556a9b7be47aa77a973c7dc7bb, type: 3}
+  playersLivesQuantity: 3
   cooldownSpawn: 3
   timeLifeOfWeapons: 12
 --- !u!1 &965005051354063204
@@ -415,7 +411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7411657977703979109}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.906067, y: 30.771912, z: -0.2646797}
+  m_LocalPosition: {x: 55.8, y: 16.3, z: -0.2646797}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -448,7 +444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8128551052472411200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.906067, y: 30.771912, z: -0.2646797}
+  m_LocalPosition: {x: 23.3, y: 44, z: -0.2646797}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

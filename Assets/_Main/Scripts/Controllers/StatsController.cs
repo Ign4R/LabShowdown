@@ -13,7 +13,7 @@ public class StatsController : MonoBehaviour
 
     private float jumpHeight;
 
-    private float currentHealth;
+    public float CurrentHealth { get; private set; }
 
     private float maxHealth;
 
@@ -24,11 +24,11 @@ public class StatsController : MonoBehaviour
 
     public static event Action<int> OnDie;
 
-    public static event Action<int,int> OnLifeDecrese;
+    public static event Action<int,int> OnLivesDecrese;
+
+    public static event Action<int,float,float> OnUpdateHealth;
 
     public static event Action<int> OnRespawn;
-
-
 
 
     public float Speed { get => speed; set => speed = value; }
@@ -39,34 +39,37 @@ public class StatsController : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         playerView = GetComponent<PlayerView>();
     }
-    private void Update()
-    {
-        print(playerController.PlayerConfig.PlayerIndex);
-    }
+
     private void Start()
     {
-        currentHealth = playerStats.MaxHealth;
+        CurrentHealth = playerStats.MaxHealth;
         maxHealth = playerStats.MaxHealth;
         speed = playerStats.Speed;
         jumpHeight = playerStats.JumpHeight;
     }
+    private void Update()
+    {
+       
+    }
     public void TakeDamage(float damage)
     {     
-        currentHealth -= damage;
+        CurrentHealth -= damage;
+        OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
         playerView.TakeDamageAnim();
-        if (currentHealth <= 0 && lifes == 1)
-        {
-            currentHealth = 0;
+        if (CurrentHealth <= 0 && lifes == 1)
+        {        
+            CurrentHealth = 0;
             Die();
             OnDie?.Invoke(playerController.PlayerConfig.PlayerIndex);
         }
-        if (currentHealth <= 0 && lifes > 0)
+        if (CurrentHealth <= 0 && lifes > 0)
         {
-            lifes--;
-            
-            OnLifeDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
-            currentHealth = maxHealth;
+           
+            lifes--;      
+            OnLivesDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
+            CurrentHealth = maxHealth;
             OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);
+            OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
         }
 
     }

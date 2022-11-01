@@ -7,18 +7,28 @@ using System;
 
 public class DeathMatch : MonoBehaviour
 {
-    public static event Action<PlayerConfiguration, int> OnCreateHUD;
     [SerializeField] private Transform[] playerSpawns;
+
     [SerializeField] private Transform[] respawnPoints;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private TextMeshProUGUI[] playersLives;
-    [SerializeField] private int playersLivesQuantity;
+
     [SerializeField] private GameObject[] weapons;
-    [SerializeField] private GameObject[] pointsSpawns;
-    private float currentTimeSpawn;
+
+    [SerializeField] private GameObject[] pointsSpawnWeapons;
+
+    [SerializeField] private GameObject playerPrefab;
+
+    [SerializeField] private int playersLivesQuantity;
+
     [SerializeField] private float cooldownSpawn;
+
     [SerializeField] private float timeLifeOfWeapons;
+
+    private float currentTimeSpawn;  
+
     private List<GameObject> players;
+
+    public static event Action<PlayerConfiguration, int> OnCreateHUD;
+
     public static float TimeLife { get ; private set ; }
 
     void Start()
@@ -32,8 +42,8 @@ public class DeathMatch : MonoBehaviour
     private void InitializeLevel()
     {
         players = new List<GameObject>();
-        var playerConfigs = MenuManager.Instance.GetPlayerConfigurations().ToArray();
-        MenuManager.Instance.PlayersList.Clear();
+        var playerConfigs = MainMenuManager.Instance.GetPlayerConfigurations().ToArray();
+        MainMenuManager.Instance.PlayersList.Clear();
        
 
         for (int i = 0; i < playerConfigs.Length; i++)
@@ -45,7 +55,7 @@ public class DeathMatch : MonoBehaviour
 
             OnCreateHUD?.Invoke(playerConfigs[i], playersLivesQuantity);
 
-            MenuManager.Instance.PlayersList.Add(playerConfigs[i]);
+            MainMenuManager.Instance.PlayersList.Add(playerConfigs[i]);
             players.Add(player);
         }
 
@@ -70,16 +80,16 @@ public class DeathMatch : MonoBehaviour
 
     private void OnDieHandler(int playerIndex)
     {
-        for (int i = 0; i < MenuManager.Instance.PlayersList.Count; i++)
+        for (int i = 0; i < MainMenuManager.Instance.PlayersList.Count; i++)
         {
-            if(playerIndex == MenuManager.Instance.PlayersList[i].PlayerIndex)
+            if(playerIndex == MainMenuManager.Instance.PlayersList[i].PlayerIndex)
             {
-                MenuManager.Instance.PlayersList.RemoveAt(playerIndex);
+                MainMenuManager.Instance.PlayersList.RemoveAt(playerIndex);
             }
         }
-        if(MenuManager.Instance.PlayersList.Count == 1)
+        if(MainMenuManager.Instance.PlayersList.Count == 1)
         {          
-            Debug.Log("gano el player" + (MenuManager.Instance.PlayersList[0].PlayerIndex + 1));
+            Debug.Log("gano el player" + (MainMenuManager.Instance.PlayersList[0].PlayerIndex + 1));
             SceneManager.LoadScene("Menu");
 
         }
@@ -88,7 +98,7 @@ public class DeathMatch : MonoBehaviour
     public void Spawner()
     {
         
-        Instantiate(weapons[Random.Range(0, 5)], pointsSpawns[Random.Range(0, 3)].transform.position, Quaternion.Euler(0,0,90));
+        Instantiate(weapons[Random.Range(0, 5)], pointsSpawnWeapons[Random.Range(0, 3)].transform.position, Quaternion.Euler(0,0,90));
     }
 
 

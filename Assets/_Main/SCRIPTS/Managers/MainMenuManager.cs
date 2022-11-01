@@ -7,23 +7,20 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
 
-    [Header("MINIM PLAYERS TO READY GAME")]
-    [SerializeField] private int countPlayers;
-
     [SerializeField] private TextMeshProUGUI info;
-    //[SerializeField] private Button decreaseButton;
-    //[SerializeField] private Button increaseButton;
+    [SerializeField] private TextMeshProUGUI minPlayersText;
+
     private List<PlayerConfiguration> playerConfigs;
     public List<PlayerConfiguration> PlayersList { get; private set; }
     [SerializeField] private GameObject playerInputPrefab;
-    [SerializeField] private TextMeshProUGUI minPlayersText;
+   
     private bool canCreateSecondKeyboard = false;
     private Controls controlsInput;
-    public static MenuManager Instance { get; private set; }
-    public int CountPlayers { get => countPlayers; set => countPlayers = value; }
+    public static MainMenuManager Instance { get; private set; }
+    public int CountPlayers { get ; private set; }
 
     private void Awake()
     {
@@ -69,7 +66,7 @@ public class MenuManager : MonoBehaviour
     {
 
         playerConfigs[index].IsReady = true;
-        if (playerConfigs.Count > 1 && playerConfigs.All(p => p.IsReady == true))
+        if (playerConfigs.Count == CountPlayers && playerConfigs.All(p => p.IsReady == true) && playerConfigs.Count != 1)
         {
             DontDestroyOnLoad(Instance);
             SceneManager.LoadScene(1);
@@ -80,36 +77,35 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("se unio player " + (playerInput.playerIndex + 1));
 
-        countPlayers = playerInput.playerIndex + 1;
-        if (countPlayers > 1) //Chequea que el minimo de players sea el index de players cuando sea mayor a 1
+        CountPlayers = playerInput.playerIndex + 1;
+        if (CountPlayers > 1) //Chequea que el minimo de players sea el index de players cuando sea mayor a 1
         {
-            minPlayersText.text = "READY MIN"; //TODO:
-            if (countPlayers > 3)
+            minPlayersText.text = "READY MIN"; //TODO: Change
+            if (CountPlayers > 3)
             {
-                minPlayersText.text = "READY MAX"; //TODO:
+                minPlayersText.text = "READY MAX"; //TODO:Change
             }
         }
         if (!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
         {
             playerInput.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(playerInput));
+            if (playerInput.currentControlScheme == "Keyboard")
+            {
+                canCreateSecondKeyboard = true;
+                info.text = "Press Enter 2doKeyboard"; //TODO:Change
 
-        }
-        if (playerInput.currentControlScheme == "Keyboard")
-        {
-            canCreateSecondKeyboard = true;
-            info.text = "Press Enter 2doKeyboard"; //TODO:
-
-        }
+            }
+        }   
     }
 
     public List<PlayerConfiguration> GetPlayerConfigurations()
     {
         return playerConfigs;
     }
-    public void CreateSecondKeyboard()
+    public void CreateSecondKeyboard() //TODO: Check logic of to create a player input(HandlePlayerJoin)
     {
-        bool temp = controlsInput.Player.AnyKey.ReadValue<float>() > 0.1f;
+        bool temp = controlsInput.Player.AnyKey.ReadValue<float>() > 0.2f;
         if (temp) //TECLA PARA INSTANCIA EL SEGUNDO PLAYER KEYBOARD
         {
             var prefabConfig = Instantiate(playerInputPrefab, transform);

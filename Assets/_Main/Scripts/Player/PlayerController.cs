@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        print(skin);
         if(canTest) Test();
     }
 

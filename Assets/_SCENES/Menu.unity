@@ -190,16 +190,16 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 0}
   m_MoveAction: {fileID: 0}
   m_SubmitAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
 --- !u!114 &394523963
@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 467084934}
   - component: {fileID: 467084933}
   - component: {fileID: 467084935}
+  - component: {fileID: 467084936}
   m_Layer: 0
   m_Name: MainLayout
   m_TagString: Untagged
@@ -581,10 +582,22 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 588.6, y: 265.54}
-  m_Spacing: {x: 78.66, y: 8.6}
+  m_CellSize: {x: 590, y: 306}
+  m_Spacing: {x: 275.6, y: 24.1}
   m_Constraint: 0
   m_ConstraintCount: 61
+--- !u!225 &467084936
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467084931}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &845728927
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14, y: 397}
+  m_AnchoredPosition: {x: 14, y: 434}
   m_SizeDelta: {x: 861.0704, y: 177.9583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482863413
@@ -1378,34 +1391,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 517945506855946734, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
-      propertyPath: m_MaxPlayerCount
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
       propertyPath: info
       value: 
       objectReference: {fileID: 1786795573}
     - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
-      propertyPath: maxPlayers
+      propertyPath: countPlayers
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
-      propertyPath: minPlayers
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
-      propertyPath: decreaseButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
-      propertyPath: increaseButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
-      propertyPath: maxPlayersText
-      value: 
-      objectReference: {fileID: 405018987}
     - target: {fileID: 517945506855946735, guid: e84b80ee2a117f5468e645df6c704ec6, type: 3}
       propertyPath: minPlayersText
       value: 

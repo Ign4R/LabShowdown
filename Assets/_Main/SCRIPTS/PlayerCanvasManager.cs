@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerCanvasManager : MonoBehaviour
 {
-   
     private int playerIndex;
     [SerializeField] private Color[] skinColors;
     [SerializeField] private TextMeshProUGUI titleText;
@@ -17,15 +16,23 @@ public class PlayerCanvasManager : MonoBehaviour
 
     private float ignoreInputTime = 0.1f;
     private bool inputEnable;
+
+    public Color[] SkinColors { get => skinColors; private set => skinColors = value; }
+
+    private void Start()
+    {
+    }
     void Update()
     {
-        if(Time.time > ignoreInputTime)
+
+        if (Time.time > ignoreInputTime)
         {
             inputEnable = true;
         }
     }
     public void SetPlayerIndex(int playerInput)
     {
+      
         playerIndex = playerInput;
         titleText.SetText("Player" + (playerInput + 1).ToString());
         ignoreInputTime = Time.time + ignoreInputTime;
@@ -35,8 +42,8 @@ public class PlayerCanvasManager : MonoBehaviour
     {
         if (!inputEnable) return;
 
-        MenuManager.Instance.SetPlayerSkin(playerIndex, skin);
-        MenuManager.Instance.SetColorPlayer(playerIndex, skinColors[playerIndex]);
+        MainMenuManager.Instance.SetPlayerSkin(playerIndex, skin);
+        MainMenuManager.Instance.SetColorPlayer(playerIndex, SkinColors[playerIndex]);
         readyPanel.SetActive(true);
         readyButton.Select();
         menuPanel.SetActive(false);
@@ -46,7 +53,7 @@ public class PlayerCanvasManager : MonoBehaviour
     {
         if (!inputEnable) return;
 
-        MenuManager.Instance.ReadyPlayer(playerIndex);
+        MainMenuManager.Instance.ReadyPlayer(playerIndex);
         readyButton.gameObject.SetActive(false);
         readyInfo.gameObject.SetActive(true);
     }
