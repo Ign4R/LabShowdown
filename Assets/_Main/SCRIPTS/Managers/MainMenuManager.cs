@@ -41,15 +41,16 @@ public class MainMenuManager : MonoBehaviour
     {
         minPlayersText.text = "NO READY";
     }
-
+  
     private void OnEnable()
     {
         controlsInput.Enable();
     }
-
     private void Update()
     {
         if (canCreateSecondKeyboard) CreateSecondKeyboard();
+        print(playerConfigs);
+        print(PlayersList);
     }
     public void SetPlayerSkin(int index, Sprite skin)
     {      
@@ -127,12 +128,13 @@ public class PlayerConfiguration
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
     public Sprite PlayerSkin { get; set; }
-    public Color SkinColor { get; set; }
+    public Color SkinColor { get; set; } //TODO: Hacerlo un propio componente (Sprite Renderer)
 
     public PlayerConfiguration(PlayerInput playerInput)
     {
         PlayerIndex = playerInput.playerIndex;
         Input = playerInput;
     }
+ 
 
 }

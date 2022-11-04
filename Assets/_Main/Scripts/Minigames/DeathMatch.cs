@@ -29,6 +29,8 @@ public class DeathMatch : MonoBehaviour
 
     public static event Action<PlayerConfiguration, int> OnCreateHUD;
 
+    public static event Action<Sprite, Color,int> OnWinHUD;
+
     public static float TimeLife { get ; private set ; }
 
     void Start()
@@ -88,13 +90,23 @@ public class DeathMatch : MonoBehaviour
             }
         }
         if(MainMenuManager.Instance.PlayersList.Count == 1)
-        {          
+        {
+            int indexWin = MainMenuManager.Instance.PlayersList[0].PlayerIndex + 1;
+            OnWinHUD?.Invoke(MainMenuManager.Instance.PlayersList[0].PlayerSkin, MainMenuManager.Instance.PlayersList[0].SkinColor, indexWin);
             Debug.Log("gano el player" + (MainMenuManager.Instance.PlayersList[0].PlayerIndex + 1));
-            SceneManager.LoadScene("Menu");
+            //SceneManager.LoadScene("Menu");
 
         }
     }
+    public void LoadMainMenu()
+    {
 
+        var menuManager = GameObject.Find("MenuManager");
+
+        Destroy(menuManager);
+
+        SceneManager.LoadScene(0);
+    }
     public void Spawner()
     {
         

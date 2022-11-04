@@ -24,7 +24,7 @@ public class SpawnPlayerSetupMenu : MonoBehaviour
             for (int i = 0; i < buttons.Length; i++)
             {
                 ColorBlock _colorBlock = buttons[i].colors;
-                Color colorPlayer = playerCanvasM.SkinColors[input.playerIndex];
+                Color colorPlayer = playerCanvasM.SkinColors[input.playerIndex]; //TODO: SET SKIN COLORS
                 _colorBlock.selectedColor = new Color(colorPlayer.r, colorPlayer.g, colorPlayer.b);
                 buttons[i].colors = _colorBlock;
             }

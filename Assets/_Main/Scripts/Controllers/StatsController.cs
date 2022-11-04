@@ -57,7 +57,7 @@ public class StatsController : MonoBehaviour
         OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
         playerView.TakeDamageAnim();
         if (CurrentHealth <= 0 && lifes == 1)
-        {        
+        {           
             CurrentHealth = 0;
             Die();
             OnDie?.Invoke(playerController.PlayerConfig.PlayerIndex);
@@ -68,8 +68,8 @@ public class StatsController : MonoBehaviour
             lifes--;      
             OnLivesDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
             CurrentHealth = maxHealth;
-            OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);
             OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
+            OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);          
         }
 
     }
