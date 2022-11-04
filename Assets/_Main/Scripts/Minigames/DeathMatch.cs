@@ -27,17 +27,17 @@ public class DeathMatch : MonoBehaviour
 
     private List<GameObject> players;
 
-    public static event Action<PlayerConfiguration, int> OnCreateHUD;
-
     public static event Action<Sprite, Color,int> OnWinHUD;
-
+    public static event Action<PlayerConfiguration, int> OnCreateHUD;
     public static float TimeLife { get ; private set ; }
 
     void Start()
     {
+
         TimeLife = timeLifeOfWeapons;
         currentTimeSpawn = 0;
         InitializeLevel();
+      
     }
 
 
@@ -56,7 +56,6 @@ public class DeathMatch : MonoBehaviour
             player.GetComponent<StatsController>().SetLifes(playersLivesQuantity);
 
             OnCreateHUD?.Invoke(playerConfigs[i], playersLivesQuantity);
-
             MainMenuManager.Instance.PlayersList.Add(playerConfigs[i]);
             players.Add(player);
         }
@@ -112,15 +111,9 @@ public class DeathMatch : MonoBehaviour
         
         Instantiate(weapons[Random.Range(0, 5)], pointsSpawnWeapons[Random.Range(0, 3)].transform.position, Quaternion.Euler(0,0,90));
     }
-
-
     private void OnDisable()
     {
         StatsController.OnDie -= OnDieHandler;
         StatsController.OnRespawn -= OnRespawnHandler;
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        
     }
 }

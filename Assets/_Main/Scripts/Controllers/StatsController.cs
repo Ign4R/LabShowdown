@@ -19,6 +19,8 @@ public class StatsController : MonoBehaviour
 
     private int lifes;
 
+    public bool ResetEffects { get; private set; }
+
     private PlayerController playerController;
     private PlayerView playerView;
 
@@ -52,29 +54,32 @@ public class StatsController : MonoBehaviour
        
     }
     public void TakeDamage(float damage)
-    {     
+    {
+        ResetEffects = false;
         CurrentHealth -= damage;
         OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
         playerView.TakeDamageAnim();
         if (CurrentHealth <= 0 && lifes == 1)
-        {           
+        {       
             CurrentHealth = 0;
             Die();
             OnDie?.Invoke(playerController.PlayerConfig.PlayerIndex);
         }
         if (CurrentHealth <= 0 && lifes > 0)
         {
-           
-            lifes--;      
+            ResetEffects = true;
+            lifes--;
             OnLivesDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
             CurrentHealth = maxHealth;
             OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
-            OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);          
+            OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);
         }
+
 
     }
     public void Die()
     {
+
         print($"Die {gameObject.name}");
         Destroy(gameObject);
     }

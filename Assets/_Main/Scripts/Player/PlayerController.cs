@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private InputAction movement;
 
-   private PlayerInput playerInput;
+    private PlayerInput playerInput;
+
 
 
     public PlayerConfiguration PlayerConfig { get => playerConfig; }

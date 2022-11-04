@@ -17,33 +17,39 @@ public class BuffsController : MonoBehaviour
 
     private StatsController statsController;
 
+
     private void Awake()
     {
         statsController = GetComponent<StatsController>();
     }
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if(frozeenTimer > 0)
+        if (statsController.ResetEffects)
         {
-            frozeenTimer -= Time.deltaTime;
+            frozeenTimer = 0f;
+            igniteTimer = 0f;
         }
-        else if(frozeenLevel > 0) //Chequear si es optimo
+        else
         {
-            statsController.SetSpeedPercentage((1/(MathF.Pow(0.9f, frozeenLevel)))/0.01f);
-            frozeenLevel = 0;
+            if (frozeenTimer >= 1)
+            {
+                frozeenTimer -= Time.deltaTime;
+            }
+            else if (frozeenLevel >= 1) //Chequear si es optimo
+            {
+                statsController.SetSpeedPercentage((1 / (MathF.Pow(0.9f, frozeenLevel))) / 0.01f);
+                frozeenLevel = 0;
+            }
+
+            if (igniteTimer >= 1)
+            {
+                igniteTimer -= Time.deltaTime;
+                statsController.TakeDamage(igniteDamagePS * Time.deltaTime);
+            }
         }
 
-        if (igniteTimer > 0)
-        {
-            igniteTimer -= Time.deltaTime;
-            statsController.TakeDamage(igniteDamagePS*Time.deltaTime);
-        }
+
+
     }
 
     public void Frozeen()
@@ -62,4 +68,6 @@ public class BuffsController : MonoBehaviour
         igniteTimer = igniteTimerSet;
         //play Ignite Animation
     }
- }
+
+
+}

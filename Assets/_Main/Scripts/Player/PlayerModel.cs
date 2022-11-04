@@ -66,7 +66,6 @@ public class PlayerModel : MonoBehaviour
         if (!sideRightRaycast && !sideLeftRaycast)
         {
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
-           
         }
        
         if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)

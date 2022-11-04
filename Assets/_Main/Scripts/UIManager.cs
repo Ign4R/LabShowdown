@@ -57,7 +57,6 @@ public class UIManager : MonoBehaviour
     }
     public void InstanceHUD(PlayerConfiguration playerConfiguration, int lives)
     {
-       
         int playerIndex = playerConfiguration.PlayerIndex;
         playersHUD[playerIndex].SetActive(true);
         playersHUD[playerIndex].transform.GetChild(2).GetComponent<Image>().sprite = playerConfiguration.PlayerSkin;
@@ -66,6 +65,7 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
+        DeathMatch.OnCreateHUD -= InstanceHUD; //TODO: IMPORTANTE DESUSCRIBIRSE WHY?
         DeathMatch.OnWinHUD -= WinHUD;
         StatsController.OnLivesDecrese -= UpdateLivesHUD;
         StatsController.OnUpdateHealth -= UpdateHealthHUD;
