@@ -69,7 +69,7 @@ public class DeathMatch : MonoBehaviour
         currentTimeSpawn -= Time.deltaTime;
         if (currentTimeSpawn <= 0)
         {
-            Spawner();
+            WeaponSpawner();
             currentTimeSpawn = cooldownSpawn;
         }
 
@@ -106,10 +106,10 @@ public class DeathMatch : MonoBehaviour
 
         SceneManager.LoadScene(0);
     }
-    public void Spawner()
+    public void WeaponSpawner()
     {
         
-        Instantiate(weapons[Random.Range(0, 5)], pointsSpawnWeapons[Random.Range(0, 3)].transform.position, Quaternion.Euler(0,0,90));
+        Instantiate(weapons[Random.Range(0, weapons.Length)], pointsSpawnWeapons[Random.Range(0, pointsSpawnWeapons.Length)].transform.position, Quaternion.Euler(0,0,90));
     }
     private void OnDisable()
     {
