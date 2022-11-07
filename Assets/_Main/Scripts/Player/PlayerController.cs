@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("ENABLE ONLY TO TEST")]
     [SerializeField] private bool canTest;
     private SpriteRenderer skin;
-
+    private Material outline;
     private PlayerConfiguration playerConfig;
 
     private PlayerModel model;
@@ -39,7 +39,9 @@ public class PlayerController : MonoBehaviour
     {
         playerConfig = pc;
         skin.sprite = pc.PlayerSkin;
-        skin.material.color = new Color(pc.SkinColor.r, pc.SkinColor.g, pc.SkinColor.b);
+        Material temp = new Material(skin.material.shader);
+        skin.material = temp;
+        skin.material.SetColor("_SolidOutline", new Color(pc.SkinColor.r, pc.SkinColor.g, pc.SkinColor.b));
         playerInput = playerConfig.Input;
         inputAsset =playerConfig.Input.actions;
         player = inputAsset.FindActionMap("Player");

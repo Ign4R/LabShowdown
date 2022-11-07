@@ -71,7 +71,7 @@ public class Gun : MonoBehaviour, IWeapon
     {
         if (cadenceTimer <= 0)
         {
-            Instantiate(bullet, positionBullet.position, transform.rotation);
+            var temp = Instantiate(bullet, positionBullet.position, transform.rotation);
             ammo--;
             cadenceTimer = 1 / cadence;
 

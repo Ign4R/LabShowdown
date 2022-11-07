@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4570de87291339149a7df3bb4d14ae11
+guid: d1f953ec8b9e9df43a646552f07160f0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 700
+  spritePixelsToUnits: 800
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,43 +104,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Recurso 2_0
+      name: Recurso 1_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 241
-        width: 299
-        height: 435
+        x: 0
+        y: 128
+        width: 336
+        height: 526
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d564d76b3c9db4d4c805fcaaeae9833f
-      internalID: 1358022792
+      spriteID: 367a399e5c458e242ba010dcf0a36294
+      internalID: 888183239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Recurso 2_1
+      name: Recurso 1_1
       rect:
         serializedVersion: 2
-        x: 1574
+        x: 425
         y: 0
-        width: 383
-        height: 319
+        width: 1117
+        height: 1274
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8dfa40e2ca7111d4bb79da899145c077
-      internalID: 1452806762
+      spriteID: 97926ca0fbc80c04da1fabd8b903c911
+      internalID: 576871656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recurso 1_2
+      rect:
+        serializedVersion: 2
+        x: 1656
+        y: 158
+        width: 353
+        height: 486
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dba32a62916a0964c96d74ca7ed6b038
+      internalID: 42290443
       vertices: []
       indices: 
       edges: []
@@ -156,8 +177,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Recurso 2_0: 1358022792
-      Recurso 2_1: 1452806762
+      Recurso 1_0: 888183239
+      Recurso 1_1: 576871656
+      Recurso 1_2: 42290443
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

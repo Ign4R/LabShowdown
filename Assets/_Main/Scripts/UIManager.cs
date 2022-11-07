@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
     private void WinHUD(Sprite spriteSkinWin, Color colorSkinWin, int indexWin)
     {
         skinWin.sprite = spriteSkinWin;
-        skinWin.color = new Color(colorSkinWin.r, colorSkinWin.g, colorSkinWin.b);
+        skinWin.material.SetColor("_SolidOutline", new Color(colorSkinWin.r, colorSkinWin.g, colorSkinWin.b));
         namePlayerWin.text = "Player " + indexWin.ToString();
         winPanel.SetActive(true);
     }

@@ -48,8 +48,6 @@ public class BuffsController : MonoBehaviour
             }
         }
 
-
-
     }
 
     public void Frozeen()
