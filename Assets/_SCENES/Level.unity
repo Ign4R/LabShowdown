@@ -609,7 +609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1314952116}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &251192123
 SpriteRenderer:
@@ -1523,7 +1523,7 @@ GameObject:
   - component: {fileID: 734999259}
   - component: {fileID: 734999260}
   m_Layer: 6
-  m_Name: plat_3 (1)
+  m_Name: miniPlat2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1537,8 +1537,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734999258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.28479, y: -18.352783, z: 4.4240713}
-  m_LocalScale: {x: 1.8324527, y: 1.4030734, z: 1.2487303}
+  m_LocalPosition: {x: -8.4117, y: -18.5331, z: 4.4240713}
+  m_LocalScale: {x: 1.817075, y: 1.4437627, z: 1.2487303}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1721280230}
@@ -1584,7 +1584,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: a4b1da9d04197c24293152fecd77c6d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1684,7 +1684,7 @@ GameObject:
   - component: {fileID: 795316663}
   - component: {fileID: 795316664}
   m_Layer: 6
-  m_Name: Plat_2
+  m_Name: Plat_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1703,7 +1703,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1314952116}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &795316663
 SpriteRenderer:
@@ -2292,7 +2292,7 @@ GameObject:
   - component: {fileID: 1094671752}
   - component: {fileID: 1094671753}
   m_Layer: 6
-  m_Name: plat_3
+  m_Name: miniPlat1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2711,11 +2711,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2112630626}
-  - {fileID: 795316662}
   - {fileID: 1721280230}
-  - {fileID: 251192122}
   - {fileID: 1649058769}
+  - {fileID: 795316662}
+  - {fileID: 2112630626}
+  - {fileID: 251192122}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3104,7 +3104,7 @@ GameObject:
   - component: {fileID: 1649058770}
   - component: {fileID: 1649058771}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Plat2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3175,7 +3175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1314952116}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1649058770
 BoxCollider2D:
@@ -3537,7 +3537,7 @@ GameObject:
   - component: {fileID: 1721280230}
   - component: {fileID: 1721280231}
   m_Layer: 6
-  m_Name: Plat_3
+  m_Name: Plat_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3558,7 +3558,7 @@ Transform:
   - {fileID: 1094671752}
   - {fileID: 734999259}
   m_Father: {fileID: 1314952116}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1721280231
 BoxCollider2D:
@@ -4040,7 +4040,7 @@ GameObject:
   - component: {fileID: 2112630627}
   - component: {fileID: 2112630628}
   m_Layer: 6
-  m_Name: plat_1
+  m_Name: Plat_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4059,7 +4059,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1314952116}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2112630627
 SpriteRenderer:
