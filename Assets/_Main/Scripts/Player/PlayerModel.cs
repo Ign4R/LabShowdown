@@ -55,7 +55,6 @@ public class PlayerModel : MonoBehaviour
 
     public IWeapon Weapon { get; private set; }
 
-    public IWeapon Weapon { get => weapon; private set => weapon = value; }
     public bool AlreadyJumped { get => alreadyJumped;  set => alreadyJumped = value; }
 
 
@@ -188,19 +187,6 @@ public class PlayerModel : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
           
         }         
-    }
-
-    public void LimitHeight()
-    {
-        if (rb.velocity.y <= -1 && !floorRaycast && !cancelledJump)
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f); 
-    }
-    public void FallingSpeedIncrease()
-    {
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity -= fallMultiplier * Time.deltaTime * gravity;
-        }
     }
 
     public void JumpQueue()
