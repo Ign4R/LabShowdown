@@ -11,4 +11,13 @@ public class PlayerView : MonoBehaviour
     {
         anim.SetTrigger("Hit");   
     }
+    public void GetIgniteAnim(bool state)
+    {
+        anim.SetBool("ignite", state);
+    }
+
+    public void GetFrozenAnim(bool state)
+    {
+        anim.SetBool("frozen", state);
+    }
 }

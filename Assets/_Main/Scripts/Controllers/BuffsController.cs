@@ -17,10 +17,12 @@ public class BuffsController : MonoBehaviour
 
     private StatsController statsController;
 
+    private PlayerView playerView;
 
     private void Awake()
     {
         statsController = GetComponent<StatsController>();
+        playerView = GetComponent<PlayerView>();
     }
     void Update()
     {
@@ -34,17 +36,28 @@ public class BuffsController : MonoBehaviour
             if (frozeenTimer >= 1)
             {
                 frozeenTimer -= Time.deltaTime;
+                playerView.GetFrozenAnim(true);
             }
-            else if (frozeenLevel >= 1) //Chequear si es optimo
+            else
             {
-                statsController.SetSpeedPercentage((1 / (MathF.Pow(0.9f, frozeenLevel))) / 0.01f);
-                frozeenLevel = 0;
+                playerView.GetFrozenAnim(false);
+
+                if (frozeenLevel >= 1) //Chequear si es optimo
+                {
+                    statsController.SetSpeedPercentage((1 / (MathF.Pow(0.9f, frozeenLevel))) / 0.01f);
+                    frozeenLevel = 0;
+                }
             }
 
             if (igniteTimer >= 1)
             {
                 igniteTimer -= Time.deltaTime;
+                playerView.GetIgniteAnim(true);
                 statsController.TakeDamage(igniteDamagePS * Time.deltaTime);
+            }
+            else
+            {
+                playerView.GetIgniteAnim(false);
             }
         }
 

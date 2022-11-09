@@ -20,16 +20,19 @@ public class PlayerModel : MonoBehaviour
 
     [SerializeField] private Transform arm;
 
-
     [SerializeField] private Transform dropPosition;
 
     [SerializeField] private float raycastHorizontalDistance;
+
     [SerializeField] private float raycastFloorDistance;
 
     [SerializeField] private Transform floorOffset;
+
     [SerializeField] private Transform hitOffsetLeft;
+
     [SerializeField] private Transform hitOffsetRight;
 
+    private bool weaponReady;
 
     private Queue<string> inputBuffer = new Queue<string>();
 
@@ -38,14 +41,11 @@ public class PlayerModel : MonoBehaviour
     private RaycastHit2D sideRightRaycast;
     private float coyoteTime;
     private bool alreadyJumped;
-
-    private IWeapon weapon;
-
     private StatsController statsController;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
-    public IWeapon Weapon { get => weapon; private set => weapon = value; }
+    public IWeapon Weapon { get; private set; }
 
     private void Awake()
     {
@@ -177,16 +177,23 @@ public class PlayerModel : MonoBehaviour
         {
             Weapon = hand.GetComponentInChildren<IWeapon>();
         }
-        if (Weapon != null && input > 0)
+
+        if (Weapon != null && input > 0 && (weaponReady == true || Weapon.IsFullAuto == true))
         {
             Weapon.Attack();
+            weaponReady = false;
+
             if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
             {
-                Weapon.DestroyWeapon();                            
+                Weapon.DestroyWeapon();
                 WeaponIsNull();
             }
         }
 
+        if (Weapon != null && input < 1)
+        {
+            weaponReady = true;
+        }
     }
     public void WeaponIsNull()
     {
@@ -211,10 +218,9 @@ public class PlayerModel : MonoBehaviour
             Weapon.Rigidbody2D.simulated = true;
             Weapon._SpriteRenderer.sortingLayerName = "Weapon";
             WeaponIsNull();
-
         }
     }
-     
+ 
     public void Timer()
     {
         if (floorRaycast == true)
@@ -271,7 +277,6 @@ public class PlayerModel : MonoBehaviour
             weaponPrefab = collision.GetComponent<Transform>();
             GrabWeapon();
         }
-
     }
 
 
@@ -280,7 +285,7 @@ public class PlayerModel : MonoBehaviour
         spriteRenderer.sortingOrder = 1;
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;
-        weaponPrefab.SetParent(hand);       
+        weaponPrefab.SetParent(hand);
     }
 
     private void OnDrawGizmos()
@@ -290,7 +295,4 @@ public class PlayerModel : MonoBehaviour
         Gizmos.DrawRay(hitOffsetRight.position, Vector2.down * raycastHorizontalDistance);
         Gizmos.DrawRay(hitOffsetLeft.position, Vector2.down * raycastHorizontalDistance);
     }
-
-
-
 }

@@ -47,6 +47,5 @@ public class Bullet : MonoBehaviour
                 collision.GetComponent<BuffsController>()?.Frozeen();
                 break;
         }
-
     }
 }

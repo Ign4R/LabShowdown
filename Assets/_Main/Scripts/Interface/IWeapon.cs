@@ -13,6 +13,7 @@ public interface IWeapon
     GameObject GO { get; }
     int Ammo { get; }
     bool CanDestroy { get; }
+    bool IsFullAuto { get; }
     bool TouchGround { get; }
     float CurrentTime { get; }
     void Attack();

@@ -8,11 +8,6 @@ public class StatsController : MonoBehaviour
     
    [SerializeField] private PlayerStats playerStats;
 
-    //TODO: [DUDA] PONER ESTAS VARIABLES ACA O LLAMARLAS DESDE EL PLAYER MODEL?
-    private float speed;
-
-    private float jumpHeight;
-
     public float CurrentHealth { get; private set; }
 
     private float maxHealth;
@@ -33,8 +28,8 @@ public class StatsController : MonoBehaviour
     public static event Action<int> OnRespawn;
 
 
-    public float Speed { get => speed; set => speed = value; }
-    public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
+    public float Speed { get; set; }
+    public float JumpHeight { get; set; }
 
     private void Awake()
     {
@@ -46,8 +41,8 @@ public class StatsController : MonoBehaviour
     {
         CurrentHealth = playerStats.MaxHealth;
         maxHealth = playerStats.MaxHealth;
-        speed = playerStats.Speed;
-        jumpHeight = playerStats.JumpHeight;
+        Speed = playerStats.Speed;
+        JumpHeight = playerStats.JumpHeight;
     }
     private void Update()
     {
@@ -60,7 +55,7 @@ public class StatsController : MonoBehaviour
         OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
         playerView.TakeDamageAnim();
         if (CurrentHealth <= 0 && lifes == 1)
-        {       
+        {
             CurrentHealth = 0;
             Die();
             OnDie?.Invoke(playerController.PlayerConfig.PlayerIndex);
@@ -86,7 +81,7 @@ public class StatsController : MonoBehaviour
 
     public float SetSpeedPercentage(float percentage)
     {
-        speed = speed * (percentage * 0.01f);
+        Speed = Speed * (percentage * 0.01f);
         return Speed;
     }
 

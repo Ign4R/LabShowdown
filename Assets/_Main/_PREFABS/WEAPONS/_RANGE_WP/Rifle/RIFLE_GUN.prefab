@@ -105,6 +105,7 @@ MonoBehaviour:
   positionBullet: {fileID: 5458483996018761746}
   ammo: 10
   canDestroy: 0
+  isFullAuto: 1
   cadence: 7
 --- !u!61 &6884512106788442425
 BoxCollider2D:

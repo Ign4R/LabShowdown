@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canTest;
     private SpriteRenderer skin;
     private Material outline;
-    private PlayerConfiguration playerConfig;
-
     private PlayerModel model;
 
     private InputActionAsset inputAsset;
@@ -22,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    public PlayerConfiguration PlayerConfig { get => playerConfig; }
+    public PlayerConfiguration PlayerConfig { get; private set; }
 
     private InputAction attack;
 
@@ -37,13 +35,13 @@ public class PlayerController : MonoBehaviour
 
     public void InitializePlayer(PlayerConfiguration pc)
     {
-        playerConfig = pc;
+        PlayerConfig = pc;
         skin.sprite = pc.PlayerSkin;
         Material temp = new Material(skin.material.shader);
         skin.material = temp;
         skin.material.SetColor("_SolidOutline", new Color(pc.SkinColor.r, pc.SkinColor.g, pc.SkinColor.b));
-        playerInput = playerConfig.Input;
-        inputAsset =playerConfig.Input.actions;
+        playerInput = PlayerConfig.Input;
+        inputAsset =PlayerConfig.Input.actions;
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
         attack = player.FindAction("Attack");
@@ -82,10 +80,10 @@ public class PlayerController : MonoBehaviour
 
     public void Test()
     {
-        playerConfig = new PlayerConfiguration(playerInput);
+        PlayerConfig = new PlayerConfiguration(playerInput);
         model = GetComponent<PlayerModel>();
-        playerInput = playerConfig.Input;
-        inputAsset = playerConfig.Input.actions;
+        playerInput = PlayerConfig.Input;
+        inputAsset = PlayerConfig.Input.actions;
         player = inputAsset.FindActionMap("Player");
         model = GetComponent<PlayerModel>();
         attack = player.FindAction("Attack");
