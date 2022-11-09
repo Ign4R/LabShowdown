@@ -13,6 +13,9 @@ public class PlayerModel : MonoBehaviour
     [SerializeField] private LayerMask floor;
 
     [SerializeField] private float coyoteTimeSet;
+    [SerializeField] private float fallMultiplier;
+    [SerializeField] private float jumpMultiplier;
+    [SerializeField] private float jumpTime;
 
     [SerializeField] private float inputBufferTimeSet;
 
@@ -40,18 +43,38 @@ public class PlayerModel : MonoBehaviour
     private RaycastHit2D sideLeftRaycast;
     private RaycastHit2D sideRightRaycast;
     private float coyoteTime;
+    private float jumpCounter;
     private bool alreadyJumped;
+
+    private Vector2 gravity;
+
     private StatsController statsController;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
+
     public IWeapon Weapon { get; private set; }
+
+    public IWeapon Weapon { get => weapon; private set => weapon = value; }
+    public bool AlreadyJumped { get => alreadyJumped;  set => alreadyJumped = value; }
+
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         statsController = GetComponent<StatsController>();
         rb = GetComponent<Rigidbody2D>();
+
+    }
+
+    private void Start()
+    {
+        gravity = new Vector3(0, -Physics2D.gravity.y);
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void Raycasts()
@@ -112,7 +135,8 @@ public class PlayerModel : MonoBehaviour
                     }
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
-                   
+                    jumpCounter = 0;
+
 
                 }
 
@@ -134,9 +158,26 @@ public class PlayerModel : MonoBehaviour
                     }
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
+                    jumpCounter = 0;
 
                 }
             }
+        }
+
+        if(rb.velocity.y > 0 && alreadyJumped)
+        {
+            jumpCounter += Time.deltaTime;
+            if (jumpCounter > jumpTime) alreadyJumped = false;
+
+            float t = jumpCounter / jumpTime;
+            float currentJumpM = jumpMultiplier;
+
+            if (t > 0.5f)
+            {
+                currentJumpM = jumpMultiplier * (1 - t);
+            }
+
+            rb.velocity += gravity * currentJumpM * Time.deltaTime;
         }
     }
     public void CancelledJump()
@@ -153,6 +194,13 @@ public class PlayerModel : MonoBehaviour
     {
         if (rb.velocity.y <= -1 && !floorRaycast && !cancelledJump)
             rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f); 
+    }
+    public void FallingSpeedIncrease()
+    {
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity -= fallMultiplier * Time.deltaTime * gravity;
+        }
     }
 
     public void JumpQueue()
@@ -232,6 +280,8 @@ public class PlayerModel : MonoBehaviour
             coyoteTime += Time.deltaTime;
         }
     }
+
+
     private void RemoveInput()
     {
         if (inputBuffer.Count > 0)
