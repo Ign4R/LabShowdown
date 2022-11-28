@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-   
+
+    private bool cancelledJump;
     private Transform weaponPrefab;
     [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
     [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
@@ -118,7 +119,7 @@ public class PlayerModel : MonoBehaviour
         //TODO: REWORK JUMP
         if (floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast)
         {
-           
+            cancelledJump = false;
             if (inputBuffer.Count > 0)
             {
                 if (inputBuffer.Peek() == "jump")
@@ -134,6 +135,7 @@ public class PlayerModel : MonoBehaviour
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                     jumpCounter = 0;
+
 
                 }
 
@@ -156,12 +158,12 @@ public class PlayerModel : MonoBehaviour
                     inputBuffer.Dequeue();
                     alreadyJumped = true;
                     jumpCounter = 0;
-                    coyoteTime = 0;
+
                 }
             }
         }
 
-        if (rb.velocity.y > 0 && alreadyJumped)
+        if(rb.velocity.y > 0 && alreadyJumped)
         {
             jumpCounter += Time.deltaTime;
             if (jumpCounter > jumpTime) alreadyJumped = false;
@@ -179,7 +181,7 @@ public class PlayerModel : MonoBehaviour
     }
     public void CancelledJump()
     {
-       
+        cancelledJump = true;
         if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
         {
             rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
