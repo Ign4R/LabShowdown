@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 6564888865748022129}
   - component: {fileID: 9038484996096818484}
   - component: {fileID: 256794775}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65
   coyoteTimeSet: 0.25
-  fallMultiplier: 40
+  fallMultiplier: 10
   jumpMultiplier: 9
   jumpTime: 0.4
   inputBufferTimeSet: 0.25

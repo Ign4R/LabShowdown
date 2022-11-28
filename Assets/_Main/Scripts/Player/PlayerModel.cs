@@ -55,7 +55,6 @@ public class PlayerModel : MonoBehaviour
 
     public IWeapon Weapon { get; private set; }
 
-    public IWeapon Weapon { get => weapon; private set => weapon = value; }
     public bool AlreadyJumped { get => alreadyJumped;  set => alreadyJumped = value; }
 
 
@@ -164,7 +163,21 @@ public class PlayerModel : MonoBehaviour
             }
         }
 
-        if(rb.velocity.y > 0 && alreadyJumped)
+        
+    }
+    public void CancelledJump()
+    {
+        cancelledJump = true;
+        if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
+          
+        }         
+    }
+
+    public void VariableJump()
+    {
+        if (rb.velocity.y > 0 && alreadyJumped)
         {
             jumpCounter += Time.deltaTime;
             if (jumpCounter > jumpTime) alreadyJumped = false;
@@ -179,21 +192,6 @@ public class PlayerModel : MonoBehaviour
 
             rb.velocity += gravity * currentJumpM * Time.deltaTime;
         }
-    }
-    public void CancelledJump()
-    {
-        cancelledJump = true;
-        if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
-          
-        }         
-    }
-
-    public void LimitHeight()
-    {
-        if (rb.velocity.y <= -1 && !floorRaycast && !cancelledJump)
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f); 
     }
     public void FallingSpeedIncrease()
     {

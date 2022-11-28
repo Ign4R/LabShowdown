@@ -59,13 +59,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        model.Raycasts();
+        model.Timer();
         model.Movement(movement.ReadValue<Vector2>().x);
         model.Attack(attack.ReadValue<float>());
         model.Jump(movement.ReadValue<Vector2>().x);
+        model.VariableJump();
         model.FallingSpeedIncrease();
-        //model.LimitHeight();
-        model.Timer();
-        model.Raycasts();
     }
 
     private void OnDisable()
