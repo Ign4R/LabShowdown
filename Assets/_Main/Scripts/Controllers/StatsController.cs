@@ -53,7 +53,7 @@ public class StatsController : MonoBehaviour
         ResetEffects = false;
         CurrentHealth -= damage;
         OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
-        playerView.TakeDamageAnim();
+        playerView.Anim.SetTrigger("Hit");
         if (CurrentHealth <= 0 && lifes == 1)
         {
             CurrentHealth = 0;

@@ -9,7 +9,7 @@
 		[MaterialToggle] _OutlineEnabled ("Outline Enabled", Float) = 1
 		[MaterialToggle] _ConnectedAlpha ("Connected Alpha", Float) = 0
         [HideInInspector] _AlphaThreshold ("Alpha clean", Range (0, 1)) = 0
-        _Thickness ("Width (Max recommended 100)", float) = 42
+        _Thickness ("Width (Max recommended 100)", float) = 11  ///// MODIFICAR ANCHO DE OUTLINE
 		[KeywordEnum(Solid, Gradient, Image)] _OutlineMode("Outline mode", Float) = 0
 		[KeywordEnum(Contour, Frame)] _OutlineShape("Outline shape", Float) = 0
 		[KeywordEnum(Inside under sprite, Inside over sprite, Outside)] _OutlinePosition("Outline Position (Frame Only)", Float) = 0

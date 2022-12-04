@@ -30,17 +30,19 @@ public class BuffsController : MonoBehaviour
         {
             frozeenTimer = 0f;
             igniteTimer = 0f;
+            playerView.Anim.SetBool("Ignite", false); //
+            playerView.Anim.SetBool("Frozen", false); //
         }
         else
         {
             if (frozeenTimer >= 1)
             {
                 frozeenTimer -= Time.deltaTime;
-                playerView.GetFrozenAnim(true);
+                playerView.Anim.SetBool("Frozen", true);
             }
             else
             {
-                playerView.GetFrozenAnim(false);
+                playerView.Anim.SetBool("Frozen", false);
 
                 if (frozeenLevel >= 1) //Chequear si es optimo
                 {
@@ -52,12 +54,12 @@ public class BuffsController : MonoBehaviour
             if (igniteTimer >= 1)
             {
                 igniteTimer -= Time.deltaTime;
-                playerView.GetIgniteAnim(true);
+                playerView.Anim.SetBool("Ignite", true);
                 statsController.TakeDamage(igniteDamagePS * Time.deltaTime);
             }
             else
             {
-                playerView.GetIgniteAnim(false);
+                playerView.Anim.SetBool("Ignite", false);
             }
         }
 

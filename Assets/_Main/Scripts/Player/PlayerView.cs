@@ -3,21 +3,12 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     private Animator anim;
+
+    public Animator Anim { get => anim; set => anim = value; }
+
     private void Awake()
     {
-        anim = GetComponent<Animator>();   
-    }
-    public void TakeDamageAnim()
-    {
-        anim.SetTrigger("Hit");   
-    }
-    public void GetIgniteAnim(bool state)
-    {
-        anim.SetBool("ignite", state);
+        Anim = GetComponent<Animator>();   
     }
 
-    public void GetFrozenAnim(bool state)
-    {
-        anim.SetBool("frozen", state);
-    }
 }
