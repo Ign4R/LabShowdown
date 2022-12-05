@@ -16,11 +16,11 @@ public class MainMenuManager : MonoBehaviour
     private List<PlayerConfiguration> playerConfigs;
     public List<PlayerConfiguration> PlayersList { get; private set; }
     [SerializeField] private GameObject playerInputPrefab;
-   
+
     private bool canCreateSecondKeyboard = false;
     private Controls controlsInput;
     public static MainMenuManager Instance { get; private set; }
-    public int CountPlayers { get ; private set; }
+    public int CountPlayers { get; private set; }
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class MainMenuManager : MonoBehaviour
     {
         minPlayersText.text = "NO READY";
     }
-  
+
     private void OnEnable()
     {
         controlsInput.Enable();
@@ -53,11 +53,14 @@ public class MainMenuManager : MonoBehaviour
         print(PlayersList);
     }
     public void SetPlayerSkin(int index, Sprite skin)
-    {      
+    {
         playerConfigs[index].PlayerSkin = skin;
-       
-    }
 
+    }
+    public void SetAnim(int index , RuntimeAnimatorController animRuntime)
+    {
+        playerConfigs[index].AnimRuntime = animRuntime;
+    }
     public void SetColorPlayer(int index, Color skinColor)
     {
         playerConfigs[index].SkinColor = skinColor;
@@ -129,6 +132,8 @@ public class PlayerConfiguration
     public bool IsReady { get; set; }
     public Sprite PlayerSkin { get; set; }
     public Color SkinColor { get; set; } //TODO: Hacerlo un propio componente (Sprite Renderer)
+
+    public RuntimeAnimatorController AnimRuntime { get; set; }
 
     public PlayerConfiguration(PlayerInput playerInput)
     {

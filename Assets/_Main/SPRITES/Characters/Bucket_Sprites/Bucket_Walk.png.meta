@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 37696c39fb2a4d94298cccc0bacfbf5e
+guid: 06c4b7cf73f70d54192f4ab64001e81b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Recurso 23_0
+      name: Bucket_Walk_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1214
-        height: 1246
+        width: 1233
+        height: 1255
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,41 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c23dcad3c4291e94682eba27a3b9255e
-      internalID: -175363964
+      spriteID: be8aab364985ec7448db6d9cbc87352f
+      internalID: -1085172428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Recurso 23_1
+      name: Bucket_Walk_1
       rect:
         serializedVersion: 2
-        x: 1290
-        y: 5
-        width: 1217
-        height: 1236
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ba051ad91ea91d74e803726c748052ab
-      internalID: -85469473
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Recurso 23_2
-      rect:
-        serializedVersion: 2
-        x: 2546
+        x: 1382
         y: 0
-        width: 1217
-        height: 1246
+        width: 1235
+        height: 1255
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca201f9a7bbb0d340ba15466ab81cc74
-      internalID: 646567561
+      spriteID: 1dea1fffddda18842b080186cf43330f
+      internalID: -1594449866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Recurso 23_3
+      name: Bucket_Walk_2
       rect:
         serializedVersion: 2
-        x: 3820
-        y: 7
-        width: 1214
-        height: 1232
+        x: 2732
+        y: 0
+        width: 1231
+        height: 1255
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,8 +160,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0eb9a9f0cf196f04a859dfd399391de4
-      internalID: 1326865591
+      spriteID: 7e5c7cdb4d854a44382b43b90e8e9bfe
+      internalID: 819737664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bucket_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 3967
+        y: 30
+        width: 1235
+        height: 1223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02a4398695ec6b419981924b403e823
+      internalID: -1128390310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bucket_Walk_4
+      rect:
+        serializedVersion: 2
+        x: 5253
+        y: 0
+        width: 1233
+        height: 1255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc655b308fabb66448d342c3a68aae1b
+      internalID: -1608162455
       vertices: []
       indices: 
       edges: []
@@ -198,10 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Recurso 23_2: 646567561
-      Recurso 23_3: 1326865591
-      Recurso 23_1: -85469473
-      Recurso 23_0: -175363964
+      Bucket_Walk_3: -1128390310
+      Bucket_Walk_1: -1594449866
+      Bucket_Walk_4: -1608162455
+      Bucket_Walk_0: -1085172428
+      Bucket_Walk_2: 819737664
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

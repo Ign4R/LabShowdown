@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput playerInput;
 
-
+    private Animator anim;
 
     public PlayerConfiguration PlayerConfig { get; private set; }
 
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         skin = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerConfig = pc;
         skin.sprite = pc.PlayerSkin;
+        anim.runtimeAnimatorController = pc.AnimRuntime;
         Material temp = new Material(skin.material.shader);
         skin.material = temp;
         skin.material.SetColor("_SolidOutline", new Color(pc.SkinColor.r, pc.SkinColor.g, pc.SkinColor.b));
@@ -80,6 +82,7 @@ public class PlayerController : MonoBehaviour
     public void Test()
     {
         PlayerConfig = new PlayerConfiguration(playerInput);
+
         model = GetComponent<PlayerModel>();
         playerInput = PlayerConfig.Input;
         inputAsset = PlayerConfig.Input.actions;

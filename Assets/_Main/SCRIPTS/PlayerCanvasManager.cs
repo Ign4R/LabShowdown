@@ -49,6 +49,13 @@ public class PlayerCanvasManager : MonoBehaviour
         menuPanel.SetActive(false);
     }
 
+    public void SetAnim(RuntimeAnimatorController animRuntime)
+    {
+        if (!inputEnable) return;
+        MainMenuManager.Instance.SetAnim(playerIndex, animRuntime);
+
+    }
+
     public void ReadyPlayer()
     {
         if (!inputEnable) return;
