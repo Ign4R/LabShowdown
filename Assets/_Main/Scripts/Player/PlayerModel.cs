@@ -117,7 +117,7 @@ public class PlayerModel : MonoBehaviour
     public void Jump(float x)
     {
         //TODO: REWORK JUMP
-        if (floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast)
+        if ((floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast) && alreadyJumped == false)
         {
             cancelledJump = false;
             if (inputBuffer.Count > 0)
@@ -127,43 +127,28 @@ public class PlayerModel : MonoBehaviour
                     if (!sideLeftRaycast && !sideRightRaycast)
                     {
                         rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
+                        inputBuffer.Dequeue();
+                        alreadyJumped = true;
+                        jumpCounter = 0;
                     }
-                    else
+                    if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                     {
-                        rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
+                        if (!sideLeftRaycast && !sideRightRaycast)
+                        {
+                            rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
+                        }
+                        inputBuffer.Dequeue();
+                        alreadyJumped = true;
+                        jumpCounter = 0;
+
                     }
-                    inputBuffer.Dequeue();
-                    alreadyJumped = true;
-                    jumpCounter = 0;
+
 
 
                 }
 
             }
-        }
-        else if (inputBuffer.Count > 0)
-        {
-            if (inputBuffer.Peek() == "jump")
-            {
-                if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
-                {
-                    if (!sideLeftRaycast && !sideRightRaycast)
-                    {
-                        rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
-                    }
-                    inputBuffer.Dequeue();
-                    alreadyJumped = true;
-                    jumpCounter = 0;
-
-                }
-            }
-        }
-
-        
+        }     
     }
     public void CancelledJump()
     {
@@ -180,7 +165,7 @@ public class PlayerModel : MonoBehaviour
         if (rb.velocity.y > 0 && alreadyJumped)
         {
             jumpCounter += Time.deltaTime;
-            if (jumpCounter > jumpTime) alreadyJumped = false;
+            if (jumpCounter > jumpTime) alreadyJumped = true;
 
             float t = jumpCounter / jumpTime;
             float currentJumpM = jumpMultiplier;
@@ -243,8 +228,8 @@ public class PlayerModel : MonoBehaviour
     }
     public void WeaponIsNull()
     {
-        gameObject.layer = 7;
-        Weapon = null;
+        //gameObject.layer = 7;
+        //Weapon = null;
       
        
     }
@@ -256,14 +241,14 @@ public class PlayerModel : MonoBehaviour
         }
         if (Weapon != null)
         {
-            //TODO: layer 7 es "player" 
-            Weapon._Transform.SetParent(null);
-            Weapon._Transform.position = dropPosition.transform.position;
-            Weapon._Collider2D.enabled = true;
-            Weapon.Rigidbody2D.isKinematic = false;
-            Weapon.Rigidbody2D.simulated = true;
-            Weapon._SpriteRenderer.sortingLayerName = "Weapon";
-            WeaponIsNull();
+            ////TODO: layer 7 es "player" 
+            //Weapon._Transform.SetParent(null);
+            //Weapon._Transform.position = dropPosition.transform.position;
+            //Weapon._Collider2D.enabled = true;
+            //Weapon.Rigidbody2D.isKinematic = false;
+            //Weapon.Rigidbody2D.simulated = true;
+            //Weapon._SpriteRenderer.sortingLayerName = "Weapon";
+            //WeaponIsNull();
         }
     }
  
@@ -305,10 +290,10 @@ public class PlayerModel : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (hand.childCount >= 1)//TODO: CAMBIAR MAS ADELANTE
-        {
-            gameObject.layer = default; 
-        }
+        //if (hand.childCount >= 1)//TODO: CAMBIAR MAS ADELANTE
+        //{
+        //    gameObject.layer = default; 
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
