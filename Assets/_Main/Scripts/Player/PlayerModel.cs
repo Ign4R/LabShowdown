@@ -6,6 +6,7 @@ public class PlayerModel : MonoBehaviour
 {
    
     private Transform weaponPrefab;
+   
     [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
     [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
 
@@ -53,7 +54,7 @@ public class PlayerModel : MonoBehaviour
 
     private PlayerView playerView;
 
-
+   public GameObject dust;
     public IWeapon Weapon { get; private set; }
 
     public bool AlreadyJumped { get => alreadyJumped;  set => alreadyJumped = value; }
@@ -317,6 +318,11 @@ public class PlayerModel : MonoBehaviour
             weaponPrefab = collision.GetComponent<Transform>();
             GrabWeapon();
         }
+
+        if(collision.gameObject.layer == 6)
+        {
+            Instantiate(dust, transform.position, dust.transform.rotation);
+        }
     }
 
 
@@ -335,4 +341,6 @@ public class PlayerModel : MonoBehaviour
         Gizmos.DrawRay(hitOffsetRight.position, Vector2.down * raycastHorizontalDistance);
         Gizmos.DrawRay(hitOffsetLeft.position, Vector2.down * raycastHorizontalDistance);
     }
+
+   
 }
