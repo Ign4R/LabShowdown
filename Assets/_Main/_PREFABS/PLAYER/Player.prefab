@@ -312,7 +312,7 @@ MonoBehaviour:
   speedYFalling: -20
   floor:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   coyoteTimeSet: 0.25
   inputBufferTimeSet: 0.25
   hand: {fileID: 1507422022771536452}
