@@ -5,9 +5,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("ENABLE ONLY TO TEST")]
+
     [SerializeField] private bool canTest;
+
     private SpriteRenderer skin;
+
     private Material outline;
+
     private PlayerModel model;
 
     private InputActionAsset inputAsset;
@@ -16,18 +20,17 @@ public class PlayerController : MonoBehaviour
 
     private InputAction movement;
 
-    private PlayerInput playerInput;
-
-
-
-    public PlayerConfiguration PlayerConfig { get; private set; }
+    private PlayerInput playerInput; 
 
     private InputAction attack;
+
+    public PlayerConfiguration PlayerConfig { get; private set; }
 
     private void Awake()
     {
         skin = GetComponent<SpriteRenderer>();
     }
+
     private void Start()
     {
         if(canTest) Test();
@@ -52,10 +55,7 @@ public class PlayerController : MonoBehaviour
         player.FindAction("AimUp").performed += AimUpInput;
         player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
         player.Enable();
-
     }
-
-  
 
     void Update()
     {
@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviour
         player.FindAction("AimUpRelease").performed -= AimUpReleaseInput;
         player.Disable();
     }
- 
 
     public void Test()
     {
@@ -95,10 +94,12 @@ public class PlayerController : MonoBehaviour
         player.FindAction("AimUpRelease").performed += AimUpReleaseInput;
         player.Enable();
     }
+
     private void DropInput(InputAction.CallbackContext context)
     {
         model.DropWeapon();
     }
+
     private void JumpInput(InputAction.CallbackContext context)
     {
         if (context.canceled)
@@ -121,6 +122,4 @@ public class PlayerController : MonoBehaviour
     {
         model.AimUpRelease();
     }
-
-
 }

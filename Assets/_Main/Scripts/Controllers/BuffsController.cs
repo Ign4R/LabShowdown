@@ -30,6 +30,8 @@ public class BuffsController : MonoBehaviour
         {
             frozeenTimer = 0f;
             igniteTimer = 0f;
+            playerView.GetFrozenAnim(false);
+            playerView.GetIgniteAnim(false);
         }
         else
         {
