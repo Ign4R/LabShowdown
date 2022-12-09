@@ -34,7 +34,7 @@ public class PlayerCanvasManager : MonoBehaviour
     {
       
         playerIndex = playerInput;
-        titleText.SetText("Player" + (playerInput + 1).ToString());
+        titleText.SetText("Player " + (playerInput + 1).ToString());
         ignoreInputTime = Time.time + ignoreInputTime;
     }
 
