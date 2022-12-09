@@ -39,9 +39,8 @@ public class DeathMatch : MonoBehaviour
 
         TimeLife = timeLifeOfWeapons;
         currentTimeSpawn = 0;
-
-        timerToGame = 7;
-        Destroy(screenInfoGame, 3f);
+        timerToGame = 9f;
+        Destroy(screenInfoGame, 4f);
     }
 
 
@@ -73,8 +72,16 @@ public class DeathMatch : MonoBehaviour
         if (currentTimeSpawn==0) 
         {
             timerToGame -= Time.deltaTime;
-            int temp = (int)timerToGame;
-            textCount.text = temp.ToString();
+            if (timerToGame < 1)
+            {
+                textCount.text = "FIGHT";
+            }
+            else
+            {
+                int temp = (int)timerToGame;
+                textCount.text = temp.ToString();
+            }
+           
         }
         if (timerToGame <=0)
         {
