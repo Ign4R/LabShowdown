@@ -7,6 +7,9 @@ using System;
 
 public class DeathMatch : MonoBehaviour
 {
+    private float timerToGame;
+    [SerializeField] private GameObject screenInfoGame;
+    [SerializeField] private TextMeshProUGUI textCount;
     [SerializeField] private Transform[] playerSpawns;
 
     [SerializeField] private Transform[] respawnPoints;
@@ -36,8 +39,9 @@ public class DeathMatch : MonoBehaviour
 
         TimeLife = timeLifeOfWeapons;
         currentTimeSpawn = 0;
-        InitializeLevel();
-      
+
+        timerToGame = 7;
+        Destroy(screenInfoGame, 3f);
     }
 
 
@@ -54,7 +58,8 @@ public class DeathMatch : MonoBehaviour
             var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             player.GetComponent<PlayerController>().InitializePlayer(playerConfigs[i]);
             player.GetComponent<StatsController>().SetLifes(playersLivesQuantity);
-
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             OnCreateHUD?.Invoke(playerConfigs[i], playersLivesQuantity);
             MainMenuManager.Instance.PlayersList.Add(playerConfigs[i]);
             players.Add(player);
@@ -65,13 +70,26 @@ public class DeathMatch : MonoBehaviour
     }
     private void Update()
     {
-       
-        currentTimeSpawn -= Time.deltaTime;
-        if (currentTimeSpawn <= 0)
+        if (currentTimeSpawn==0) 
         {
-            WeaponSpawner();
-            currentTimeSpawn = cooldownSpawn;
+            timerToGame -= Time.deltaTime;
+            int temp = (int)timerToGame;
+            textCount.text = temp.ToString();
         }
+        if (timerToGame <=0)
+        {
+            timerToGame = 5;
+            currentTimeSpawn -= Time.deltaTime;
+            Destroy(textCount);
+            InitializeLevel();
+
+            if (currentTimeSpawn <= 0)
+            {
+                WeaponSpawner();
+                currentTimeSpawn = cooldownSpawn;
+            }
+        }
+           
 
     }
     private void OnRespawnHandler(int playerIndex)
