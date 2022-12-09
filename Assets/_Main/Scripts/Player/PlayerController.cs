@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         if (context.canceled)
         {
 
-            //model.AlreadyJumped = false;
+            model.AlreadyJumped = false;
         }
         else
         {

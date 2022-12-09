@@ -69,6 +69,7 @@ public class PlayerModel : MonoBehaviour
     private void Start()
     {
         gravity = new Vector3(0, -Physics2D.gravity.y);
+        Weapon = null;
     }
 
     private void Update()
@@ -90,15 +91,15 @@ public class PlayerModel : MonoBehaviour
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
         }
        
-        if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
+        //if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
+        //{
+        //    rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
             
-        }
-        if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
-        { 
-            rb.velocity = new Vector3(x * statsController.Speed, speedYWallSlide, 0f);
-        }
+        //}
+        //if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
+        //{ 
+        //    rb.velocity = new Vector3(x * statsController.Speed, speedYWallSlide, 0f);
+        //}
 
         if (x < 0)
         {
@@ -119,7 +120,7 @@ public class PlayerModel : MonoBehaviour
         //TODO: REWORK JUMP
         if ((floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast) && alreadyJumped == false)
         {
-            cancelledJump = false;
+            
             if (inputBuffer.Count > 0)
             {
                 if (inputBuffer.Peek() == "jump")
@@ -130,6 +131,7 @@ public class PlayerModel : MonoBehaviour
                         inputBuffer.Dequeue();
                         alreadyJumped = true;
                         jumpCounter = 0;
+                        return;
                     }
                     if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                     {
@@ -150,22 +152,22 @@ public class PlayerModel : MonoBehaviour
             }
         }     
     }
-    public void CancelledJump()
-    {
-        cancelledJump = true;
-        if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
+    //public void CancelledJump()
+    //{
+    //    cancelledJump = true;
+    //    if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
+    //    {
+    //        rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
           
-        }         
-    }
+    //    }         
+    //}
 
     public void VariableJump()
     {
         if (rb.velocity.y > 0 && alreadyJumped)
         {
             jumpCounter += Time.deltaTime;
-            if (jumpCounter > jumpTime) alreadyJumped = true;
+            if (jumpCounter > jumpTime) alreadyJumped = false;
 
             float t = jumpCounter / jumpTime;
             float currentJumpM = jumpMultiplier;
@@ -204,11 +206,6 @@ public class PlayerModel : MonoBehaviour
 
     public void Attack(float input)
     {
-        if (hand.childCount >= 1)
-        {
-            Weapon = hand.GetComponentInChildren<IWeapon>();
-        }
-
         if (Weapon != null && input > 0 && (weaponReady == true || Weapon.IsFullAuto == true))
         {
             Weapon.Attack();
@@ -218,6 +215,7 @@ public class PlayerModel : MonoBehaviour
             {
                 Weapon.DestroyWeapon();
                 WeaponIsNull();
+                Physics2D.IgnoreLayerCollision(7, 8, false);
             }
         }
 
@@ -229,26 +227,23 @@ public class PlayerModel : MonoBehaviour
     public void WeaponIsNull()
     {
         //gameObject.layer = 7;
-        //Weapon = null;
+        Weapon = null;
       
        
     }
     public void DropWeapon()
     {
-        if (hand.childCount >= 1)
-        {
-            Weapon = hand.GetComponentInChildren<IWeapon>();
-        }
         if (Weapon != null)
         {
             ////TODO: layer 7 es "player" 
-            //Weapon._Transform.SetParent(null);
-            //Weapon._Transform.position = dropPosition.transform.position;
-            //Weapon._Collider2D.enabled = true;
-            //Weapon.Rigidbody2D.isKinematic = false;
-            //Weapon.Rigidbody2D.simulated = true;
-            //Weapon._SpriteRenderer.sortingLayerName = "Weapon";
-            //WeaponIsNull();
+            Weapon._Transform.SetParent(null);
+            Weapon._Transform.position = dropPosition.transform.position;
+            Weapon._Collider2D.enabled = true;
+            Weapon.Rigidbody2D.isKinematic = false;
+            Weapon.Rigidbody2D.simulated = true;
+            Weapon._SpriteRenderer.sortingLayerName = "Weapon";
+            WeaponIsNull();
+            Physics2D.IgnoreLayerCollision(7, 8, false);
         }
     }
  
@@ -298,13 +293,16 @@ public class PlayerModel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        Debug.Log("Colisione contra algo");
         if (Weapon == null && collision.gameObject.layer == 8)
         {
+            Debug.Log("Colisione con el arma");
+            Weapon = collision.GetComponent<IWeapon>();
             collision.GetComponent<Collider2D>().enabled = false;
-            collision.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            collision.gameObject.GetComponent<Rigidbody2D>().simulated = false;
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            var rigid = collision.GetComponent<Rigidbody2D>();
+            rigid.isKinematic = true;
+            rigid.simulated = false;
+            rigid.velocity = Vector2.zero;
             collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             collision.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
             weaponPrefab = collision.GetComponent<Transform>();
@@ -315,10 +313,12 @@ public class PlayerModel : MonoBehaviour
 
     private void GrabWeapon()
     {
+        Debug.Log("Agarre el arma");
         spriteRenderer.sortingOrder = 1;
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;
         weaponPrefab.SetParent(hand);
+        Physics2D.IgnoreLayerCollision(7, 8, true);
     }
 
     private void OnDrawGizmos()
