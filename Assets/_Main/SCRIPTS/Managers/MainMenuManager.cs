@@ -49,8 +49,8 @@ public class MainMenuManager : MonoBehaviour
     private void Update()
     {
         if (canCreateSecondKeyboard) CreateSecondKeyboard();
-        print(playerConfigs);
-        print(PlayersList);
+        //print(playerConfigs);
+        //print(PlayersList);
     }
     public void SetPlayerSkin(int index, Sprite skin)
     {

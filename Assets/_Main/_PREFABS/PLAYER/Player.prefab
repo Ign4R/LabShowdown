@@ -335,7 +335,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65
   coyoteTimeSet: 0.25
-  fallMultiplier: 40
+  fallMultiplier: 10
   jumpMultiplier: 9
   jumpTime: 0.4
   inputBufferTimeSet: 0.25

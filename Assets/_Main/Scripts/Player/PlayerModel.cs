@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-   
+
+    private bool cancelledJump;
     private Transform weaponPrefab;
     [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
     [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
@@ -51,8 +52,6 @@ public class PlayerModel : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
-    private PlayerView playerView;
-
 
     public IWeapon Weapon { get; private set; }
 
@@ -64,12 +63,13 @@ public class PlayerModel : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         statsController = GetComponent<StatsController>();
         rb = GetComponent<Rigidbody2D>();
-        playerView = GetComponent<PlayerView>();
+
     }
 
     private void Start()
     {
         gravity = new Vector3(0, -Physics2D.gravity.y);
+        Weapon = null;
     }
 
     private void Update()
@@ -88,25 +88,21 @@ public class PlayerModel : MonoBehaviour
     {
         if (!sideRightRaycast && !sideLeftRaycast)
         {
-            playerView.Anim.SetFloat("Speed", x);
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
         }
        
-        if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
-        {
-            playerView.Anim.SetFloat("Speed", x);
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
+        //if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
+        //{
+        //    rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
             
-        }
-        if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
-        {
-            playerView.Anim.SetFloat("Speed", x);
-            rb.velocity = new Vector3(x * statsController.Speed, speedYWallSlide, 0f);
-        }
+        //}
+        //if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
+        //{ 
+        //    rb.velocity = new Vector3(x * statsController.Speed, speedYWallSlide, 0f);
+        //}
 
         if (x < 0)
         {
-            playerView.Anim.SetFloat("Speed", -x);
             var ang = transform.rotation.eulerAngles;
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
@@ -122,9 +118,9 @@ public class PlayerModel : MonoBehaviour
     public void Jump(float x)
     {
         //TODO: REWORK JUMP
-        if (floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast)
+        if ((floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast) && alreadyJumped == false)
         {
-           
+            
             if (inputBuffer.Count > 0)
             {
                 if (inputBuffer.Peek() == "jump")
@@ -132,41 +128,42 @@ public class PlayerModel : MonoBehaviour
                     if (!sideLeftRaycast && !sideRightRaycast)
                     {
                         rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
+                        inputBuffer.Dequeue();
+                        alreadyJumped = true;
+                        jumpCounter = 0;
+                        return;
                     }
-                    else
+                    if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
                     {
-                        rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
+                        if (!sideLeftRaycast && !sideRightRaycast)
+                        {
+                            rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
+                        }
+                        inputBuffer.Dequeue();
+                        alreadyJumped = true;
+                        jumpCounter = 0;
+
                     }
-                    inputBuffer.Dequeue();
-                    alreadyJumped = true;
-                    jumpCounter = 0;
+
+
 
                 }
 
             }
-        }
-        else if (inputBuffer.Count > 0)
-        {
-            if (inputBuffer.Peek() == "jump")
-            {
-                if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
-                {
-                    if (!sideLeftRaycast && !sideRightRaycast)
-                    {
-                        rb.velocity = new Vector3(rb.velocity.x, statsController.JumpHeight, 0f);
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector3(x * statsController.Speed, statsController.JumpHeight, 0f);
-                    }
-                    inputBuffer.Dequeue();
-                    alreadyJumped = true;
-                    jumpCounter = 0;
-                    coyoteTime = 0;
-                }
-            }
-        }
+        }     
+    }
+    //public void CancelledJump()
+    //{
+    //    cancelledJump = true;
+    //    if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
+    //    {
+    //        rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
+          
+    //    }         
+    //}
 
+    public void VariableJump()
+    {
         if (rb.velocity.y > 0 && alreadyJumped)
         {
             jumpCounter += Time.deltaTime;
@@ -183,14 +180,12 @@ public class PlayerModel : MonoBehaviour
             rb.velocity += gravity * currentJumpM * Time.deltaTime;
         }
     }
-    public void CancelledJump()
+    public void FallingSpeedIncrease()
     {
-       
-        if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
+        if (rb.velocity.y < 0)
         {
-            rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
-          
-        }         
+            rb.velocity -= fallMultiplier * Time.deltaTime * gravity;
+        }
     }
 
     public void JumpQueue()
@@ -211,11 +206,6 @@ public class PlayerModel : MonoBehaviour
 
     public void Attack(float input)
     {
-        if (hand.childCount >= 1)
-        {
-            Weapon = hand.GetComponentInChildren<IWeapon>();
-        }
-
         if (Weapon != null && input > 0 && (weaponReady == true || Weapon.IsFullAuto == true))
         {
             Weapon.Attack();
@@ -225,6 +215,7 @@ public class PlayerModel : MonoBehaviour
             {
                 Weapon.DestroyWeapon();
                 WeaponIsNull();
+                Physics2D.IgnoreLayerCollision(7, 8, false);
             }
         }
 
@@ -235,20 +226,16 @@ public class PlayerModel : MonoBehaviour
     }
     public void WeaponIsNull()
     {
-        gameObject.layer = 7;
+        //gameObject.layer = 7;
         Weapon = null;
       
        
     }
     public void DropWeapon()
     {
-        if (hand.childCount >= 1)
-        {
-            Weapon = hand.GetComponentInChildren<IWeapon>();
-        }
         if (Weapon != null)
         {
-            //TODO: layer 7 es "player" 
+            ////TODO: layer 7 es "player" 
             Weapon._Transform.SetParent(null);
             Weapon._Transform.position = dropPosition.transform.position;
             Weapon._Collider2D.enabled = true;
@@ -256,6 +243,7 @@ public class PlayerModel : MonoBehaviour
             Weapon.Rigidbody2D.simulated = true;
             Weapon._SpriteRenderer.sortingLayerName = "Weapon";
             WeaponIsNull();
+            Physics2D.IgnoreLayerCollision(7, 8, false);
         }
     }
  
@@ -297,21 +285,24 @@ public class PlayerModel : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (hand.childCount >= 1)//TODO: CAMBIAR MAS ADELANTE
-        {
-            gameObject.layer = default; 
-        }
+        //if (hand.childCount >= 1)//TODO: CAMBIAR MAS ADELANTE
+        //{
+        //    gameObject.layer = default; 
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        Debug.Log("Colisione contra algo");
         if (Weapon == null && collision.gameObject.layer == 8)
         {
+            Debug.Log("Colisione con el arma");
+            Weapon = collision.GetComponent<IWeapon>();
             collision.GetComponent<Collider2D>().enabled = false;
-            collision.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            collision.gameObject.GetComponent<Rigidbody2D>().simulated = false;
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            var rigid = collision.GetComponent<Rigidbody2D>();
+            rigid.isKinematic = true;
+            rigid.simulated = false;
+            rigid.velocity = Vector2.zero;
             collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             collision.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
             weaponPrefab = collision.GetComponent<Transform>();
@@ -322,10 +313,12 @@ public class PlayerModel : MonoBehaviour
 
     private void GrabWeapon()
     {
+        Debug.Log("Agarre el arma");
         spriteRenderer.sortingOrder = 1;
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;
         weaponPrefab.SetParent(hand);
+        Physics2D.IgnoreLayerCollision(7, 8, true);
     }
 
     private void OnDrawGizmos()
