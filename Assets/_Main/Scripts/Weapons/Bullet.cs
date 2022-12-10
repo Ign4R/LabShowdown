@@ -32,7 +32,6 @@ public class Bullet : MonoBehaviour
 
         if (collision != null && collision.gameObject.layer == 6)  
         {
-          
             Destroy(gameObject);
         }
         

@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour, IWeapon
+public class Laser_pistol: MonoBehaviour, IWeapon
 {
+
     [SerializeField] private GameObject bullet;
 
     [SerializeField] private Transform positionBullet;
 
     [SerializeField] private int ammo;
-    
+
     [SerializeField] private bool canDestroy;
 
     [SerializeField] private bool isFullAuto;
@@ -39,6 +40,7 @@ public class Gun : MonoBehaviour, IWeapon
     public GameObject GO { get; private set; }
 
     private void Awake()
+
     {
         GO = gameObject;
         _Collider2D = GetComponent<Collider2D>();
@@ -94,10 +96,12 @@ public class Gun : MonoBehaviour, IWeapon
             TouchGround = true;
             CurrentTime = 1;
         }
-        if (collision.gameObject.layer == 7) 
+
+        if (collision.gameObject.layer == 7)
         {
             CurrentTime = 0f;
         }
+
         if (collision.gameObject.layer == 8 && !TouchGround) //El que colisiona con weapon y no toca el piso, destruye el objeto a colisionar
         {
             Destroy(collision.gameObject);
