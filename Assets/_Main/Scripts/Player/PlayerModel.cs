@@ -54,13 +54,16 @@ public class PlayerModel : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public IWeapon Weapon { get; private set; }
+    //public IWeapon Weapon { get; private set; }
+    [SerializeField] private GameObject weapon;
+    private Fists fists;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         statsController = GetComponent<StatsController>();
         rb = GetComponent<Rigidbody2D>();
+        fists = weapon.GetComponent<Fists>();
     }
 
     public void Raycasts()
@@ -179,29 +182,24 @@ public class PlayerModel : MonoBehaviour
 
     public void Attack(float input)
     {
-        if (hand.childCount >= 1)
+        
+        /*if (hand.childCount >= 1)
         {
             Weapon = hand.GetComponentInChildren<IWeapon>();
-        }
+        }*/
 
-        if (Weapon != null && input > 0 && (weaponReady == true || Weapon.IsFullAuto == true))
+        if (input > 0 && weaponReady == true)
         {
-            Weapon.Attack();
+            fists.Attack();
             weaponReady = false;
-
-            if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
-            {
-                Weapon.DestroyWeapon();
-                WeaponIsNull();
-            }
         }
 
-        if (Weapon != null && input < 1)
+        if (input < 1)
         {
             weaponReady = true;
         }
     }
-
+    /*
     public void WeaponIsNull()
     {
         gameObject.layer = 7;
@@ -225,7 +223,7 @@ public class PlayerModel : MonoBehaviour
             Weapon._SpriteRenderer.sortingLayerName = "Weapon";
             WeaponIsNull();
         }
-    }
+    }*/
  
     public void Timer()
     {
@@ -268,7 +266,7 @@ public class PlayerModel : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (Weapon == null && collision.gameObject.layer == 8)
         {
@@ -281,7 +279,7 @@ public class PlayerModel : MonoBehaviour
             weaponPrefab = collision.GetComponent<Transform>();
             GrabWeapon();
         }
-    }
+    }*/
 
     private void GrabWeapon()
     {

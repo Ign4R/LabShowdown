@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void DropInput(InputAction.CallbackContext context)
     {
-        model.DropWeapon();
+        //model.DropWeapon();
     }
 
     private void JumpInput(InputAction.CallbackContext context)
