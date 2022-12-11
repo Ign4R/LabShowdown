@@ -348,6 +348,7 @@ MonoBehaviour:
   floorOffset: {fileID: 8592621940190385027}
   hitOffsetLeft: {fileID: 1402315444186852960}
   hitOffsetRight: {fileID: 8388233008624025446}
+  dust: {fileID: 5787120332638947032, guid: 85c1b01759c09934c93feca202344328, type: 3}
 --- !u!114 &8945418367330153187
 MonoBehaviour:
   m_ObjectHideFlags: 0
