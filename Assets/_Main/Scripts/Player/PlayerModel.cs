@@ -51,6 +51,7 @@ public class PlayerModel : MonoBehaviour
     private StatsController statsController;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private PlayerView playerView;
 
 
     public IWeapon Weapon { get; private set; }
@@ -63,6 +64,7 @@ public class PlayerModel : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         statsController = GetComponent<StatsController>();
         rb = GetComponent<Rigidbody2D>();
+        playerView = GetComponent<PlayerView>();
 
     }
 
@@ -89,6 +91,7 @@ public class PlayerModel : MonoBehaviour
         if (!sideRightRaycast && !sideLeftRaycast)
         {
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
+            playerView.Anim.SetFloat("Speed", x);
         }
        
         //if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
@@ -106,12 +109,14 @@ public class PlayerModel : MonoBehaviour
             var ang = transform.rotation.eulerAngles;
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
+            playerView.Anim.SetFloat("Speed", -x);
         }
         if (x > 0)
         {
             var ang = transform.rotation.eulerAngles;
             ang.y = 0;
             transform.rotation = Quaternion.Euler(ang);
+           
         }
     }
 

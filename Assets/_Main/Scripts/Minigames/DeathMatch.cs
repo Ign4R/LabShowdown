@@ -69,33 +69,32 @@ public class DeathMatch : MonoBehaviour
     }
     private void Update()
     {
-        if (currentTimeSpawn==0) 
+        if (timerToGame != 10) 
         {
             timerToGame -= Time.deltaTime;
+            int temp = (int)timerToGame;
+            textCount.text = temp.ToString();
             if (timerToGame < 1)
             {
                 textCount.text = "FIGHT";
+                if (timerToGame <= 0)
+                {
+                    timerToGame = 10;
+                    Destroy(textCount);
+                    InitializeLevel();
+                }
             }
-            else
-            {
-                int temp = (int)timerToGame;
-                textCount.text = temp.ToString();
-            }
-           
         }
-        if (timerToGame <=0)
+        else
         {
-            timerToGame = 5;
             currentTimeSpawn -= Time.deltaTime;
-            Destroy(textCount);
-            InitializeLevel();
-
             if (currentTimeSpawn <= 0)
             {
                 WeaponSpawner();
                 currentTimeSpawn = cooldownSpawn;
             }
         }
+       
            
 
     }
