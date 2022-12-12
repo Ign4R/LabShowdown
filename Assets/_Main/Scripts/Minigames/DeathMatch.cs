@@ -39,8 +39,8 @@ public class DeathMatch : MonoBehaviour
 
         TimeLife = timeLifeOfWeapons;
         currentTimeSpawn = 0;
-        timerToGame = 9f;
-        Destroy(screenInfoGame, 4f);
+        timerToGame = 7f;
+        Destroy(screenInfoGame, 3f);
     }
 
 
@@ -100,6 +100,7 @@ public class DeathMatch : MonoBehaviour
     }
     private void OnRespawnHandler(int playerIndex)
     {
+        //TODO: PRIORIDAD RB VELOCITY 0. TIMER
         players[playerIndex].transform.position = respawnPoints[playerIndex].transform.position;
     }
 

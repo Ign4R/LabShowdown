@@ -348,7 +348,6 @@ MonoBehaviour:
   floorOffset: {fileID: 8592621940190385027}
   hitOffsetLeft: {fileID: 1402315444186852960}
   hitOffsetRight: {fileID: 8388233008624025446}
-  dust: {fileID: 5787120332638947032, guid: 85c1b01759c09934c93feca202344328, type: 3}
 --- !u!114 &8945418367330153187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: 1d1c12a92fd0b0942b94384559338fdf, type: 2}
+  _psexplotion: {fileID: 2002482439259823107, guid: 5ee43788279167c4bbe7879294972387, type: 3}
 --- !u!95 &840791909127401002
 Animator:
   serializedVersion: 4
@@ -514,6 +514,10 @@ PrefabInstance:
     - target: {fileID: 954870828793165114, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 954870828793165114, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 954870828793165114, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_TagString

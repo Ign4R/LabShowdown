@@ -54,7 +54,7 @@ public class PlayerModel : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PlayerView playerView;
 
-   public GameObject dust;
+
     public IWeapon Weapon { get; private set; }
 
     public bool AlreadyJumped { get => alreadyJumped;  set => alreadyJumped = value; }
@@ -315,10 +315,10 @@ public class PlayerModel : MonoBehaviour
             GrabWeapon();
         }
 
-        if(collision.gameObject.layer == 6)
-        {
-            Instantiate(dust, transform.position, dust.transform.rotation);
-        }
+        //if(collision.gameObject.layer == 6)
+        //{
+        //    Instantiate(dust, transform.position, dust.transform.rotation);
+        //}
     }
 
 

@@ -27,6 +27,8 @@ public class StatsController : MonoBehaviour
 
     public static event Action<int> OnRespawn;
 
+    [SerializeField] private ParticleSystem _psexplotion;
+
 
     public float Speed { get; set; }
     public float JumpHeight { get; set; }
@@ -62,12 +64,15 @@ public class StatsController : MonoBehaviour
         }
         if (CurrentHealth <= 0 && lifes > 0)
         {
+            var temp = Instantiate(_psexplotion, transform.position, Quaternion.identity);
+            Destroy(temp.gameObject, 1f); //TODO
             ResetEffects = true;
             lifes--;
             OnLivesDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);
             CurrentHealth = maxHealth;
             OnUpdateHealth?.Invoke(playerController.PlayerConfig.PlayerIndex, CurrentHealth, maxHealth);
             OnRespawn?.Invoke(playerController.PlayerConfig.PlayerIndex);
+
         }
 
 
