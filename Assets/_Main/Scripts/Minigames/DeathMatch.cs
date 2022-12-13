@@ -102,9 +102,9 @@ public class DeathMatch : MonoBehaviour
     {
         //TODO: PRIORIDAD RB VELOCITY 0. TIMER
 
-        players[playerIndex].GetComponent<PlayerModel>().DropWeapon();
-        players[playerIndex].GetComponent<PlayerModel>().Weapon.DestroyWeapon();
         players[playerIndex].transform.position = respawnPoints[playerIndex].transform.position;
+        players[playerIndex].GetComponent<PlayerModel>().Weapon.DestroyWeapon();
+        players[playerIndex].GetComponent<PlayerModel>().WeaponIsNull();
     }
 
     private void OnDieHandler(int playerIndex)
