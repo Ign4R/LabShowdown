@@ -102,5 +102,8 @@ public class Gun : MonoBehaviour, IWeapon
         {
             Destroy(collision.gameObject);
         }
+
     }
+
+    
 }

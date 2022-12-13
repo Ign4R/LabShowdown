@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2984841306009722584}
   - component: {fileID: 1362917168861756576}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,6 +194,7 @@ MonoBehaviour:
   positionBullet: {fileID: 638814340}
   ammo: 10
   canDestroy: 0
+  isFullAuto: 0
   cadence: 7
 --- !u!61 &1462224086029154735
 BoxCollider2D:

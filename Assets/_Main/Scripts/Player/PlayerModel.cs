@@ -256,7 +256,7 @@ public class PlayerModel : MonoBehaviour
             Weapon.Rigidbody2D.simulated = true;
             Weapon._SpriteRenderer.sortingLayerName = "Weapon";
             WeaponIsNull();
-            Physics2D.IgnoreLayerCollision(7, 8, false);
+            
         }
     }
  
@@ -322,6 +322,8 @@ public class PlayerModel : MonoBehaviour
             GrabWeapon();
         }
 
+
+
         //if(collision.gameObject.layer == 6)
         //{
         //    Instantiate(dust, transform.position, dust.transform.rotation);
@@ -337,7 +339,8 @@ public class PlayerModel : MonoBehaviour
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;
         weaponPrefab.SetParent(hand);
-        Physics2D.IgnoreLayerCollision(7, 8, true);
+        
+        
     }
 
     private void OnDrawGizmos()
