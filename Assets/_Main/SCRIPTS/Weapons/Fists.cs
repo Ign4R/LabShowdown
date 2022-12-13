@@ -7,6 +7,7 @@ public class Fists : MonoBehaviour
     [SerializeField] private float hitTimerSet;
 
     [SerializeField] private Animator animator;
+    public HitBox hitBox { get; private set; }
 
     private bool lasAtackR;
 
@@ -15,13 +16,8 @@ public class Fists : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        hitBox = GetComponentInChildren<HitBox>();
     }
-
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         if (hitTimer > 0)
@@ -49,4 +45,6 @@ public class Fists : MonoBehaviour
             }
         }
     }
+
+   
 }

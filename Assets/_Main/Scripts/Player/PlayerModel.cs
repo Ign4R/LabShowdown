@@ -53,6 +53,7 @@ public class PlayerModel : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private PlayerView playerView;
+    private Fists fists;
 
 
     public IWeapon Weapon { get; private set; }
@@ -66,7 +67,7 @@ public class PlayerModel : MonoBehaviour
         statsController = GetComponent<StatsController>();
         rb = GetComponent<Rigidbody2D>();
         playerView = GetComponent<PlayerView>();
-
+        fists = GetComponentInChildren<Fists>();
     }
 
     private void Start()
@@ -229,6 +230,11 @@ public class PlayerModel : MonoBehaviour
         {
             weaponReady = true;
         }
+
+        if (Weapon == null && input > 0) 
+        {
+            fists.Attack();
+        }
     }
     public void WeaponIsNull()
     {
@@ -241,6 +247,7 @@ public class PlayerModel : MonoBehaviour
     {
         if (Weapon != null)
         {
+            fists.hitBox.OffRenderFists(true);
             ////TODO: layer 7 es "player" 
             Weapon._Transform.SetParent(null);
             Weapon._Transform.position = dropPosition.transform.position;
@@ -325,6 +332,7 @@ public class PlayerModel : MonoBehaviour
     private void GrabWeapon()
     {
         Debug.Log("Agarre el arma");
+        fists.hitBox.OffRenderFists(false);
         spriteRenderer.sortingOrder = 1;
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;

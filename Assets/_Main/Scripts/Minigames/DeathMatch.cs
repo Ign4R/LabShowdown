@@ -101,6 +101,9 @@ public class DeathMatch : MonoBehaviour
     private void OnRespawnHandler(int playerIndex)
     {
         //TODO: PRIORIDAD RB VELOCITY 0. TIMER
+
+        players[playerIndex].GetComponent<PlayerModel>().DropWeapon();
+        players[playerIndex].GetComponent<PlayerModel>().Weapon.DestroyWeapon();
         players[playerIndex].transform.position = respawnPoints[playerIndex].transform.position;
     }
 
