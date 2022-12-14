@@ -29,10 +29,17 @@ public class DeathMatch : MonoBehaviour
     private float currentTimeSpawn;  
 
     private List<GameObject> players;
+    private float timerSound = 0;
 
     public static event Action<Sprite, Color,int> OnWinHUD;
     public static event Action<PlayerConfiguration, int> OnCreateHUD;
     public static float TimeLife { get ; private set ; }
+
+    private void Awake()
+    {
+        AudioManager.Instance.Stop("menumusic");
+        
+    }
 
     void Start()
     {
@@ -71,9 +78,19 @@ public class DeathMatch : MonoBehaviour
     {
         if (timerToGame != 10) 
         {
+            if(timerSound <= 0)
+            {
+                AudioManager.Instance.Play("counter");
+                timerSound = 1f;
+            }
+            else
+            {
+                timerSound -= Time.deltaTime;
+            }
             timerToGame -= Time.deltaTime;
             int temp = (int)timerToGame;
             textCount.text = temp.ToString();
+            
             if (timerToGame < 1)
             {
                 textCount.text = "FIGHT";
@@ -82,6 +99,7 @@ public class DeathMatch : MonoBehaviour
                     timerToGame = 10;
                     Destroy(textCount);
                     InitializeLevel();
+                    AudioManager.Instance.Play("gameplay");
                 }
             }
         }
@@ -94,6 +112,7 @@ public class DeathMatch : MonoBehaviour
                 currentTimeSpawn = cooldownSpawn;
             }
         }
+
        
            
 

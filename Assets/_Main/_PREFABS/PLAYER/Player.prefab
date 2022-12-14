@@ -514,7 +514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954870828793165114, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 954870828793165114, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_IsActive
@@ -550,7 +550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1819173916633928166, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3424378815177834045, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Color.b
@@ -622,7 +622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103271287376305589, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998115644390768781, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_IsTrigger
@@ -642,7 +642,7 @@ PrefabInstance:
       objectReference: {fileID: 8945418367330153184}
     - target: {fileID: 8998115644390768783, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998115644677924872, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_IsTrigger
@@ -662,7 +662,7 @@ PrefabInstance:
       objectReference: {fileID: 8945418367330153184}
     - target: {fileID: 8998115644677924874, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998115645448597044, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: hitTimerSet

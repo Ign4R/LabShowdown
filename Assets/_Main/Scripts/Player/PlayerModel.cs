@@ -90,10 +90,13 @@ public class PlayerModel : MonoBehaviour
 
     public void Movement(float x)
     {
+        
         if (!sideRightRaycast && !sideLeftRaycast)
         {
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
             playerView.Anim.SetFloat("Speed", x);
+
+
         }
        
         //if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
@@ -112,6 +115,7 @@ public class PlayerModel : MonoBehaviour
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
             playerView.Anim.SetFloat("Speed", -x);
+            
         }
         if (x > 0)
         {
@@ -120,6 +124,16 @@ public class PlayerModel : MonoBehaviour
             transform.rotation = Quaternion.Euler(ang);
            
         }
+        if(x != 0)
+        {
+            AudioManager.Instance.Play("running");
+        }
+        else
+        {
+            AudioManager.Instance.Stop("running");
+        }
+        
+      
     }
 
     public void Jump(float x)
@@ -138,6 +152,7 @@ public class PlayerModel : MonoBehaviour
                         inputBuffer.Dequeue();
                         alreadyJumped = true;
                         jumpCounter = 0;
+                        AudioManager.Instance.Play("jump");
                         return;
                     }
                     if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
@@ -149,6 +164,7 @@ public class PlayerModel : MonoBehaviour
                         inputBuffer.Dequeue();
                         alreadyJumped = true;
                         jumpCounter = 0;
+                        AudioManager.Instance.Play("jump");
 
                     }
 
@@ -222,7 +238,6 @@ public class PlayerModel : MonoBehaviour
             {
                 Weapon.DestroyWeapon();
                 WeaponIsNull();
-                Physics2D.IgnoreLayerCollision(7, 8, false);
             }
         }
 
@@ -234,6 +249,7 @@ public class PlayerModel : MonoBehaviour
         if (Weapon == null && input > 0) 
         {
             fists.Attack();
+            
         }
     }
     public void WeaponIsNull()

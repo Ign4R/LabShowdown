@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5971054146990375661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5971054146990375667}
+  - component: {fileID: 5971054146990375666}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5971054146990375667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971054146990375661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.89516, y: -2.0005336, z: -6.366326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5971054146990375666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971054146990375661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9310518785ac7b84e9f9c8e28c4eae1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: menumusic
+    clip: {fileID: 8300000, guid: 840c2b7c68f51d94a85182e2e57a3adc, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+  - soundName: menusoundselect
+    clip: {fileID: 8300000, guid: aed503b2eb823b14da408fcb5338aee8, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+  - soundName: jump
+    clip: {fileID: 8300000, guid: 42edd7f15fbadcd41b2777f3ebf16f65, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+  - soundName: run
+    clip: {fileID: 8300000, guid: 94c88edd9dc287e43adda68b3685cf10, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+  - soundName: gameplay
+    clip: {fileID: 8300000, guid: b42ecb20ed705c148a584e1d0c8a937a, type: 3}
+    volume: 0.058
+    pitch: 1.4
+    loop: 1
+  - soundName: firepistol
+    clip: {fileID: 8300000, guid: e821b96fb8af20b4b82f1fa78a358896, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+  - soundName: icepistol
+    clip: {fileID: 8300000, guid: 770b59b327c192947a494bc881e3ea55, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+  - soundName: rifle
+    clip: {fileID: 8300000, guid: d707b57e96d00d042b441b80043efdf7, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+  - soundName: getweapon
+    clip: {fileID: 8300000, guid: 767ddf616b4c06b44bdb1ed3932353d6, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+  - soundName: fist
+    clip: {fileID: 8300000, guid: 1e24a277283442c4194c329eac5adefa, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+  - soundName: counter
+    clip: {fileID: 8300000, guid: 85a2cea74a203e74c8f6f52e43303d14, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0

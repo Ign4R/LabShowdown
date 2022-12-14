@@ -52,6 +52,12 @@ public class MainMenuManager : MonoBehaviour
         //print(playerConfigs);
         //print(PlayersList);
     }
+
+    public void MenuSoundSelect()
+    {
+        AudioManager.Instance.Play("menusoundselect");
+    }
+
     public void SetPlayerSkin(int index, Sprite skin)
     {
         playerConfigs[index].PlayerSkin = skin;
