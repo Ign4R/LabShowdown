@@ -22,6 +22,7 @@ public class HitBox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //print("hit");
+        AudioManager.Instance.Play("fist");
         collision.GetComponent<StatsController>()?.TakeDamage(damage);
     }
 

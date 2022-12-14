@@ -10,11 +10,31 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private int damage;
     [SerializeField] private int lifeTime;
+    private string audioName;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        switch (bulletType)
+        {
+            case 0:
+                audioName = "rifle";
+                break;
+            case 1:
+                audioName = "firepistol";
+                break;
+            case 2:
+                audioName = "icepistol";
+                break;
+        }
+
     }
+
+    private void Start()
+    {
+        AudioManager.Instance.Play(audioName);
+    }
+
     private void Update()
     {
         Move();

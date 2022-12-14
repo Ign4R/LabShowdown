@@ -7,7 +7,7 @@ public class PlayerModel : MonoBehaviour
 
     private bool cancelledJump;
     private Transform weaponPrefab;
-
+   
     [SerializeField] private int speedYWallSlide; //TODO: pasarlo a stats
     [SerializeField] private int speedYFalling; //TODO: pasarlo a stats
 
@@ -58,7 +58,7 @@ public class PlayerModel : MonoBehaviour
 
     public IWeapon Weapon { get; private set; }
 
-    public bool AlreadyJumped { get => alreadyJumped; set => alreadyJumped = value; }
+    public bool AlreadyJumped { get => alreadyJumped;  set => alreadyJumped = value; }
 
 
     private void Awake()
@@ -78,28 +78,31 @@ public class PlayerModel : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
 
     public void Raycasts()
     {
         floorRaycast = Physics2D.Raycast(floorOffset.position, Vector2.down, raycastFloorDistance, floor);
-        sideRightRaycast = Physics2D.Raycast(hitOffsetRight.position, Vector2.down, raycastHorizontalDistance, floor);
-        sideLeftRaycast = Physics2D.Raycast(hitOffsetLeft.position, Vector2.down, raycastHorizontalDistance, floor);
+        sideRightRaycast = Physics2D.Raycast(hitOffsetRight.position, Vector2.down, raycastHorizontalDistance , floor);
+        sideLeftRaycast = Physics2D.Raycast(hitOffsetLeft.position, Vector2.down, raycastHorizontalDistance , floor);
     }
 
     public void Movement(float x)
     {
+        
         if (!sideRightRaycast && !sideLeftRaycast)
         {
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
             playerView.Anim.SetFloat("Speed", x);
-        }
 
+
+        }
+       
         //if(!floorRaycast && !alreadyJumped && !sideLeftRaycast && !sideRightRaycast)
         //{
         //    rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
-
+            
         //}
         //if (sideLeftRaycast && !alreadyJumped || sideRightRaycast && !alreadyJumped)
         //{ 
@@ -112,14 +115,25 @@ public class PlayerModel : MonoBehaviour
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
             playerView.Anim.SetFloat("Speed", -x);
+            
         }
         if (x > 0)
         {
             var ang = transform.rotation.eulerAngles;
             ang.y = 0;
             transform.rotation = Quaternion.Euler(ang);
-
+           
         }
+        if(x != 0)
+        {
+            AudioManager.Instance.Play("running");
+        }
+        else
+        {
+            AudioManager.Instance.Stop("running");
+        }
+        
+      
     }
 
     public void Jump(float x)
@@ -127,7 +141,7 @@ public class PlayerModel : MonoBehaviour
         //TODO: REWORK JUMP
         if ((floorRaycast == true || sideRightRaycast && !floorRaycast || sideLeftRaycast && !floorRaycast) && alreadyJumped == false)
         {
-
+            
             if (inputBuffer.Count > 0)
             {
                 if (inputBuffer.Peek() == "jump")
@@ -138,6 +152,7 @@ public class PlayerModel : MonoBehaviour
                         inputBuffer.Dequeue();
                         alreadyJumped = true;
                         jumpCounter = 0;
+                        AudioManager.Instance.Play("jump");
                         return;
                     }
                     if (coyoteTime < coyoteTimeSet && alreadyJumped == false)
@@ -149,6 +164,7 @@ public class PlayerModel : MonoBehaviour
                         inputBuffer.Dequeue();
                         alreadyJumped = true;
                         jumpCounter = 0;
+                        AudioManager.Instance.Play("jump");
 
                     }
 
@@ -157,7 +173,7 @@ public class PlayerModel : MonoBehaviour
                 }
 
             }
-        }
+        }     
     }
     //public void CancelledJump()
     //{
@@ -165,7 +181,7 @@ public class PlayerModel : MonoBehaviour
     //    if (rb.velocity.y > 0 && !sideLeftRaycast && !sideRightRaycast)
     //    {
     //        rb.velocity = new Vector3(rb.velocity.x, speedYFalling, 0f);
-
+          
     //    }         
     //}
 
@@ -222,7 +238,6 @@ public class PlayerModel : MonoBehaviour
             {
                 Weapon.DestroyWeapon();
                 WeaponIsNull();
-              
             }
         }
 
@@ -231,36 +246,36 @@ public class PlayerModel : MonoBehaviour
             weaponReady = true;
         }
 
-        if (Weapon == null && input > 0)
+        if (Weapon == null && input > 0) 
         {
             fists.Attack();
+            
         }
     }
     public void WeaponIsNull()
     {
         //gameObject.layer = 7;
         Weapon = null;
-
-
+      
+       
     }
     public void DropWeapon()
     {
         if (Weapon != null)
         {
-            fists.OffRenderFists(true);
+            fists.hitBox.OffRenderFists(true);
             ////TODO: layer 7 es "player" 
             Weapon._Transform.SetParent(null);
             Weapon._Transform.position = dropPosition.transform.position;
-            Weapon._Transform.rotation = Quaternion.Euler(0, 0, 90);
             Weapon._Collider2D.enabled = true;
             Weapon.Rigidbody2D.isKinematic = false;
             Weapon.Rigidbody2D.simulated = true;
             Weapon._SpriteRenderer.sortingLayerName = "Weapon";
             WeaponIsNull();
-
+            
         }
     }
-
+ 
     public void Timer()
     {
         if (floorRaycast == true)
@@ -290,7 +305,7 @@ public class PlayerModel : MonoBehaviour
 
         if (collision.gameObject.layer == 6)
         {
-
+           
             alreadyJumped = false;
             coyoteTime = 0;
         }
@@ -335,13 +350,13 @@ public class PlayerModel : MonoBehaviour
     private void GrabWeapon()
     {
         Debug.Log("Agarre el arma");
-        fists.OffRenderFists(false);
+        fists.hitBox.OffRenderFists(false);
         spriteRenderer.sortingOrder = 1;
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;
         weaponPrefab.SetParent(hand);
-
-
+        
+        
     }
 
     private void OnDrawGizmos()
@@ -352,5 +367,5 @@ public class PlayerModel : MonoBehaviour
         Gizmos.DrawRay(hitOffsetLeft.position, Vector2.down * raycastHorizontalDistance);
     }
 
-
+   
 }

@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour, IWeapon
     [SerializeField] private Transform positionBullet;
 
     [SerializeField] private int ammo;
-
+    
     [SerializeField] private bool canDestroy;
 
     [SerializeField] private bool isFullAuto;
@@ -94,7 +94,7 @@ public class Gun : MonoBehaviour, IWeapon
             TouchGround = true;
             CurrentTime = 1;
         }
-        if (collision.gameObject.layer == 7)
+        if (collision.gameObject.layer == 7) 
         {
             CurrentTime = 0f;
         }
@@ -105,4 +105,5 @@ public class Gun : MonoBehaviour, IWeapon
 
     }
 
+    
 }

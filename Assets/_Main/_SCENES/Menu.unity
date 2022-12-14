@@ -123,6 +123,75 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &146760841
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5971054146990375661, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375666, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.101
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375666, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375666, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: sounds.Array.data[3].soundName
+      value: running
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.89516
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.0005336
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.366326
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971054146990375667, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
 --- !u!1 &152715106
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +453,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332947186}
   m_CullTransparentMesh: 1
+--- !u!114 &373973922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5971054146990375666, guid: 86fbc281b2bd1fa4295b270f659583f9, type: 3}
+  m_PrefabInstance: {fileID: 146760841}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9310518785ac7b84e9f9c8e28c4eae1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &405018985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,16 +1193,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 373973922}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: menusoundselect
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1181307848

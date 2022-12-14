@@ -283,6 +283,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7891191690728957557}
+        m_TargetAssemblyTypeName: PlayerCanvasManager, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &428053284634481066
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +573,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 9100000, guid: 85dd85a3aa460e348ab61317c64152d1, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.RuntimeAnimatorController,
             UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7891191690728957557}
+        m_TargetAssemblyTypeName: PlayerCanvasManager, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -902,6 +926,18 @@ MonoBehaviour:
       - m_Target: {fileID: 7891191690728957557}
         m_TargetAssemblyTypeName: PlayerSetupMenuController, Assembly-CSharp
         m_MethodName: ReadyPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7891191690728957557}
+        m_TargetAssemblyTypeName: PlayerCanvasManager, Assembly-CSharp
+        m_MethodName: PlayAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1530,6 +1566,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 9100000, guid: f212e07c2faf99940b285c875aff0e3c, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.RuntimeAnimatorController,
             UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7891191690728957557}
+        m_TargetAssemblyTypeName: PlayerCanvasManager, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2371,6 +2419,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 9100000, guid: 217dabc84c93b78469cb2642c2a5ce1b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.RuntimeAnimatorController,
             UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7891191690728957557}
+        m_TargetAssemblyTypeName: PlayerCanvasManager, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

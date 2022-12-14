@@ -30,6 +30,12 @@ public class PlayerCanvasManager : MonoBehaviour
             inputEnable = true;
         }
     }
+
+    public void PlayAudio()
+    {
+        AudioManager.Instance.Play("menusoundselect");
+    }
+
     public void SetPlayerIndex(int playerInput)
     {
       
