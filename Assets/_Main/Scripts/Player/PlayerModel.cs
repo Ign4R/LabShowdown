@@ -263,7 +263,7 @@ public class PlayerModel : MonoBehaviour
     {
         if (Weapon != null)
         {
-            fists.hitBox.OffRenderFists(true);
+            fists.OffRenderFists(true);
             ////TODO: layer 7 es "player" 
             Weapon._Transform.SetParent(null);
             Weapon._Transform.position = dropPosition.transform.position;
@@ -350,7 +350,7 @@ public class PlayerModel : MonoBehaviour
     private void GrabWeapon()
     {
         Debug.Log("Agarre el arma");
-        fists.hitBox.OffRenderFists(false);
+        fists.OffRenderFists(false);
         spriteRenderer.sortingOrder = 1;
         weaponPrefab.position = hand.position;
         weaponPrefab.rotation = hand.rotation;
