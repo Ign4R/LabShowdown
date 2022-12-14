@@ -13,6 +13,9 @@ public class Fists : MonoBehaviour
 
     float hitTimer; // Este timer es temporal, hay que quitarlo
 
+    [SerializeField] private SpriteRenderer RenderL;
+    [SerializeField] private SpriteRenderer RenderR;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -46,6 +49,20 @@ public class Fists : MonoBehaviour
             }
         }
     }
+    public void OffRenderFists(bool render)
+    {
+        if (render == false)
+        {
+            RenderL.enabled = false;
+            RenderR.enabled = false;
+        }
 
-   
+        else
+        {
+            RenderL.enabled = true;
+            RenderR.enabled = true;
+        }
+
+    }
+
 }

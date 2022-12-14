@@ -685,6 +685,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998115645448597044, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: RenderL
+      value: 
+      objectReference: {fileID: 4554464392094138630}
+    - target: {fileID: 8998115645448597044, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: RenderR
+      value: 
+      objectReference: {fileID: 689101882089032300}
+    - target: {fileID: 8998115645448597044, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: hitTimerSet
       value: 0.1
       objectReference: {fileID: 0}
