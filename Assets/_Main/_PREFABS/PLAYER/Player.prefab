@@ -486,9 +486,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a803a9c68f0e9cf40b5860ce28868e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frozeenTimerSet: 3
-  igniteTimerSet: 3
-  igniteDamagePS: 2
+  frozeenTimerSet: 5
+  igniteTimerSet: 6
+  igniteDamagePS: 3
 --- !u!114 &256794775
 MonoBehaviour:
   m_ObjectHideFlags: 0

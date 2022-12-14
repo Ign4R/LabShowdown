@@ -66,6 +66,7 @@ public class StatsController : MonoBehaviour
         {
             var temp = Instantiate(_psexplotion, transform.position, Quaternion.identity);
             Destroy(temp.gameObject, 1f); //TODO
+            AudioManager.Instance.Play("die");
             ResetEffects = true;
             lifes--;
             OnLivesDecrese?.Invoke(playerController.PlayerConfig.PlayerIndex, lifes);

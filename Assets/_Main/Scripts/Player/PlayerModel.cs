@@ -95,7 +95,7 @@ public class PlayerModel : MonoBehaviour
         {
             rb.velocity = new Vector3(x * statsController.Speed, rb.velocity.y, 0f);
             playerView.Anim.SetFloat("Speed", x);
-
+            AudioManager.Instance.Play("running");
 
         }
        
@@ -115,7 +115,8 @@ public class PlayerModel : MonoBehaviour
             ang.y = 180;
             transform.rotation = Quaternion.Euler(ang);
             playerView.Anim.SetFloat("Speed", -x);
-            
+            AudioManager.Instance.Play("running");
+
         }
         if (x > 0)
         {
@@ -124,14 +125,7 @@ public class PlayerModel : MonoBehaviour
             transform.rotation = Quaternion.Euler(ang);
            
         }
-        if(x != 0)
-        {
-            AudioManager.Instance.Play("running");
-        }
-        else
-        {
-            AudioManager.Instance.Stop("running");
-        }
+
         
       
     }
