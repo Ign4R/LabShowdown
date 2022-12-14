@@ -525,6 +525,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1810814127906207063, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 537cfac36c5f20e468bf99a75ece14f9, type: 3}
+    - target: {fileID: 1810814127906207063, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
@@ -542,7 +546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1810814127906207063, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1810814127906207063, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_SortingLayerID
@@ -552,6 +556,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3424378815177834045, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6260cd90f40137a40ac6d20915ac5111, type: 3}
     - target: {fileID: 3424378815177834045, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -575,6 +583,14 @@ PrefabInstance:
     - target: {fileID: 3424378815177834045, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_SortingLayerID
       value: -1050441129
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038172343025324587, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038172343025324587, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 4463555937817514323, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_RootOrder
@@ -624,6 +640,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8990324664531448589, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8998115644390768781, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -642,7 +662,7 @@ PrefabInstance:
       objectReference: {fileID: 8945418367330153184}
     - target: {fileID: 8998115644390768783, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998115644677924872, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_IsTrigger
@@ -662,7 +682,7 @@ PrefabInstance:
       objectReference: {fileID: 8945418367330153184}
     - target: {fileID: 8998115644677924874, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998115645448597044, guid: 451e5633213d0394490f716ac7ab082c, type: 3}
       propertyPath: hitTimerSet

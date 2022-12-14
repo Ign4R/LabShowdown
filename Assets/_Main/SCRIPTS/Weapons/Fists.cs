@@ -20,6 +20,7 @@ public class Fists : MonoBehaviour
     }
     private void Update()
     {
+        
         if (hitTimer > 0)
         {
             hitTimer -= Time.deltaTime;

@@ -226,13 +226,14 @@ public class PlayerModel : MonoBehaviour
             }
         }
 
-        if (Weapon != null && input < 1)
+        if (Weapon != null && input < 1 || Weapon == null && input < 1)
         {
             weaponReady = true;
         }
 
-        if (Weapon == null && input > 0) 
+        if (Weapon == null && input > 0 && weaponReady) 
         {
+            weaponReady = false;
             fists.Attack();
         }
     }
