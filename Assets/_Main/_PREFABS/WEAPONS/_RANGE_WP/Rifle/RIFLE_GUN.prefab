@@ -27,16 +27,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709072603049720823}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -15.68, y: -0.82, z: -0.0024798568}
-  m_LocalScale: {x: 0.43000004, y: 0.43000004, z: 1}
+  m_LocalScale: {x: 0.43000004, y: 0.43000004, z: 0.43}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7110100914925909582}
   - {fileID: 5458483996018761746}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &8135173400436606037
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.4668014, y: -0.24937963}
+  m_Offset: {x: -0.48361492, y: 0.17358795}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14.240938, y: 5.5697536}
+  m_Size: {x: 14.274565, y: 0.065972075}
   m_EdgeRadius: 0
 --- !u!50 &5458483995506430549
 Rigidbody2D:
@@ -195,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7110100914925909582}
   - component: {fileID: 6425057458720396342}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

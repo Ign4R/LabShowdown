@@ -165,8 +165,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   playerPrefab: {fileID: 8945418367330153191, guid: 34a276556a9b7be47aa77a973c7dc7bb, type: 3}
-  playersLivesQuantity: 5
-  cooldownSpawn: 7
+  playersLivesQuantity: 3
+  cooldownSpawn: 2
   timeLifeOfWeapons: 5
 --- !u!1 &965005051354063204
 GameObject:
