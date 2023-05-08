@@ -41,6 +41,7 @@ public class DeathMatch : MonoBehaviour
         
     }
 
+
     void Start()
     {
 
@@ -131,21 +132,20 @@ public class DeathMatch : MonoBehaviour
 
     private void OnDieHandler(int playerIndex)
     {
-        for (int i = 0; i < MainMenuManager.Instance.PlayersList.Count; i++)
+        List<PlayerConfiguration> playersList = MainMenuManager.Instance.PlayersList;
+        if (playersList.Contains(playersList[playerIndex]) && playersList.Count > 1)
         {
-            if(playerIndex == MainMenuManager.Instance.PlayersList[i].PlayerIndex)
-            {
-                MainMenuManager.Instance.PlayersList.RemoveAt(playerIndex);
-            }
+            MainMenuManager.Instance.PlayersList.RemoveAt(playerIndex);
+            print("mori");
+         
         }
-        if(MainMenuManager.Instance.PlayersList.Count == 1)
+        if (MainMenuManager.Instance.PlayersList.Count < 2)
         {
             int indexWin = MainMenuManager.Instance.PlayersList[0].PlayerIndex + 1;
             OnWinHUD?.Invoke(MainMenuManager.Instance.PlayersList[0].PlayerSkin, MainMenuManager.Instance.PlayersList[0].SkinColor, indexWin);
             Debug.Log("gano el player" + (MainMenuManager.Instance.PlayersList[0].PlayerIndex + 1));
-            //SceneManager.LoadScene("Menu");
-
         }
+
     }
     public void LoadMainMenu()
     {

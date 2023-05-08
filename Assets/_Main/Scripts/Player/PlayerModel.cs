@@ -228,8 +228,9 @@ public class PlayerModel : MonoBehaviour
             Weapon.Attack();
             weaponReady = false;
 
-            if (Weapon.Ammo <= 0 && Weapon.CanDestroy)
+            if (Weapon.Ammo <= 0)
             {
+                print("si");
                 Weapon.DestroyWeapon();
                 WeaponIsNull();
             }
@@ -249,6 +250,7 @@ public class PlayerModel : MonoBehaviour
     public void WeaponIsNull()
     {
         //gameObject.layer = 7;
+        fists.OffRenderFists(true);
         Weapon = null;
       
        
